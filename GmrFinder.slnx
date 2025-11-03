@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="src/GmrFinder/GmrFinder.csproj" />
+  <Project Path="tests/GmrFinder.Tests/GmrFinder.Tests.csproj" />
+</Solution>
