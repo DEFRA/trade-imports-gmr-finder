@@ -1,7 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
+using Amazon.SQS;
 using FluentValidation;
-using GmrFinder.Config;
+using GmrFinder.Configuration;
+using GmrFinder.Consumers;
 using GmrFinder.Data;
+using GmrFinder.Extensions;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
@@ -50,11 +53,15 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
         }
     });
 
-    // Set up the MongoDB client. Config and credentials are injected automatically at runtime.
     builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection("Mongo"));
     builder.Services.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
 
+    builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
+    builder.Services.AddSqsClient(builder.Configuration);
+    builder.Services.AddHostedService<DataEventsQueueConsumer>();
+
     builder.Services.AddHealthChecks();
+
     builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 }
 

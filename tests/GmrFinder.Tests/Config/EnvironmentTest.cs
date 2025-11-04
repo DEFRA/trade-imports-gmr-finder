@@ -8,7 +8,7 @@ public class EnvironmentTest
     public void IsNotDevModeByDefault()
     {
         var builder = WebApplication.CreateEmptyBuilder(new WebApplicationOptions());
-        var isDev = GmrFinder.Config.Environment.IsDevMode(builder);
+        var isDev = Configuration.Environment.IsDevMode(builder);
         Assert.False(isDev);
     }
 }
