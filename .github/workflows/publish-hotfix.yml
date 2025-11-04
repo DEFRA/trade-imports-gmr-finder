@@ -19,9 +19,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0 # Depth 0 required for branch-based versioning
+      - name: Test
+        uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: |
+            9.0
+      - name: Run unit tests
+        run: |
+          dotnet test --filter "Category!=IntegrationTests"
+      - name: Run integration tests
+        run: |
+          docker compose up -d
+          dotnet test --filter "Category=IntegrationTests"
       - name: Publish Hot Fix
         uses: DEFRA/cdp-build-action/build-hotfix@main
         with:

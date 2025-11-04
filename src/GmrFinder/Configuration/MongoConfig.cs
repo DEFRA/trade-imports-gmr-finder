@@ -1,4 +1,4 @@
-namespace GmrFinder.Config;
+namespace GmrFinder.Configuration;
 
 public class MongoConfig
 {

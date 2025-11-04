@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using GmrFinder.Config;
+using GmrFinder.Configuration;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver;

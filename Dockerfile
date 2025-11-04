@@ -21,6 +21,7 @@ RUN dotnet csharpier check .
 
 COPY src/GmrFinder/GmrFinder.csproj src/GmrFinder/GmrFinder.csproj
 COPY tests/GmrFinder.Tests/GmrFinder.Tests.csproj tests/GmrFinder.Tests/GmrFinder.Tests.csproj
+COPY tests/GmrFinder.IntegrationTests/GmrFinder.IntegrationTests.csproj tests/GmrFinder.IntegrationTests/GmrFinder.IntegrationTests.csproj
 COPY GmrFinder.slnx GmrFinder.slnx
 COPY Directory.Build.props Directory.Build.props
 
@@ -28,8 +29,9 @@ RUN dotnet restore
 
 COPY src/GmrFinder src/GmrFinder
 COPY tests/GmrFinder.Tests tests/GmrFinder.Tests
+COPY tests/GmrFinder.IntegrationTests tests/GmrFinder.IntegrationTests
 
-RUN dotnet test --no-restore --filter "Category!=IntegrationTest"
+RUN dotnet test --no-restore --filter "Category!=IntegrationTests"
 
 FROM build AS publish
 

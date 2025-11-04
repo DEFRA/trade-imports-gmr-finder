@@ -37,7 +37,7 @@ public class MongoServiceTests
         _service.setIndexes(_indexes);
         _service.RunEnsureIndexes();
 
-        _collectionMock.Received(1).Indexes.CreateMany(_indexes);
+        _collectionMock.Received(1).Indexes.CreateMany(_indexes, TestContext.Current.CancellationToken);
     }
 
     [Fact]
@@ -46,7 +46,12 @@ public class MongoServiceTests
         _service.setIndexes(new List<CreateIndexModel<TestModel>>());
         _service.RunEnsureIndexes();
 
-        _collectionMock.DidNotReceive().Indexes.CreateMany(Arg.Any<IEnumerable<CreateIndexModel<TestModel>>>());
+        _collectionMock
+            .DidNotReceive()
+            .Indexes.CreateMany(
+                Arg.Any<IEnumerable<CreateIndexModel<TestModel>>>(),
+                TestContext.Current.CancellationToken
+            );
     }
 
     public class TestModel

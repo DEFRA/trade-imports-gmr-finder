@@ -28,7 +28,7 @@ services:
       - mongodb-data:/data
     restart: unless-stopped
 
-  trade-imports-gmr-finder:
+  gmr-finder:
     build: ./
     ports:
       - '8080:8080'
@@ -40,9 +40,11 @@ services:
     env_file:
       - 'compose/aws.env'
     environment:
-      PORT: 8080
+      ASPNETCORE_ENVIRONMENT: Development
       LOCALSTACK_ENDPOINT: http://localstack:4566
       MONGO_URI: mongodb://mongodb:27017/
+      PORT: 8080
+      SQS_ENDPOINT: http://localstack:4566
 
 volumes:
   mongodb-data:
