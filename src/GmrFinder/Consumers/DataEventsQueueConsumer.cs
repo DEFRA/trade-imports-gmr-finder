@@ -3,6 +3,7 @@ using Amazon.SQS;
 using Amazon.SQS.Model;
 using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
+using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Configuration;
 using GmrFinder.Extensions;
 using GmrFinder.Processing;
@@ -15,11 +16,11 @@ public sealed class DataEventsQueueConsumer(
     ILogger<DataEventsQueueConsumer> logger,
     IAmazonSQS sqsClient,
     IOptions<DataEventsQueueConsumerOptions> options,
-    ICustomsDeclarationProcessor customsDeclarationProcessor
+    ICustomsDeclarationProcessor customsDeclarationProcessor,
+    IImportPreNotificationProcessor importPreNotificationProcessor
 ) : SqsConsumer<DataEventsQueueConsumer>(logger, sqsClient, options.Value.QueueName)
 {
     private readonly ILogger<DataEventsQueueConsumer> _logger = logger;
-    private readonly ICustomsDeclarationProcessor _customsDeclarationProcessor = customsDeclarationProcessor;
 
     protected override async Task ProcessMessageAsync(Message message, CancellationToken stoppingToken)
     {
@@ -31,10 +32,12 @@ public sealed class DataEventsQueueConsumer(
         {
             case ResourceEventResourceTypes.CustomsDeclaration:
                 var customsDeclaration = json.Deserialize<ResourceEvent<CustomsDeclaration>>()!;
-                await _customsDeclarationProcessor.ProcessAsync(customsDeclaration, stoppingToken);
+                await customsDeclarationProcessor.ProcessAsync(customsDeclaration, stoppingToken);
                 break;
 
             case ResourceEventResourceTypes.ImportPreNotification:
+                var importPreNotification = json.Deserialize<ResourceEvent<ImportPreNotification>>()!;
+                await importPreNotificationProcessor.ProcessAsync(importPreNotification, stoppingToken);
                 _logger.LogInformation("Received import pre notification: {Body}", "text");
                 break;
         }

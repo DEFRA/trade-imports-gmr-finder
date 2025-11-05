@@ -61,6 +61,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSqsClient(builder.Configuration);
     builder.Services.AddSingleton<IPollingService, PollingService>();
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
+    builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
     builder.Services.AddHostedService<DataEventsQueueConsumer>();
 
     builder.Services.AddHealthChecks();
