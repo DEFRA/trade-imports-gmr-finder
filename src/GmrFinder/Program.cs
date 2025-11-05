@@ -56,9 +56,12 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection("Mongo"));
     builder.Services.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
+    builder.Services.AddSingleton<IMongoContext, MongoContext>();
+    builder.Services.AddHostedService<MongoIndexService>();
 
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddSqsClient(builder.Configuration);
+
     builder.Services.AddSingleton<IPollingService, PollingService>();
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
