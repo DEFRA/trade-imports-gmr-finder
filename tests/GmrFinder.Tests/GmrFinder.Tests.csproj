@@ -25,6 +25,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="../TestFixtures/TestFixtures.csproj" />
     <ProjectReference Include="..\..\src\GmrFinder\GmrFinder.csproj" />
   </ItemGroup>
 </Project>

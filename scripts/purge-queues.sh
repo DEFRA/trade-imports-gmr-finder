@@ -12,15 +12,6 @@ set +a
 ENDPOINT_URL="http://localhost:4566"
 QUEUE_NAME="trade_imports_data_upserted_gmr_finder_queue"
 
-if [[ $# -lt 1 ]]; then
-    echo "Missing file parameter"
-    exit 1
-fi
-
-MESSAGE_PATH="$1"
-
-echo "Publishing message to queue $QUEUE_NAME from $MESSAGE_PATH"
-
 QUEUE_URL="$(aws --endpoint-url "$ENDPOINT_URL" \
     sqs get-queue-url \
     --queue-name "$QUEUE_NAME" \
@@ -28,7 +19,7 @@ QUEUE_URL="$(aws --endpoint-url "$ENDPOINT_URL" \
     --output text)"
 
 aws --endpoint-url "$ENDPOINT_URL" \
-    sqs send-message \
-    --queue-url "$QUEUE_URL" \
-    --message-body "file://${MESSAGE_PATH}" \
-    --message-attributes "ResourceType={DataType=String,StringValue=CustomsDeclaration}"
+    sqs purge-queue \
+    --queue-url "$QUEUE_URL"
+
+echo "Queues purged"
