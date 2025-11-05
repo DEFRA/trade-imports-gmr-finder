@@ -1,10 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
-using Amazon.SQS;
 using FluentValidation;
 using GmrFinder.Configuration;
 using GmrFinder.Consumers;
 using GmrFinder.Data;
 using GmrFinder.Extensions;
+using GmrFinder.Polling;
+using GmrFinder.Processing;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
@@ -58,6 +59,8 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddSqsClient(builder.Configuration);
+    builder.Services.AddSingleton<IPollingService, PollingService>();
+    builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddHostedService<DataEventsQueueConsumer>();
 
     builder.Services.AddHealthChecks();

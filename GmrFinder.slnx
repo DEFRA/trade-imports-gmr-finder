@@ -2,6 +2,7 @@
   <Folder Name="/tests/">
     <Project Path="tests/GmrFinder.IntegrationTests/GmrFinder.IntegrationTests.csproj" />
     <Project Path="tests/GmrFinder.Tests/GmrFinder.Tests.csproj" />
+    <Project Path="tests/TestFixtures/TestFixtures.csproj" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/GmrFinder/GmrFinder.csproj" />

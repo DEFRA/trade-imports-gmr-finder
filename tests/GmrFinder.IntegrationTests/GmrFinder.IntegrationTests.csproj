@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/GmrFinder/GmrFinder.csproj" />
+    <ProjectReference Include="../TestFixtures/TestFixtures.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Using Include="Xunit" />

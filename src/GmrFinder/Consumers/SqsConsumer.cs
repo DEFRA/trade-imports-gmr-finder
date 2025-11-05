@@ -51,7 +51,15 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
     {
         try
         {
-            return await sqsClient.ReceiveMessageAsync(queueUrl, stoppingToken);
+            var request = new ReceiveMessageRequest
+            {
+                MaxNumberOfMessages = 1,
+                MessageAttributeNames = ["All"],
+                MessageSystemAttributeNames = ["All"],
+                QueueUrl = queueUrl,
+                VisibilityTimeout = 60,
+            };
+            return await sqsClient.ReceiveMessageAsync(request, stoppingToken);
         }
         catch (OperationCanceledException)
         {
