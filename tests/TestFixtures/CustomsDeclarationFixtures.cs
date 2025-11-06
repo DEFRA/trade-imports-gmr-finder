@@ -28,7 +28,7 @@ public static class CustomsDeclarationFixtures
             );
     }
 
-    public static IPostprocessComposer<ClearanceDecision> ClearanceDecisionFixture(HashSet<string> chedReferences)
+    public static IPostprocessComposer<ClearanceDecision> ClearanceDecisionFixture(List<string> chedReferences)
     {
         var results = chedReferences
             .Select(ched =>
