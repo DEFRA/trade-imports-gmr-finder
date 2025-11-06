@@ -73,6 +73,46 @@ public class CustomsDeclarationProcessorTests
     }
 
     [Fact]
+    public async Task ProcessAsync_WhenThereAreDuplicateCHEDReferences_ItDeduplicatesThem_AndInvokesPolling()
+    {
+        var chedReferences = new List<string>
+        {
+            "CHEDPP.GB.2025.1053368",
+            "CHEDPP.GB.2025.1053368",
+            "CHEDA.GB.2025.1251361",
+        };
+        var expectedChedReferences = new List<string> { "CHEDPP.GB.2025.1053368", "CHEDA.GB.2025.1251361" };
+
+        var customsDeclaration = CustomsDeclarationFixtures
+            .CustomsDeclarationFixture()
+            .With(
+                x => x.ClearanceDecision,
+                CustomsDeclarationFixtures.ClearanceDecisionFixture(chedReferences).Create()
+            )
+            .Create();
+
+        chedReferences.Should().NotBeEmpty();
+
+        var resourceEvent = CustomsDeclarationFixtures
+            .CustomsDeclarationResourceEventFixture(customsDeclaration)
+            .Create();
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        _pollingService.Verify(
+            service =>
+                service.Process(
+                    It.Is<PollingRequest>(request =>
+                        request.Mrn == resourceEvent.ResourceId
+                        && request.ChedReferences.SetEquals(expectedChedReferences)
+                    ),
+                    It.IsAny<CancellationToken>()
+                ),
+            Times.Once
+        );
+    }
+
+    [Fact]
     public async Task ProcessAsync_WhenAllFieldsProvided_InvokesPolling()
     {
         var customsDeclaration = CustomsDeclarationFixtures.CustomsDeclarationFixture().Create();
