@@ -1,16 +1,24 @@
 using System.Diagnostics.CodeAnalysis;
-using Amazon.SQS;
 using FluentValidation;
 using GmrFinder.Configuration;
 using GmrFinder.Consumers;
 using GmrFinder.Data;
 using GmrFinder.Extensions;
+using GmrFinder.Jobs;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
 using Serilog;
 
 var app = CreateWebApplication(args);
+
+// Ensure the database indices are initialized before starting the application.
+using (var scope = app.Services.CreateScope())
+{
+    var initializer = scope.ServiceProvider.GetRequiredService<MongoDbInitializer>();
+    await initializer.Init();
+}
+
 await app.RunAsync();
 return;
 
@@ -48,17 +56,22 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     {
         var traceHeader = builder.Configuration.GetValue<string>("TraceHeader");
         if (!string.IsNullOrWhiteSpace(traceHeader))
-        {
             options.Headers.Add(traceHeader);
-        }
     });
 
-    builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection("Mongo"));
+    builder.Services.Configure<Dictionary<string, ScheduledJob>>(builder.Configuration.GetSection("ScheduledJobs"));
+
+    builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection(MongoConfig.SectionName));
     builder.Services.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
+    builder.Services.AddSingleton<IMongoContext, MongoContext>();
+    builder.Services.AddSingleton<MongoDbInitializer>();
 
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddSqsClient(builder.Configuration);
     builder.Services.AddHostedService<DataEventsQueueConsumer>();
+
+    builder.Services.AddTransient<IScheduleTokenProvider, MongoDbScheduleTokenProvider>();
+    builder.Services.AddHostedService<PollingCronHostedService>();
 
     builder.Services.AddHealthChecks();
 
