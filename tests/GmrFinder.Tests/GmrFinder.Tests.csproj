@@ -4,6 +4,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <NuGetAuditMode>direct</NuGetAuditMode>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="Xunit" />
@@ -26,6 +27,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="../TestFixtures/TestFixtures.csproj" />
     <ProjectReference Include="..\..\src\GmrFinder\GmrFinder.csproj" />
   </ItemGroup>
 </Project>

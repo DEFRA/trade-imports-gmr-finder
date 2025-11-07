@@ -1,0 +1,97 @@
+{
+  "resourceId": "mrn123",
+  "resourceType": "CustomsDeclaration",
+  "subResourceType": "ClearanceDecision",
+  "operation": "Updated",
+  "resource": {
+    "Id": "25GB6RLA6C8OV8GAR2",
+    "ImportPreNotificationIdentifiers": ["1053368"],
+    "ETag": "68a830d4d6054c5f4be20993",
+    "Created": "2025-06-20T11:24:27.011Z",
+    "Updated": "2025-08-22T08:56:52.199Z",
+    "ClearanceRequest": {
+      "externalCorrelationId": "2159706",
+      "messageSentAt": "2025-06-20T11:24:26.000Z",
+      "externalVersion": 1,
+      "previousExternalVersion": null,
+      "declarationUcr": "5GB123456789000-CDS-EORI1D68",
+      "declarationPartNumber": null,
+      "declarationType": "S",
+      "arrivesAt": null,
+      "submitterTurn": "GB534897641000",
+      "declarantId": "GB603202734852",
+      "declarantName": "GB603202734852",
+      "dispatchCountryCode": "US",
+      "goodsLocationCode": "POOPOOPOOGVM",
+      "masterUcr": null,
+      "commodities": [
+        {
+          "itemNumber": 1,
+          "customsProcedureCode": "4000000",
+          "taricCommodityCode": "0810100000",
+          "goodsDescription": "ttalvsdecisionHold2",
+          "consigneeId": "GB553202734852",
+          "consigneeName": "GB553202734852",
+          "netMass": 10,
+          "supplementaryUnits": 200,
+          "thirdQuantity": null,
+          "originCountryCode": "US",
+          "documents": [
+            {
+              "documentCode": "N851",
+              "documentReference": "GBCHD2025.1053368",
+              "documentStatus": "AE",
+              "documentControl": "P",
+              "documentQuantity": null
+            }
+          ],
+          "checks": [{ "checkCode": "H219", "departmentCode": "PHSI" }]
+        }
+      ]
+    },
+    "ClearanceDecision": {
+      "correlationId": "17558530121893504504",
+      "created": "2025-08-22T08:56:52.189Z",
+      "externalVersionNumber": 1,
+      "decisionNumber": 3,
+      "sourceVersion": null,
+      "items": [
+        {
+          "itemNumber": 1,
+          "checks": [
+            {
+              "checkCode": "H219",
+              "decisionCode": "C03",
+              "decisionsValidUntil": null,
+              "decisionReasons": [],
+              "decisionInternalFurtherDetail": null
+            }
+          ]
+        }
+      ],
+      "results": [
+        {
+          "itemNumber": 1,
+          "importPreNotification": "CHEDPP.GB.2025.1053368",
+          "documentReference": "GBCHD2025.1053368",
+          "documentCode": "N851",
+          "checkCode": "H219",
+          "decisionCode": "C03",
+          "decisionReason": null,
+          "internalDecisionCode": null
+        }
+      ]
+    },
+    "Finalisation": null,
+    "ExternalErrors": null
+  },
+  "etag": "etag123",
+  "timestamp": "2025-08-22T08:56:52.199Z",
+  "changeSet": [
+    {
+      "path": "/ClearanceDecision",
+      "operation": "Replace",
+      "value": "{\n  \"correlationId\": null,\n  \"created\": \"0001-01-01T00:00:00\",\n  \"externalVersionNumber\": null,\n  \"decisionNumber\": null,\n  \"sourceVersion\": null,\n  \"items\": [],\n  \"results\": []\n}"
+    }
+  ]
+}
