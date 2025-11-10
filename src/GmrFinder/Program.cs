@@ -10,6 +10,8 @@ using GmrFinder.Processing;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
+using MongoDB.Driver;
+using MongoDB.Driver.Authentication.AWS;
 using Serilog;
 
 var app = CreateWebApplication(args);
@@ -63,6 +65,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.Configure<Dictionary<string, ScheduledJob>>(builder.Configuration.GetSection("ScheduledJobs"));
 
+    MongoClientSettings.Extensions.AddAWSAuthentication();
     builder.Services.Configure<MongoConfig>(builder.Configuration.GetSection(MongoConfig.SectionName));
     builder.Services.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
     builder.Services.AddSingleton<IMongoContext, MongoContext>();

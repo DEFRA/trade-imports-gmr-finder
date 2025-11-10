@@ -6,7 +6,7 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="AWSSDK.SQS" Version="4.0.2" />
+    <PackageReference Include="AWSSDK.SQS" Version="3.7.502.4" />
     <PackageReference Include="Cronos" Version="0.11.1" />
     <PackageReference Include="Defra.TradeImportsDataApi.Api.Client" Version="0.33.0" />
     <PackageReference Include="Defra.TradeImportsDataApi.Domain" Version="0.29.0" />
@@ -15,6 +15,7 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.HeaderPropagation" Version="9.0.10" />
     <PackageReference Include="MongoDB.Driver" Version="3.5.0" />
+    <PackageReference Include="MongoDB.Driver.Authentication.AWS" Version="3.5.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="9.0.0" />
     <PackageReference Include="Serilog.Enrichers.ClientInfo" Version="2.6.0" />
     <PackageReference Include="Serilog.Enrichers.Environment" Version="3.0.1" />
