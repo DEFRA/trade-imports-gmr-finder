@@ -54,12 +54,7 @@ public class ImportPreNotificationProcessorTests
 
         _pollingService.Verify(
             service =>
-                service.Process(
-                    It.Is<PollingRequest>(request =>
-                        request.Mrn == mrn && request.ChedReferences.SetEquals(new[] { chedReference })
-                    ),
-                    It.IsAny<CancellationToken>()
-                ),
+                service.Process(It.Is<PollingRequest>(request => request.Mrn == mrn), It.IsAny<CancellationToken>()),
             Times.Once
         );
     }

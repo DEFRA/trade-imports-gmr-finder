@@ -1,0 +1,3281 @@
+{
+  "gmrByDeclarationId": [
+    {
+      "dec": "74FR674637982186Y7",
+      "gmrs": [
+        "LINF33KR6KSA"
+      ]
+    },
+    {
+      "dec": "68BG80MD0ZEVOGBEK7",
+      "gmrs": [
+        "EPIC25ZC1982"
+      ]
+    },
+    {
+      "dec": "57UC783710699387H8",
+      "gmrs": [
+        "PLQN22YU40L0"
+      ]
+    },
+    {
+      "dec": "60UZ131114O3RMTVX1",
+      "gmrs": [
+        "HKUL93BF0HN6"
+      ]
+    },
+    {
+      "dec": "85VD362740604802W5",
+      "gmrs": [
+        "LINF33KR6KSA"
+      ]
+    },
+    {
+      "dec": "11LV710875351604N4",
+      "gmrs": [
+        "LINF33KR6KSA"
+      ]
+    },
+    {
+      "dec": "03VH295038275756D6",
+      "gmrs": [
+        "LINF33KR6KSA"
+      ]
+    },
+    {
+      "dec": "48WY9FWIVDTX3TLAQ8",
+      "gmrs": [
+        "WYMM84IYB4LG"
+      ]
+    },
+    {
+      "dec": "19HG698RRXEPXHZYZ8",
+      "gmrs": [
+        "NZCH89IN9O73"
+      ]
+    },
+    {
+      "dec": "94VS421910WQLRKWO5",
+      "gmrs": [
+        "ZGYI29YY03H1"
+      ]
+    },
+    {
+      "dec": "26WS71X7T53MLQ9IT6",
+      "gmrs": [
+        "PAMH56OXI0S4"
+      ]
+    },
+    {
+      "dec": "54ZQ63804XPBDIGCN2",
+      "gmrs": [
+        "EJBU01AFOFJI"
+      ]
+    },
+    {
+      "dec": "53TS571206GXKCDBL4",
+      "gmrs": [
+        "EJBU01AFOFJI"
+      ]
+    },
+    {
+      "dec": "55YY134RM9RIIYZMW6",
+      "gmrs": [
+        "FSAR35MEKO40"
+      ]
+    },
+    {
+      "dec": "93IZ29YGM14BLM8HZ4",
+      "gmrs": [
+        "KVTE55WZWR03"
+      ]
+    },
+    {
+      "dec": "68RN315961VVVFLZA5",
+      "gmrs": [
+        "GKRB91XWU7LS"
+      ]
+    },
+    {
+      "dec": "49US252F36FFJGIGA5",
+      "gmrs": [
+        "AFYC55HV3ZNR"
+      ]
+    },
+    {
+      "dec": "57HW34V1MLI6NI5LV4",
+      "gmrs": [
+        "IFXK51UZY5GZ"
+      ]
+    },
+    {
+      "dec": "01EL01E8Z6R45MZPV4",
+      "gmrs": [
+        "IFXK51UZY5GZ"
+      ]
+    },
+    {
+      "dec": "48GN115GJIKTDT0JV6",
+      "gmrs": [
+        "JSYG45XTKHRZ"
+      ]
+    },
+    {
+      "dec": "34GP89U5FMENP2EYS9",
+      "gmrs": [
+        "IFXK51UZY5GZ"
+      ]
+    },
+    {
+      "dec": "27KC076279636685G8",
+      "gmrs": [
+        "STGK00CVZF2P"
+      ]
+    },
+    {
+      "dec": "39PS274TVZTOFHXBQ5",
+      "gmrs": [
+        "LUZA01UC2399"
+      ]
+    },
+    {
+      "dec": "04OH151258039516X3",
+      "gmrs": [
+        "LIEI69YVF2YM"
+      ]
+    },
+    {
+      "dec": "78CL00J6W8L7CXVQN9",
+      "gmrs": [
+        "YLCT36WN21TK"
+      ]
+    },
+    {
+      "dec": "75TW289T91MXQ1GSN4",
+      "gmrs": [
+        "ARMC58FP73QO"
+      ]
+    },
+    {
+      "dec": "02ZJALA79030J838Z4",
+      "gmrs": [
+        "EQSO45VQK1XP"
+      ]
+    },
+    {
+      "dec": "61QQ14ZCF76GTT4MK3",
+      "gmrs": [
+        "GQQF58CF1Q89"
+      ]
+    },
+    {
+      "dec": "70FRB88556477300A8",
+      "gmrs": []
+    },
+    {
+      "dec": "04FS064680823028L0",
+      "gmrs": []
+    },
+    {
+      "dec": "67WH3DO3LBQN2URTR2",
+      "gmrs": []
+    },
+    {
+      "dec": "74TK2SZRIETGGIJPD3",
+      "gmrs": []
+    },
+    {
+      "dec": "61IC9PAGTB66EHMXJ1",
+      "gmrs": []
+    },
+    {
+      "dec": "29WF499126492933B2",
+      "gmrs": []
+    },
+    {
+      "dec": "62VZ068390400950W7",
+      "gmrs": []
+    },
+    {
+      "dec": "66FYUL82MEI59471F2",
+      "gmrs": []
+    },
+    {
+      "dec": "22XX1839556882NBC6",
+      "gmrs": []
+    },
+    {
+      "dec": "11CE918380029881S3",
+      "gmrs": []
+    },
+    {
+      "dec": "50ZH174796784812GS",
+      "gmrs": []
+    },
+    {
+      "dec": "91HLIE1908749376J3",
+      "gmrs": []
+    },
+    {
+      "dec": "11MY84815191WDFYS5",
+      "gmrs": []
+    },
+    {
+      "dec": "84VF20397LIU22ASW7",
+      "gmrs": []
+    },
+    {
+      "dec": "88CK451960501934D8",
+      "gmrs": []
+    },
+    {
+      "dec": "48HA319409809262J5",
+      "gmrs": []
+    },
+    {
+      "dec": "19WW011523148869D2",
+      "gmrs": []
+    },
+    {
+      "dec": "05RN80SRSVIOI5HDX0",
+      "gmrs": []
+    },
+    {
+      "dec": "98VJ874802842915H5",
+      "gmrs": []
+    },
+    {
+      "dec": "19YB301115U51Z67T7",
+      "gmrs": []
+    },
+    {
+      "dec": "59WD34900033QOIBU0",
+      "gmrs": []
+    },
+    {
+      "dec": "22RF8CEB35T2IC2OKV",
+      "gmrs": []
+    },
+    {
+      "dec": "09BEDOM1VGP18359E6",
+      "gmrs": []
+    },
+    {
+      "dec": "63SJ3BHEMIN1RC9TR1",
+      "gmrs": []
+    },
+    {
+      "dec": "81XY889993003561E5",
+      "gmrs": []
+    },
+    {
+      "dec": "87XTKEX1491Q6NPBC4",
+      "gmrs": []
+    },
+    {
+      "dec": "28KQ779390580907N8",
+      "gmrs": []
+    },
+    {
+      "dec": "51QY26497709CNR1U5",
+      "gmrs": []
+    },
+    {
+      "dec": "94PB89968383D8XUG8",
+      "gmrs": []
+    },
+    {
+      "dec": "80QYZ41330355206Q1",
+      "gmrs": []
+    },
+    {
+      "dec": "59CP750683999957D2",
+      "gmrs": []
+    },
+    {
+      "dec": "76GA566418414454B3",
+      "gmrs": []
+    },
+    {
+      "dec": "96XUFC78ZYE47806U1",
+      "gmrs": []
+    },
+    {
+      "dec": "06PN263232695951P8",
+      "gmrs": []
+    },
+    {
+      "dec": "37EBW0W5XTT51963N3",
+      "gmrs": []
+    },
+    {
+      "dec": "49CGC70322257762M7",
+      "gmrs": []
+    },
+    {
+      "dec": "64IU7T64NK0NPC6WY5",
+      "gmrs": []
+    },
+    {
+      "dec": "18ZA659797108280N8",
+      "gmrs": []
+    },
+    {
+      "dec": "81KFKC6427243246D1",
+      "gmrs": []
+    },
+    {
+      "dec": "38XD8859J031ZAFFO7",
+      "gmrs": []
+    },
+    {
+      "dec": "88VN648071417121E2",
+      "gmrs": []
+    },
+    {
+      "dec": "35ZR526287431437L6",
+      "gmrs": []
+    },
+    {
+      "dec": "42WJ12F2G4J9QLWIQ4",
+      "gmrs": []
+    },
+    {
+      "dec": "72SC607820526777Y9",
+      "gmrs": []
+    },
+    {
+      "dec": "32CR77VPDULRGNPOJ2",
+      "gmrs": []
+    },
+    {
+      "dec": "57PYW67547613742I2",
+      "gmrs": []
+    },
+    {
+      "dec": "21SC7VMDX1VKTV5CI3",
+      "gmrs": []
+    },
+    {
+      "dec": "77TT7KULCK6WZ0GHB0",
+      "gmrs": []
+    },
+    {
+      "dec": "35JY763547390213M6",
+      "gmrs": []
+    },
+    {
+      "dec": "07GOO93143971696Q0",
+      "gmrs": []
+    },
+    {
+      "dec": "25KWRG67DHA71292C5",
+      "gmrs": []
+    },
+    {
+      "dec": "35KGYJA52558SRGXG5",
+      "gmrs": []
+    },
+    {
+      "dec": "27BKVIT80668MYPUI1",
+      "gmrs": []
+    },
+    {
+      "dec": "96ZHZE5644133132C3",
+      "gmrs": []
+    },
+    {
+      "dec": "83BJHIO97998RFKAX8",
+      "gmrs": []
+    },
+    {
+      "dec": "55XN841936H8W944S0",
+      "gmrs": []
+    },
+    {
+      "dec": "44YY43RYXLJCRRIMV9",
+      "gmrs": []
+    },
+    {
+      "dec": "44KH509062686441X9",
+      "gmrs": []
+    },
+    {
+      "dec": "73MJ016579L9047XN0",
+      "gmrs": []
+    },
+    {
+      "dec": "23BB616091023707T2",
+      "gmrs": []
+    },
+    {
+      "dec": "35BMNVR1563KW95DQ1",
+      "gmrs": []
+    },
+    {
+      "dec": "69VQ551850563475Q7",
+      "gmrs": []
+    },
+    {
+      "dec": "70EV556937593OP8V1",
+      "gmrs": []
+    },
+    {
+      "dec": "66NFVRJ62869WG0GR6",
+      "gmrs": []
+    },
+    {
+      "dec": "66QZ80G8BR0N57H661",
+      "gmrs": []
+    },
+    {
+      "dec": "67WNXGS720124XXDV6",
+      "gmrs": []
+    },
+    {
+      "dec": "23DS29VH7QUEGLSRF0",
+      "gmrs": []
+    },
+    {
+      "dec": "81GT65734848K6T4N0",
+      "gmrs": []
+    },
+    {
+      "dec": "79VR160KU3IFBZHIW5",
+      "gmrs": []
+    },
+    {
+      "dec": "45TU440ISSW79KLSZ9",
+      "gmrs": []
+    },
+    {
+      "dec": "97QDXK6577551812M2",
+      "gmrs": []
+    },
+    {
+      "dec": "68CV967207B5758JP0",
+      "gmrs": []
+    },
+    {
+      "dec": "56TB29PPGIOK8U0AC2",
+      "gmrs": []
+    },
+    {
+      "dec": "23ODKP2353547640P8",
+      "gmrs": []
+    },
+    {
+      "dec": "70TH467638684OZID9",
+      "gmrs": []
+    },
+    {
+      "dec": "01VI482427559794F0",
+      "gmrs": []
+    },
+    {
+      "dec": "40UR96R1Y4UDC1E714",
+      "gmrs": []
+    },
+    {
+      "dec": "47SW9X25GB7RDPKQT8",
+      "gmrs": []
+    },
+    {
+      "dec": "35GV38W6GOUXMBUIW4",
+      "gmrs": []
+    },
+    {
+      "dec": "35SG860693542109C8",
+      "gmrs": []
+    },
+    {
+      "dec": "49EB914643622965O3",
+      "gmrs": []
+    },
+    {
+      "dec": "20ZGTJD2379UKS6EP9",
+      "gmrs": []
+    },
+    {
+      "dec": "79ZI43D3QZJW04BET7",
+      "gmrs": []
+    },
+    {
+      "dec": "32XGIVX5362TXIXCI8",
+      "gmrs": []
+    },
+    {
+      "dec": "16UE893281919133C6",
+      "gmrs": []
+    },
+    {
+      "dec": "41DB864291490GW7R6",
+      "gmrs": []
+    },
+    {
+      "dec": "21CP520809595931K2",
+      "gmrs": []
+    },
+    {
+      "dec": "86KB2EPQZO9G8GTVM0",
+      "gmrs": []
+    },
+    {
+      "dec": "44HI506464052194R1",
+      "gmrs": []
+    },
+    {
+      "dec": "88PDHF1191GV0334L4",
+      "gmrs": []
+    },
+    {
+      "dec": "92BL95AP4RFKV4BIU1",
+      "gmrs": []
+    },
+    {
+      "dec": "90LE643460HT4TGRR5",
+      "gmrs": []
+    },
+    {
+      "dec": "22UK1ERTR61H445TR2",
+      "gmrs": []
+    },
+    {
+      "dec": "87YKPQ1634655899S1",
+      "gmrs": []
+    },
+    {
+      "dec": "47OF504400427323E6",
+      "gmrs": []
+    },
+    {
+      "dec": "98BFXHRX6K8FNSFVJ5",
+      "gmrs": []
+    },
+    {
+      "dec": "68XCL16821199950C3",
+      "gmrs": []
+    },
+    {
+      "dec": "47HN57355977GXBGW7",
+      "gmrs": []
+    },
+    {
+      "dec": "08BY82O7VZIBU4XQW4",
+      "gmrs": []
+    },
+    {
+      "dec": "83MZQY93ERK88462G8",
+      "gmrs": []
+    },
+    {
+      "dec": "55DW3Y6KGCJWQJ3JG7",
+      "gmrs": []
+    },
+    {
+      "dec": "33EQ6FKP1UAADN9MO5",
+      "gmrs": []
+    },
+    {
+      "dec": "71BH747974561713T2",
+      "gmrs": []
+    },
+    {
+      "dec": "17SS043040681135Z8",
+      "gmrs": []
+    },
+    {
+      "dec": "77IM36F44TB4EBLGB2",
+      "gmrs": []
+    },
+    {
+      "dec": "63UE748813349528P7",
+      "gmrs": []
+    },
+    {
+      "dec": "81LBFZJ82174J6HOC6",
+      "gmrs": []
+    },
+    {
+      "dec": "04WJMLZT6NOTMDCOH9",
+      "gmrs": []
+    },
+    {
+      "dec": "09WQ092651612291P8",
+      "gmrs": []
+    },
+    {
+      "dec": "65QC8D7FK4O0XW4KC7",
+      "gmrs": []
+    },
+    {
+      "dec": "88KT882007039806T4",
+      "gmrs": []
+    },
+    {
+      "dec": "77KY214498804231A1",
+      "gmrs": []
+    },
+    {
+      "dec": "53OWD76289468052O6",
+      "gmrs": []
+    },
+    {
+      "dec": "14AH90A2W6OTQYWYZ7",
+      "gmrs": []
+    },
+    {
+      "dec": "93EY650728341767A0",
+      "gmrs": []
+    },
+    {
+      "dec": "23VJ60B8PYNPSR2ZW7",
+      "gmrs": []
+    },
+    {
+      "dec": "94QO389396615037S1",
+      "gmrs": []
+    },
+    {
+      "dec": "09DH10WX70ZKBVRAM8",
+      "gmrs": []
+    },
+    {
+      "dec": "77MT856123076965X1",
+      "gmrs": []
+    },
+    {
+      "dec": "23AXDV9619448507Q9",
+      "gmrs": []
+    },
+    {
+      "dec": "82XUZ80586138585G8",
+      "gmrs": []
+    },
+    {
+      "dec": "90BLYG1203040274V7",
+      "gmrs": []
+    },
+    {
+      "dec": "28IH706522435254I1",
+      "gmrs": []
+    },
+    {
+      "dec": "47XO817204748623U1",
+      "gmrs": []
+    },
+    {
+      "dec": "35WJ376302725245F8",
+      "gmrs": []
+    },
+    {
+      "dec": "77HW352219388LB7W3",
+      "gmrs": []
+    },
+    {
+      "dec": "17YPYFU6UIF65430N5",
+      "gmrs": []
+    },
+    {
+      "dec": "02SG231OAGJZ43CBM5",
+      "gmrs": []
+    },
+    {
+      "dec": "92FX5PB168M7IP1RB7",
+      "gmrs": []
+    },
+    {
+      "dec": "90JYL91050521539T2",
+      "gmrs": []
+    },
+    {
+      "dec": "09MCPG68AOM83332A2",
+      "gmrs": []
+    },
+    {
+      "dec": "37OP19HKAWK9AIJRO1",
+      "gmrs": []
+    },
+    {
+      "dec": "86XL2257166R0LN5U7",
+      "gmrs": []
+    },
+    {
+      "dec": "30KHSL77JUG68251J8",
+      "gmrs": []
+    },
+    {
+      "dec": "51JE489291424898J7",
+      "gmrs": []
+    },
+    {
+      "dec": "52HFS88703729593I6",
+      "gmrs": []
+    },
+    {
+      "dec": "20UVCDZ13374MLMXX9",
+      "gmrs": []
+    },
+    {
+      "dec": "44CFLQ520582P7J6I2",
+      "gmrs": []
+    },
+    {
+      "dec": "03BL425339334898U7",
+      "gmrs": []
+    },
+    {
+      "dec": "10GTT04600295367A6",
+      "gmrs": []
+    },
+    {
+      "dec": "27HL4KZC6MXZB59EB0",
+      "gmrs": []
+    },
+    {
+      "dec": "38UB467589Q78M31F3",
+      "gmrs": []
+    },
+    {
+      "dec": "29OJ1KXXQIOCJAWFH6",
+      "gmrs": []
+    },
+    {
+      "dec": "33NWFX8091864712V4",
+      "gmrs": []
+    },
+    {
+      "dec": "59KA582031868096P9",
+      "gmrs": []
+    },
+    {
+      "dec": "77OD121735488809F0",
+      "gmrs": []
+    },
+    {
+      "dec": "92BG991219589454S7",
+      "gmrs": []
+    },
+    {
+      "dec": "47VY219S7AVEFL3ZW0",
+      "gmrs": []
+    },
+    {
+      "dec": "13QPN24736317380E6",
+      "gmrs": []
+    },
+    {
+      "dec": "73BU3XV3LYHJ7EASS7",
+      "gmrs": []
+    },
+    {
+      "dec": "94PH18269585811988",
+      "gmrs": []
+    },
+    {
+      "dec": "77DHEA38391108M9A8",
+      "gmrs": []
+    },
+    {
+      "dec": "83XDMFX7009MIDFJV8",
+      "gmrs": []
+    },
+    {
+      "dec": "02XD730048H5V412E9",
+      "gmrs": []
+    },
+    {
+      "dec": "35AE94BQ1KU27YGFF1",
+      "gmrs": []
+    },
+    {
+      "dec": "87PBFF4186824728Q4",
+      "gmrs": []
+    },
+    {
+      "dec": "03ZXYB1306DS9889G9",
+      "gmrs": []
+    },
+    {
+      "dec": "43AWX19266531043W3",
+      "gmrs": []
+    },
+    {
+      "dec": "91DZVO201529Y0A0Y7",
+      "gmrs": []
+    },
+    {
+      "dec": "16DY21YDHXHUJPLQB5",
+      "gmrs": []
+    },
+    {
+      "dec": "29ZHJJG60125FGJ1W0",
+      "gmrs": []
+    },
+    {
+      "dec": "62ST832353P04388Y4",
+      "gmrs": []
+    },
+    {
+      "dec": "75LMFBK6170MZNBTN7",
+      "gmrs": []
+    },
+    {
+      "dec": "78ZK36ZBNG189Z0XR5",
+      "gmrs": []
+    },
+    {
+      "dec": "86RQWPB64505HUD2Y3",
+      "gmrs": []
+    },
+    {
+      "dec": "64GG6341Z8DS296CD2",
+      "gmrs": []
+    },
+    {
+      "dec": "90LV921H3VIMB5RCO9",
+      "gmrs": []
+    },
+    {
+      "dec": "47DW27OD4XJADY6YC4",
+      "gmrs": []
+    },
+    {
+      "dec": "59XVO96237933443R5",
+      "gmrs": []
+    },
+    {
+      "dec": "16LTBU12HOT90266J0",
+      "gmrs": []
+    },
+    {
+      "dec": "90BW975894712322X4",
+      "gmrs": []
+    },
+    {
+      "dec": "25KN6998U669UUTKI4",
+      "gmrs": []
+    },
+    {
+      "dec": "04KW43974217893336",
+      "gmrs": []
+    },
+    {
+      "dec": "17UT697SBGZ7EY1XU1",
+      "gmrs": []
+    },
+    {
+      "dec": "39PN442E0IILEQJGK4",
+      "gmrs": []
+    },
+    {
+      "dec": "19LP033GQL6RULCLA3",
+      "gmrs": []
+    },
+    {
+      "dec": "78ZE856831S562SYH7",
+      "gmrs": []
+    },
+    {
+      "dec": "03ZK811757279970C3",
+      "gmrs": []
+    },
+    {
+      "dec": "67YX19JZJK88CCFAK4",
+      "gmrs": []
+    },
+    {
+      "dec": "03HYJMH40817KD1HH4",
+      "gmrs": []
+    },
+    {
+      "dec": "68OX341615779652H2",
+      "gmrs": []
+    },
+    {
+      "dec": "04X8KY5797KE6706V9",
+      "gmrs": []
+    },
+    {
+      "dec": "56AP862405511020R9",
+      "gmrs": []
+    },
+    {
+      "dec": "00PI875455259HBDH9",
+      "gmrs": []
+    },
+    {
+      "dec": "90HO82U8IKRQQQFGD6",
+      "gmrs": []
+    },
+    {
+      "dec": "49JVK87155308457A5",
+      "gmrs": []
+    },
+    {
+      "dec": "09JX902850254957T5",
+      "gmrs": []
+    },
+    {
+      "dec": "25LQ854773SOZPLEM9",
+      "gmrs": []
+    },
+    {
+      "dec": "46UC555655667230A5",
+      "gmrs": []
+    },
+    {
+      "dec": "49IZX98074492371W9",
+      "gmrs": []
+    },
+    {
+      "dec": "96OVPM0605491292R1",
+      "gmrs": []
+    },
+    {
+      "dec": "47RN291671620416E5",
+      "gmrs": []
+    },
+    {
+      "dec": "90SS457458717774F6",
+      "gmrs": []
+    },
+    {
+      "dec": "11ZGZD5145996XV0C5",
+      "gmrs": []
+    },
+    {
+      "dec": "18RL42W67F28HT0VK0",
+      "gmrs": []
+    },
+    {
+      "dec": "60ZFVH9040622225B4",
+      "gmrs": []
+    },
+    {
+      "dec": "98KWNWH03131N4U6S9",
+      "gmrs": []
+    },
+    {
+      "dec": "77ZB414WU85GAAQQJ3",
+      "gmrs": []
+    },
+    {
+      "dec": "59DX906168T1940EC6",
+      "gmrs": []
+    },
+    {
+      "dec": "42MF7FZ787B4R5HNH2",
+      "gmrs": []
+    },
+    {
+      "dec": "99RQ363100337424Y7",
+      "gmrs": []
+    },
+    {
+      "dec": "98DH758919316242F4",
+      "gmrs": []
+    },
+    {
+      "dec": "93KH187767206778M0",
+      "gmrs": []
+    },
+    {
+      "dec": "26AC587031809COEE1",
+      "gmrs": []
+    },
+    {
+      "dec": "43XW9J0QEAY661BWB9",
+      "gmrs": []
+    },
+    {
+      "dec": "91GV019457438475Z5",
+      "gmrs": []
+    },
+    {
+      "dec": "03RP471487819634Y2",
+      "gmrs": []
+    },
+    {
+      "dec": "20HA1MOZYT6UA2ZLE2",
+      "gmrs": []
+    },
+    {
+      "dec": "54KLCFQ6440YT2XOL8",
+      "gmrs": []
+    },
+    {
+      "dec": "11LVB45391AR3447S9",
+      "gmrs": []
+    },
+    {
+      "dec": "10ZB063320859876R0",
+      "gmrs": []
+    },
+    {
+      "dec": "02HO8QPYMB9NUO9WX7",
+      "gmrs": []
+    },
+    {
+      "dec": "09TS3RZWTHM4DSLMJ9",
+      "gmrs": []
+    },
+    {
+      "dec": "75JQ001823625759W2",
+      "gmrs": []
+    },
+    {
+      "dec": "70HIBD3773779236N7",
+      "gmrs": []
+    },
+    {
+      "dec": "55LY25L5O4ML8K1EU2",
+      "gmrs": []
+    },
+    {
+      "dec": "99KU0D8ZNI3NOYHEB7",
+      "gmrs": []
+    },
+    {
+      "dec": "16KK130278N8GQL4V6",
+      "gmrs": []
+    },
+    {
+      "dec": "34AV07DV4JEYQQADO2",
+      "gmrs": []
+    },
+    {
+      "dec": "88NDMK29YUR35765L1",
+      "gmrs": []
+    },
+    {
+      "dec": "86WX427589H44V29O9",
+      "gmrs": []
+    },
+    {
+      "dec": "32AVLP5560921498R6",
+      "gmrs": []
+    },
+    {
+      "dec": "34NP610837888377A6",
+      "gmrs": []
+    },
+    {
+      "dec": "80AGOMO59578ATTBE8",
+      "gmrs": []
+    },
+    {
+      "dec": "07IT732092671749P3",
+      "gmrs": []
+    },
+    {
+      "dec": "30ZT3N152XDA0POZF1",
+      "gmrs": []
+    },
+    {
+      "dec": "78FA771028841407F7",
+      "gmrs": []
+    },
+    {
+      "dec": "24HBY72193039206S8",
+      "gmrs": []
+    },
+    {
+      "dec": "47FU69VVVWDPJDZJP5",
+      "gmrs": []
+    },
+    {
+      "dec": "05PL87ETI9QMZZEHL2",
+      "gmrs": []
+    },
+    {
+      "dec": "67PT061909CY5UKFF6",
+      "gmrs": []
+    },
+    {
+      "dec": "84UG611723K78TT9M5",
+      "gmrs": []
+    },
+    {
+      "dec": "83WM4D1RJKSX5K7YA2",
+      "gmrs": []
+    },
+    {
+      "dec": "60ZM412778422163F3",
+      "gmrs": []
+    },
+    {
+      "dec": "41QS23A3C4GYG2E410",
+      "gmrs": []
+    },
+    {
+      "dec": "92PUCJQ3YYO51671V0",
+      "gmrs": []
+    },
+    {
+      "dec": "74OQ687740176309Q2",
+      "gmrs": []
+    },
+    {
+      "dec": "88KAKCD6511OBHFPL1",
+      "gmrs": []
+    },
+    {
+      "dec": "22IG5595322TNL7XL1",
+      "gmrs": []
+    },
+    {
+      "dec": "05OW214355X58IQEL7",
+      "gmrs": []
+    },
+    {
+      "dec": "37WYSWK10934DI8KM1",
+      "gmrs": []
+    },
+    {
+      "dec": "76RXHI1958658391P4",
+      "gmrs": []
+    },
+    {
+      "dec": "52FPFKL0340D36YGD2",
+      "gmrs": []
+    },
+    {
+      "dec": "20XK8ICPZSOTL8KBR4",
+      "gmrs": []
+    },
+    {
+      "dec": "34MH5ILGYZ32R9CED3",
+      "gmrs": []
+    },
+    {
+      "dec": "87PFB58294194513N3",
+      "gmrs": []
+    },
+    {
+      "dec": "28JG324886TQG62CT4",
+      "gmrs": []
+    },
+    {
+      "dec": "17ZCKK1550690284V2",
+      "gmrs": []
+    },
+    {
+      "dec": "04CNVBG059799DVKV8",
+      "gmrs": []
+    },
+    {
+      "dec": "32ZGX18317270908H2",
+      "gmrs": []
+    },
+    {
+      "dec": "07LX356753689251I5",
+      "gmrs": []
+    },
+    {
+      "dec": "15GMCSA2IDN11840Z8",
+      "gmrs": []
+    },
+    {
+      "dec": "37DO259275627821K6",
+      "gmrs": []
+    },
+    {
+      "dec": "49VL0IZMEKMOIJLWR4",
+      "gmrs": []
+    },
+    {
+      "dec": "32UI356226905725G5",
+      "gmrs": []
+    },
+    {
+      "dec": "40BN6XXUKE8S9CSFC2",
+      "gmrs": []
+    },
+    {
+      "dec": "73PU920049I0RV7XJ8",
+      "gmrs": []
+    },
+    {
+      "dec": "08TV82FBUEYAE1TRE6",
+      "gmrs": []
+    },
+    {
+      "dec": "94MRAGE3RUB19584T3",
+      "gmrs": []
+    },
+    {
+      "dec": "95JNKA2586064394Y4",
+      "gmrs": []
+    },
+    {
+      "dec": "65XKIT0539DN1648J6",
+      "gmrs": []
+    },
+    {
+      "dec": "15JV8L7KZJISI5YQY7",
+      "gmrs": []
+    },
+    {
+      "dec": "34HH731208640656K8",
+      "gmrs": []
+    },
+    {
+      "dec": "28QL365952412874K5",
+      "gmrs": []
+    },
+    {
+      "dec": "40PH057065802EW7S4",
+      "gmrs": []
+    },
+    {
+      "dec": "68LR737LUFD0ON7LP3",
+      "gmrs": []
+    },
+    {
+      "dec": "59KQO57283550915T3",
+      "gmrs": []
+    },
+    {
+      "dec": "07OL8NXQDP2XU4RNY3",
+      "gmrs": []
+    },
+    {
+      "dec": "38ZZ611472942172N6",
+      "gmrs": []
+    },
+    {
+      "dec": "13CDY22821459307R4",
+      "gmrs": []
+    },
+    {
+      "dec": "03MN7ANZPV4NDEMQX3",
+      "gmrs": []
+    },
+    {
+      "dec": "35FSD76691160349A7",
+      "gmrs": []
+    },
+    {
+      "dec": "12HJ53FXX417FXEUL2",
+      "gmrs": []
+    },
+    {
+      "dec": "56YG3FHHGKLH5WODJ6",
+      "gmrs": []
+    },
+    {
+      "dec": "94HAVB882325GJ14Q2",
+      "gmrs": []
+    },
+    {
+      "dec": "28OT89MLVQCUV41PB7",
+      "gmrs": []
+    },
+    {
+      "dec": "15EW189066698U57T3",
+      "gmrs": []
+    },
+    {
+      "dec": "20JT860480883771M8",
+      "gmrs": []
+    },
+    {
+      "dec": "43YX1FVRD46Q5LFTY1",
+      "gmrs": []
+    },
+    {
+      "dec": "55TEBX94EMX68457Y7",
+      "gmrs": []
+    },
+    {
+      "dec": "16GCF72508739886E9",
+      "gmrs": []
+    },
+    {
+      "dec": "78HTWC9656274955M8",
+      "gmrs": []
+    },
+    {
+      "dec": "99EYYH5934319948B8",
+      "gmrs": []
+    },
+    {
+      "dec": "63SF2BTCPSR2RDRBU6",
+      "gmrs": []
+    },
+    {
+      "dec": "83WWY88511158877H2",
+      "gmrs": []
+    },
+    {
+      "dec": "88FS84K555FZF56JU7",
+      "gmrs": []
+    },
+    {
+      "dec": "50TZ4NHYPCIRX3OLD9",
+      "gmrs": []
+    },
+    {
+      "dec": "09KO225313514305D3",
+      "gmrs": []
+    },
+    {
+      "dec": "80DABRX3479A8MTCE1",
+      "gmrs": []
+    },
+    {
+      "dec": "89QXK23196391063K9",
+      "gmrs": []
+    },
+    {
+      "dec": "81FPAF305221U2W7Y6",
+      "gmrs": []
+    },
+    {
+      "dec": "88PS474064157AQ9K4",
+      "gmrs": []
+    },
+    {
+      "dec": "37YX428454929XK2E7",
+      "gmrs": []
+    },
+    {
+      "dec": "17MM428661604411D5",
+      "gmrs": []
+    },
+    {
+      "dec": "98GNAZ3743HH1366J8",
+      "gmrs": []
+    },
+    {
+      "dec": "27OWMR5572973245H2",
+      "gmrs": []
+    },
+    {
+      "dec": "43RN258008060467S1",
+      "gmrs": []
+    },
+    {
+      "dec": "65XQ091362047369V4",
+      "gmrs": []
+    },
+    {
+      "dec": "87OO494895467BIFJ5",
+      "gmrs": []
+    },
+    {
+      "dec": "66MZ42WUWMCBT22RS9",
+      "gmrs": []
+    },
+    {
+      "dec": "95DFNXJ33353GKBBI0",
+      "gmrs": []
+    },
+    {
+      "dec": "74IC41TNGSILLGASF6",
+      "gmrs": []
+    },
+    {
+      "dec": "67VK8452BE47VEGZZ1",
+      "gmrs": []
+    },
+    {
+      "dec": "28JN152704506238W2",
+      "gmrs": []
+    },
+    {
+      "dec": "62JN985384058120F2",
+      "gmrs": []
+    },
+    {
+      "dec": "57NH169518L4204CT0",
+      "gmrs": []
+    },
+    {
+      "dec": "74JD2W1GMESTJ6NXF6",
+      "gmrs": []
+    },
+    {
+      "dec": "42JU205248995R0UX0",
+      "gmrs": []
+    },
+    {
+      "dec": "55DTWIN54432I8PVC0",
+      "gmrs": []
+    },
+    {
+      "dec": "57WQ72771532F3FJE4",
+      "gmrs": []
+    },
+    {
+      "dec": "10LN458405804975J3",
+      "gmrs": []
+    },
+    {
+      "dec": "87QCW47ZR73V3LSPZ8",
+      "gmrs": []
+    },
+    {
+      "dec": "35CCXE2345RS8843I9",
+      "gmrs": []
+    },
+    {
+      "dec": "23SN49NTSLFPZZ2TU1",
+      "gmrs": []
+    },
+    {
+      "dec": "01WQA34904343359G8",
+      "gmrs": []
+    },
+    {
+      "dec": "46IG350759874152R6",
+      "gmrs": []
+    },
+    {
+      "dec": "71LBZQ9972462711I6",
+      "gmrs": []
+    },
+    {
+      "dec": "09YO614811876310H8",
+      "gmrs": []
+    },
+    {
+      "dec": "85DM9IVB0GD990LOY1",
+      "gmrs": []
+    },
+    {
+      "dec": "30KG84DLVLF07JTJI4",
+      "gmrs": []
+    },
+    {
+      "dec": "60EX2494WVK26VNMF2",
+      "gmrs": []
+    },
+    {
+      "dec": "21KJ318072920382B5",
+      "gmrs": []
+    },
+    {
+      "dec": "70JXXWM6439H0CTPT7",
+      "gmrs": []
+    },
+    {
+      "dec": "48ZEU72030321638X7",
+      "gmrs": []
+    },
+    {
+      "dec": "43HSN14590650809W1",
+      "gmrs": []
+    },
+    {
+      "dec": "34IUSP65JOZ48422I8",
+      "gmrs": []
+    },
+    {
+      "dec": "11QH4JNMDY9YPQKVO1",
+      "gmrs": []
+    },
+    {
+      "dec": "30QI7FK61CT4VQ8CD1",
+      "gmrs": []
+    },
+    {
+      "dec": "03JJLN8831331540M4",
+      "gmrs": []
+    },
+    {
+      "dec": "73AO463ESXUJIL2RM5",
+      "gmrs": []
+    },
+    {
+      "dec": "98SR499137590482L1",
+      "gmrs": []
+    },
+    {
+      "dec": "70ZKDFY13760JJSOX9",
+      "gmrs": []
+    },
+    {
+      "dec": "75YS07BPU1AZWU7GR3",
+      "gmrs": []
+    },
+    {
+      "dec": "06GW093991419KIWA5",
+      "gmrs": []
+    },
+    {
+      "dec": "85RW3Q8KTSKT7GLDE0",
+      "gmrs": []
+    },
+    {
+      "dec": "39WXMBW4709QPONDP9",
+      "gmrs": []
+    },
+    {
+      "dec": "50VT47S6QS9PQQLNP8",
+      "gmrs": []
+    },
+    {
+      "dec": "00TY94259021NTD5R7",
+      "gmrs": []
+    },
+    {
+      "dec": "03ES376081X6I1H7N9",
+      "gmrs": []
+    },
+    {
+      "dec": "36GNV05313691273R2",
+      "gmrs": []
+    },
+    {
+      "dec": "48DC295464887FBMH8",
+      "gmrs": []
+    },
+    {
+      "dec": "35ULZJ88442F3226T0",
+      "gmrs": []
+    },
+    {
+      "dec": "57TM5XSJ0799C69PN6",
+      "gmrs": []
+    },
+    {
+      "dec": "01YNFSG4399NQYKGN7",
+      "gmrs": []
+    },
+    {
+      "dec": "59BXXK6382999459R8",
+      "gmrs": []
+    },
+    {
+      "dec": "61DO299446199615Z0",
+      "gmrs": []
+    },
+    {
+      "dec": "77JHN86257380632Z3",
+      "gmrs": []
+    },
+    {
+      "dec": "82XL600526778910W9",
+      "gmrs": []
+    },
+    {
+      "dec": "15ALFII4110F3SCXF3",
+      "gmrs": []
+    },
+    {
+      "dec": "70LFHGL06652C2S8J7",
+      "gmrs": []
+    },
+    {
+      "dec": "74JU777715005989P1",
+      "gmrs": []
+    },
+    {
+      "dec": "61CNXFV9048VLG4WI8",
+      "gmrs": []
+    },
+    {
+      "dec": "53XR81XI7Y7ACL0VN1",
+      "gmrs": []
+    },
+    {
+      "dec": "34DM4BN08C9XOC1NE2",
+      "gmrs": []
+    },
+    {
+      "dec": "75LDU95630925881W9",
+      "gmrs": []
+    },
+    {
+      "dec": "66FC6JIUYDFC2TTTY9",
+      "gmrs": []
+    },
+    {
+      "dec": "20IX59X0P0CTM6QVV0",
+      "gmrs": []
+    },
+    {
+      "dec": "42UX389075734688W8",
+      "gmrs": []
+    },
+    {
+      "dec": "25XP9845473583CWX4",
+      "gmrs": []
+    },
+    {
+      "dec": "36IKNA1435835234J1",
+      "gmrs": []
+    },
+    {
+      "dec": "72VCNUJULYS4O80WR8",
+      "gmrs": []
+    },
+    {
+      "dec": "00DFBY0192713512J0",
+      "gmrs": []
+    },
+    {
+      "dec": "15AD802511839511B7",
+      "gmrs": []
+    },
+    {
+      "dec": "89WHYX07332146P5X0",
+      "gmrs": []
+    },
+    {
+      "dec": "09QKP18687935659K9",
+      "gmrs": []
+    },
+    {
+      "dec": "54JEAH2300084558S9",
+      "gmrs": []
+    },
+    {
+      "dec": "35KW461905498240C7",
+      "gmrs": []
+    },
+    {
+      "dec": "00FS833468968984Z2",
+      "gmrs": []
+    },
+    {
+      "dec": "86FO232899L5BYGAL8",
+      "gmrs": []
+    },
+    {
+      "dec": "60WOZD3587837554X5",
+      "gmrs": []
+    },
+    {
+      "dec": "51HU433049184892S1",
+      "gmrs": []
+    },
+    {
+      "dec": "80ZN939189393544C2",
+      "gmrs": []
+    },
+    {
+      "dec": "64LI49RIQCVASSEBN5",
+      "gmrs": []
+    },
+    {
+      "dec": "17KLTXH4MNK84308Y5",
+      "gmrs": []
+    },
+    {
+      "dec": "07WR297011815695Y1",
+      "gmrs": []
+    },
+    {
+      "dec": "13SB6505KZNKJFCFN4",
+      "gmrs": []
+    },
+    {
+      "dec": "34AF934389F1MWD4D2",
+      "gmrs": []
+    },
+    {
+      "dec": "34KREE9571436748V2",
+      "gmrs": []
+    },
+    {
+      "dec": "31AP366046041583G5",
+      "gmrs": []
+    },
+    {
+      "dec": "63FX238525N0097RV1",
+      "gmrs": []
+    },
+    {
+      "dec": "77NUWZU3ARI05036T1",
+      "gmrs": []
+    },
+    {
+      "dec": "34SY099516207453R9",
+      "gmrs": []
+    },
+    {
+      "dec": "06SZJ02964650036M9",
+      "gmrs": []
+    },
+    {
+      "dec": "42LM77PYQ57V7UQSK2",
+      "gmrs": []
+    },
+    {
+      "dec": "46OT670944844544Z7",
+      "gmrs": []
+    },
+    {
+      "dec": "16KI2PEFZHT5WE3GD1",
+      "gmrs": []
+    },
+    {
+      "dec": "50ALEO0938428796O5",
+      "gmrs": []
+    },
+    {
+      "dec": "41ZV221T11C3OBAYF5",
+      "gmrs": []
+    },
+    {
+      "dec": "19UXOK07BXT21580L6",
+      "gmrs": []
+    },
+    {
+      "dec": "13NMZGV5147D1CQOE4",
+      "gmrs": []
+    },
+    {
+      "dec": "69PV290785420PLDG5",
+      "gmrs": []
+    },
+    {
+      "dec": "65OS328928G55L86N3",
+      "gmrs": []
+    },
+    {
+      "dec": "29LK4UWYRC95P15GD6",
+      "gmrs": []
+    },
+    {
+      "dec": "09SP6817HT9HE5XIU1",
+      "gmrs": []
+    },
+    {
+      "dec": "26BF370954958648U1",
+      "gmrs": []
+    },
+    {
+      "dec": "96ZJPDG91981KH8LV7",
+      "gmrs": []
+    },
+    {
+      "dec": "04UF411669V48G7IB9",
+      "gmrs": []
+    },
+    {
+      "dec": "29WI9WPG6V4TJCKHT8",
+      "gmrs": []
+    },
+    {
+      "dec": "22RZD9WU7PAOY82JA2",
+      "gmrs": []
+    },
+    {
+      "dec": "48MK126669767690C3",
+      "gmrs": []
+    },
+    {
+      "dec": "42DQZO9376622004G5",
+      "gmrs": []
+    },
+    {
+      "dec": "94HM049570160136T7",
+      "gmrs": []
+    },
+    {
+      "dec": "44AT530471146652V7",
+      "gmrs": []
+    },
+    {
+      "dec": "07XOIGV4990HQJGUM3",
+      "gmrs": []
+    },
+    {
+      "dec": "69QB25D1H3PF9DZ662",
+      "gmrs": []
+    },
+    {
+      "dec": "05ITPD6801771882J5",
+      "gmrs": []
+    },
+    {
+      "dec": "18VPQYQ016552YTWP4",
+      "gmrs": []
+    },
+    {
+      "dec": "69AY8A0EM87WUD4JF3",
+      "gmrs": []
+    },
+    {
+      "dec": "90SU749687832X36W5",
+      "gmrs": []
+    },
+    {
+      "dec": "18MY735739855SAAJ5",
+      "gmrs": []
+    },
+    {
+      "dec": "94AX8ZAU5NI6PKHHD4",
+      "gmrs": []
+    },
+    {
+      "dec": "72PU300421378038I5",
+      "gmrs": []
+    },
+    {
+      "dec": "49LTD2ZAHS45LRCHO8",
+      "gmrs": []
+    },
+    {
+      "dec": "03RBQ21089890700P2",
+      "gmrs": []
+    },
+    {
+      "dec": "89GXTMA3879MM1LPV5",
+      "gmrs": []
+    },
+    {
+      "dec": "29CG924251213988R6",
+      "gmrs": []
+    },
+    {
+      "dec": "81FB74789874PT3KK4",
+      "gmrs": []
+    },
+    {
+      "dec": "73CC50EXLYUFGB5MQ1",
+      "gmrs": []
+    },
+    {
+      "dec": "90VWYF11KZX88618R4",
+      "gmrs": []
+    },
+    {
+      "dec": "32HQZSF50026K177B5",
+      "gmrs": []
+    },
+    {
+      "dec": "48ZD454807330380X6",
+      "gmrs": []
+    },
+    {
+      "dec": "09QNVQV90729AS4NR0",
+      "gmrs": []
+    },
+    {
+      "dec": "70AA627805055840H7",
+      "gmrs": []
+    },
+    {
+      "dec": "40WA3BMERAPSDP5QZ2",
+      "gmrs": []
+    },
+    {
+      "dec": "43UW857900350732R6",
+      "gmrs": []
+    },
+    {
+      "dec": "09YC7LB35IXV96LML9",
+      "gmrs": []
+    },
+    {
+      "dec": "41AE274847749530C1",
+      "gmrs": []
+    },
+    {
+      "dec": "62ZF93A2QN34QK3CV8",
+      "gmrs": []
+    },
+    {
+      "dec": "29OS8OM5HQRI4K9XA0",
+      "gmrs": []
+    },
+    {
+      "dec": "29DJ549Q2MKYC0CJR1",
+      "gmrs": []
+    },
+    {
+      "dec": "50VCYRG6331J4MFCN2",
+      "gmrs": []
+    },
+    {
+      "dec": "77EBSBX5458Q4KTFA9",
+      "gmrs": []
+    },
+    {
+      "dec": "56VAHP398056H313Q5",
+      "gmrs": []
+    },
+    {
+      "dec": "01HW1YERINDSZ4FEC7",
+      "gmrs": []
+    },
+    {
+      "dec": "41DX306802224449O9",
+      "gmrs": []
+    },
+    {
+      "dec": "41RF307MPFN9ITYSW6",
+      "gmrs": []
+    },
+    {
+      "dec": "20SJAZ31JUQ04399D7",
+      "gmrs": []
+    },
+    {
+      "dec": "17QNMW96S6VWYEHTW6",
+      "gmrs": []
+    },
+    {
+      "dec": "21TT854060978197K4",
+      "gmrs": []
+    },
+    {
+      "dec": "43KTY7DR7YNR1BTWW3",
+      "gmrs": []
+    },
+    {
+      "dec": "20FJ6QSK0UMDU0TUZ0",
+      "gmrs": []
+    },
+    {
+      "dec": "88OZ13ZVOTJTV1IMR5",
+      "gmrs": []
+    },
+    {
+      "dec": "45PVTN0140937387X4",
+      "gmrs": []
+    },
+    {
+      "dec": "38AO43WI96R8F8IXF7",
+      "gmrs": [
+        "GPTQ63YUBJ7A"
+      ]
+    },
+    {
+      "dec": "86VG62L1ICQ3AGGOV3",
+      "gmrs": [
+        "YCJS96SFTHHF"
+      ]
+    },
+    {
+      "dec": "96DX25YXXCR99IZND5",
+      "gmrs": [
+        "SMZI85QTNGPD"
+      ]
+    },
+    {
+      "dec": "27YJ199C6DR2H6CDE6",
+      "gmrs": [
+        "YBWK80AV95ZQ"
+      ]
+    },
+    {
+      "dec": "86LA751114184675R9",
+      "gmrs": [
+        "JRRM97FQNZNB"
+      ]
+    },
+    {
+      "dec": "57HW17DQZFW1NDRDI6",
+      "gmrs": [
+        "LRAU32SF2WUZ"
+      ]
+    },
+    {
+      "dec": "56SL03VH23BNMEELH1",
+      "gmrs": [
+        "FSAR35MEKO40"
+      ]
+    },
+    {
+      "dec": "75LL615OJZL3WOHJA3",
+      "gmrs": [
+        "EJBU01AFOFJI"
+      ]
+    },
+    {
+      "dec": "53TT54AGE1U9293RQ5",
+      "gmrs": [
+        "PQNI55PAAZ0J"
+      ]
+    },
+    {
+      "dec": "82GR272950IYDLILD2",
+      "gmrs": [
+        "TSXL95CN7SP6"
+      ]
+    },
+    {
+      "dec": "83OY92HGKNTN0DFDD9",
+      "gmrs": [
+        "IJAA51UIY473"
+      ]
+    },
+    {
+      "dec": "48CR282VPJMUIYZBB9",
+      "gmrs": [
+        "LUZA01UC2399"
+      ]
+    },
+    {
+      "dec": "78IL41B2LD9DOOQBO1",
+      "gmrs": [
+        "MKLP17YFIBVO"
+      ]
+    },
+    {
+      "dec": "16HZ50E4ZYECZ16GN7",
+      "gmrs": [
+        "MKLP17YFIBVO"
+      ]
+    },
+    {
+      "dec": "70CL51I1TKFMXMVNE1",
+      "gmrs": [
+        "MKLP17YFIBVO"
+      ]
+    },
+    {
+      "dec": "17IF98Z260TX3M7XQ9",
+      "gmrs": [
+        "UJJF79ER3698"
+      ]
+    },
+    {
+      "dec": "06RI926VES3CD7IDH0",
+      "gmrs": [
+        "HMDF16QG41Q4"
+      ]
+    },
+    {
+      "dec": "61RI34D3GES76R0JZ6",
+      "gmrs": [
+        "JOBI74PSBRY0"
+      ]
+    },
+    {
+      "dec": "67BW12TPKVHOG8DYW8",
+      "gmrs": [
+        "PSSA61RKF436"
+      ]
+    },
+    {
+      "dec": "95UR73GU7L5UPRQJT1",
+      "gmrs": [
+        "PIWV61IKIJ9O"
+      ]
+    },
+    {
+      "dec": "23BF669008352685N8",
+      "gmrs": [
+        "CKOT30HE116B"
+      ]
+    },
+    {
+      "dec": "85CB88R5EHVP9UTZW1",
+      "gmrs": [
+        "EPIC25ZC1982"
+      ]
+    },
+    {
+      "dec": "77AF715218893186Q1",
+      "gmrs": [
+        "PLQN22YU40L0"
+      ]
+    },
+    {
+      "dec": "95GM777M614QDUZPD5",
+      "gmrs": [
+        "HMDF16QG41Q4"
+      ]
+    },
+    {
+      "dec": "46AU5P44841FKRAXR1",
+      "gmrs": [
+        "YDVN93FJ7TE0"
+      ]
+    },
+    {
+      "dec": "01HF927772UMYMTMY4",
+      "gmrs": [
+        "HQKQ90YRGIWR"
+      ]
+    },
+    {
+      "dec": "65LY78V5VYX3LO1DN4",
+      "gmrs": [
+        "YPOW69YBTI2N"
+      ]
+    },
+    {
+      "dec": "56XK525792BOBCNRG7",
+      "gmrs": [
+        "ZMJC63UFL25F"
+      ]
+    },
+    {
+      "dec": "29PG03DI0AG6TZ8YL6",
+      "gmrs": [
+        "QARD64WD2T3M"
+      ]
+    }
+  ],
+  "gmrs": [
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "TX137604595281",
+      "state": "OPEN",
+      "gmrId": "ZMJC63UFL25F",
+      "vehicleRegNum": "8487IPO",
+      "trailerRegistrationNums": [
+        "M0816IYA"
+      ],
+      "updatedDateTime": "2025-02-28T13:20:17.311Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "56XK525792BOBCNRG7"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "109"
+      },
+      "haulierEORI": "ES288100398031",
+      "state": "OPEN",
+      "gmrId": "YPOW69YBTI2N",
+      "vehicleRegNum": "544Z0293",
+      "updatedDateTime": "2025-03-03T17:54:51.796Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "65LY78V5VYX3LO1DN4"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "AQ375427245179",
+      "state": "NOT_FINALISABLE",
+      "gmrId": "YDVN93FJ7TE0",
+      "vehicleRegNum": "SX18TAO",
+      "updatedDateTime": "2025-03-10T12:27:44.842Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "46AU5P44841FKRAXR1"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "140"
+      },
+      "haulierEORI": "KD659123308408",
+      "state": "NOT_FINALISABLE",
+      "gmrId": "HQKQ90YRGIWR",
+      "vehicleRegNum": "OP8706NY",
+      "updatedDateTime": "2025-03-07T10:10:14.654Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "01HF927772UMYMTMY4"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "JS745632434889",
+      "state": "NOT_FINALISABLE",
+      "gmrId": "LIEI69YVF2YM",
+      "vehicleRegNum": "63MTK557",
+      "trailerRegistrationNums": [
+        "73BW555"
+      ],
+      "updatedDateTime": "2025-03-07T10:27:19.618Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "04OH151258039516X3"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23",
+        "localDateTimeOfDeparture": "2025-03-22T00:00"
+      },
+      "haulierEORI": "DM549096811031",
+      "state": "OPEN",
+      "gmrId": "GQQF58CF1Q89",
+      "vehicleRegNum": "G3504GC",
+      "updatedDateTime": "2025-03-22T08:00:47.836Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "61QQ14ZCF76GTT4MK3"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "140"
+      },
+      "haulierEORI": "TP793148368569",
+      "state": "OPEN",
+      "gmrId": "GKRB91XWU7LS",
+      "vehicleRegNum": "ZH2745YE",
+      "trailerRegistrationNums": [
+        "NW9180LS"
+      ],
+      "updatedDateTime": "2025-03-20T11:48:00.052Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "68RN315961VVVFLZA5"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "109"
+      },
+      "haulierEORI": "KJ336535443226",
+      "gmrId": "EQSO45VQK1XP",
+      "vehicleRegNum": "231VA274",
+      "trailerRegistrationNums": [
+        "WCC075"
+      ],
+      "updatedDateTime": "2025-03-23T22:04:37.206Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "02ZJALA79030J838Z4"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "33",
+        "localDateTimeOfArrival": "2025-03-24T10:45"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "VS656972688704",
+      "state": "OPEN",
+      "gmrId": "JSYG45XTKHRZ",
+      "vehicleRegNum": "71DUD9",
+      "trailerRegistrationNums": [
+        "LF79UY"
+      ],
+      "updatedDateTime": "2025-03-20T13:57:45.293Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB345A02J9NXJAR2"
+          },
+          {
+            "id": "48GN115GJIKTDT0JV6"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "42"
+      },
+      "haulierEORI": "OU250804152360",
+      "state": "OPEN",
+      "gmrId": "PQNI55PAAZ0J",
+      "trailerRegistrationNums": [
+        "W4493ARH"
+      ],
+      "updatedDateTime": "2025-03-20T15:21:56.851Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "53TT54AGE1U9293RQ5"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "33"
+      },
+      "haulierEORI": "WU729371792387",
+      "state": "OPEN",
+      "gmrId": "PIWV61IKIJ9O",
+      "trailerRegistrationNums": [
+        "BD7736"
+      ],
+      "updatedDateTime": "2025-03-20T16:08:49.318Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "95UR73GU7L5UPRQJT1"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "140"
+      },
+      "haulierEORI": "ZZ912461229177",
+      "state": "OPEN",
+      "gmrId": "TSXL95CN7SP6",
+      "vehicleRegNum": "EM1720MD",
+      "trailerRegistrationNums": [
+        "BG9450IL"
+      ],
+      "updatedDateTime": "2025-03-21T09:07:35.002Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "82GR272950IYDLILD2"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "272"
+      },
+      "haulierEORI": "NY875574282425",
+      "gmrId": "LRAU32SF2WUZ",
+      "trailerRegistrationNums": [
+        "ZIRN595"
+      ],
+      "updatedDateTime": "2025-03-22T07:33:01.888Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "57HW17DQZFW1NDRDI6"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "118",
+        "localDateTimeOfArrival": "2025-03-24T04:00"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "107"
+      },
+      "haulierEORI": "GZ769406952122",
+      "state": "OPEN",
+      "gmrId": "QARD64WD2T3M",
+      "vehicleRegNum": "RS02XKU",
+      "updatedDateTime": "2025-03-21T11:05:32.91Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB35FPA2NI4RIAR8"
+          },
+          {
+            "id": "29PG03DI0AG6TZ8YL6"
+          }
+        ]
+      },
+      "haulierType": "STANDARD",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "272"
+      },
+      "haulierEORI": "NY875574282425",
+      "gmrId": "WYMM84IYB4LG",
+      "trailerRegistrationNums": [
+        "MDZA344"
+      ],
+      "updatedDateTime": "2025-03-22T07:17:04.489Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "48WY9FWIVDTX3TLAQ8"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "118",
+        "localDateTimeOfArrival": "2025-03-24T04:00"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "DC158749377319",
+      "gmrId": "YCJS96SFTHHF",
+      "vehicleRegNum": "15-QEG-5",
+      "updatedDateTime": "2025-03-23T17:27:48.869Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB35WYR58QZVBAR4"
+          },
+          {
+            "id": "86VG62L1ICQ3AGGOV3"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "HP195408857855",
+      "state": "OPEN",
+      "gmrId": "SMZI85QTNGPD",
+      "vehicleRegNum": "PXN366",
+      "updatedDateTime": "2025-03-22T09:21:48.386Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "96DX25YXXCR99IZND5"
+          },
+          {
+            "id": "25GB35O8DKKARF9AR4"
+          },
+          {
+            "id": "25GB32Z6R5HICXJAR7"
+          },
+          {
+            "id": "25GB35MZOSGQY3CAR2"
+          },
+          {
+            "id": "25GB35MC1LBVHEPAR5"
+          },
+          {
+            "id": "25GB35JSVK17RK8AR8"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "TZ314679784477",
+      "state": "OPEN",
+      "gmrId": "PAMH56OXI0S4",
+      "vehicleRegNum": "EO7489CS",
+      "updatedDateTime": "2025-03-21T15:25:18.845Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "26WS71X7T53MLQ9IT6"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "20"
+      },
+      "haulierEORI": "PZ655074874064",
+      "state": "OPEN",
+      "gmrId": "PSSA61RKF436",
+      "vehicleRegNum": "UR32AGT",
+      "updatedDateTime": "2025-03-21T16:05:26.198Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB35TP8Z0VORGAR7"
+          },
+          {
+            "id": "67BW12TPKVHOG8DYW8"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "107"
+      },
+      "haulierEORI": "QH257612451813",
+      "state": "OPEN",
+      "gmrId": "IJAA51UIY473",
+      "vehicleRegNum": "7010QBS",
+      "updatedDateTime": "2025-03-21T16:25:46.695Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB31JJ90J2NN0AR1"
+          },
+          {
+            "id": "83OY92HGKNTN0DFDD9"
+          },
+          {
+            "id": "25GB35KBH4ISYHBAR9"
+          },
+          {
+            "id": "25GB31K2BRIW4W8AR3"
+          },
+          {
+            "id": "25GB3047JQ9KH71AR4"
+          },
+          {
+            "id": "25GB34ABB9UAXSQAR2"
+          },
+          {
+            "id": "25GB34C5B1KPPVSAR5"
+          },
+          {
+            "id": "25GB32RP3BGJBF8AR1"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "LS648908550527",
+      "state": "OPEN",
+      "gmrId": "GPTQ63YUBJ7A",
+      "vehicleRegNum": "84SMS1",
+      "trailerRegistrationNums": [
+        "LY55FU"
+      ],
+      "updatedDateTime": "2025-03-21T19:38:10.238Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB35ULA1317F7AR7"
+          },
+          {
+            "id": "25GB35V17ARZKU5AR3"
+          },
+          {
+            "id": "38AO43WI96R8F8IXF7"
+          },
+          {
+            "id": "25GB35UFNS00IYEAR0"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "140"
+      },
+      "haulierEORI": "NO881272816229",
+      "state": "OPEN",
+      "gmrId": "STGK00CVZF2P",
+      "vehicleRegNum": "50SGC425",
+      "trailerRegistrationNums": [
+        "88VJQ518"
+      ],
+      "updatedDateTime": "2025-03-22T07:42:58.132Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "27KC076279636685G8"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "LO508854878530",
+      "state": "OPEN",
+      "gmrId": "MKLP17YFIBVO",
+      "vehicleRegNum": "QV757LP",
+      "updatedDateTime": "2025-03-22T07:38:13.302Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "70CL51I1TKFMXMVNE1"
+          },
+          {
+            "id": "16HZ50E4ZYECZ16GN7"
+          },
+          {
+            "id": "78IL41B2LD9DOOQBO1"
+          },
+          {
+            "id": "25GB36LV6PNKJLIAR2"
+          },
+          {
+            "id": "25GB36LV90GKK5BAR7"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "310"
+      },
+      "haulierEORI": "YQ926598759433",
+      "gmrId": "JOBI74PSBRY0",
+      "trailerRegistrationNums": [
+        "HQ2091"
+      ],
+      "updatedDateTime": "2025-03-22T15:48:08.472Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "61RI34D3GES76R0JZ6"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "310",
+        "localDateTimeOfArrival": "2025-03-24T06:30"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "LO508854878530",
+      "state": "OPEN",
+      "gmrId": "IFXK51UZY5GZ",
+      "vehicleRegNum": "BF093DP",
+      "updatedDateTime": "2025-03-22T10:05:06.288Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "34GP89U5FMENP2EYS9"
+          },
+          {
+            "id": "01EL01E8Z6R45MZPV4"
+          },
+          {
+            "id": "25GB36VDLL3VZTOAR9"
+          },
+          {
+            "id": "57HW34V1MLI6NI5LV4"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "FSAR35MEKO40",
+      "vehicleRegNum": "KET20798",
+      "updatedDateTime": "2025-03-23T19:23:21.498Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB36WT1ET9UAHAR0"
+          },
+          {
+            "id": "25GB36V6SPCUF1MAR7"
+          },
+          {
+            "id": "56SL03VH23BNMEELH1"
+          },
+          {
+            "id": "25GB36UBXPFT6ZWAR9"
+          },
+          {
+            "id": "55YY134RM9RIIYZMW6"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "KVTE55WZWR03",
+      "vehicleRegNum": "ZC591VQ",
+      "updatedDateTime": "2025-03-23T14:33:25.819Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB371YFP0HV0YAR5"
+          },
+          {
+            "id": "25GB36YWYJ16ZGYAR4"
+          },
+          {
+            "id": "25GB36YQKX55ILHAR3"
+          },
+          {
+            "id": "93IZ29YGM14BLM8HZ4"
+          },
+          {
+            "id": "25GB36X7Z2AUOI6AR8"
+          },
+          {
+            "id": "25GB36WTM6RADP7AR2"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "state": "OPEN",
+      "gmrId": "EJBU01AFOFJI",
+      "vehicleRegNum": "LY7HG19",
+      "updatedDateTime": "2025-03-22T13:57:51.077Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB372K3QA4EHTAR0"
+          },
+          {
+            "id": "75LL615OJZL3WOHJA3"
+          },
+          {
+            "id": "54ZQ63804XPBDIGCN2"
+          },
+          {
+            "id": "25GB36XB5VWYQ6FAR4"
+          },
+          {
+            "id": "25GB3650XRLCWUVAR3"
+          },
+          {
+            "id": "53TS571206GXKCDBL4"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "FW329973873124",
+      "state": "OPEN",
+      "gmrId": "JRRM97FQNZNB",
+      "vehicleRegNum": "3390OUN",
+      "updatedDateTime": "2025-03-22T13:52:44.589Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "86LA751114184675R9"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "ARMC58FP73QO",
+      "vehicleRegNum": "OL0DM88",
+      "updatedDateTime": "2025-03-23T20:30:37.456Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB370MJPM85FIAR8"
+          },
+          {
+            "id": "75TW289T91MXQ1GSN4"
+          },
+          {
+            "id": "25GB3700R3ZYOXOAR8"
+          },
+          {
+            "id": "25GB36ZWOBXUZ5SAR9"
+          },
+          {
+            "id": "25GB36ZRDF3UJ8MAR9"
+          },
+          {
+            "id": "25GB36ZM0QVW2AMAR7"
+          },
+          {
+            "id": "25GB36ZGIG22E0NAR4"
+          },
+          {
+            "id": "25GB36YY5XY8DY9AR4"
+          },
+          {
+            "id": "25GB3657LAFHF6FAR1"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "RN441844610236",
+      "state": "OPEN",
+      "gmrId": "UJJF79ER3698",
+      "vehicleRegNum": "HJMN958",
+      "updatedDateTime": "2025-03-22T14:39:11.708Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB35P1QJ8F1YSAR6"
+          },
+          {
+            "id": "17IF98Z260TX3M7XQ9"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "LUZA01UC2399",
+      "vehicleRegNum": "FZZ42037",
+      "updatedDateTime": "2025-03-23T16:10:52.55Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "25GB37435Q8AUCFAR3"
+          },
+          {
+            "id": "25GB373VZ57HMIZAR5"
+          },
+          {
+            "id": "48CR282VPJMUIYZBB9"
+          },
+          {
+            "id": "39PS274TVZTOFHXBQ5"
+          },
+          {
+            "id": "25GB3739M5GU20VAR6"
+          },
+          {
+            "id": "25GB373616K1027AR1"
+          },
+          {
+            "id": "25GB3736167A6E2AR9"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "YLCT36WN21TK",
+      "vehicleRegNum": "VAZ6005T",
+      "updatedDateTime": "2025-03-23T19:21:22.158Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "78CL00J6W8L7CXVQN9"
+          },
+          {
+            "id": "25GB36YLC74IT5BAR1"
+          },
+          {
+            "id": "25GB36XCHEHQC9PAR8"
+          },
+          {
+            "id": "25GB360N2G8FK4MAR5"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "HMDF16QG41Q4",
+      "vehicleRegNum": "AO5259D",
+      "updatedDateTime": "2025-03-23T13:25:59.799Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "95GM777M614QDUZPD5"
+          },
+          {
+            "id": "06RI926VES3CD7IDH0"
+          },
+          {
+            "id": "25GB372SBM4PCSGAR2"
+          },
+          {
+            "id": "25GB37076YUYTXKAR5"
+          },
+          {
+            "id": "25GB36ZLDP45JMRAR1"
+          },
+          {
+            "id": "25GB36ZCIZR18HAAR3"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "56"
+      },
+      "haulierEORI": "XM234764503630",
+      "gmrId": "YBWK80AV95ZQ",
+      "vehicleRegNum": "BCX3680B",
+      "updatedDateTime": "2025-03-23T18:11:10.285Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "27YJ199C6DR2H6CDE6"
+          },
+          {
+            "id": "25GB375RO93K3DDAR9"
+          },
+          {
+            "id": "25GB375MVSDXHUPAR5"
+          },
+          {
+            "id": "25GB371XUTMXC2PAR1"
+          },
+          {
+            "id": "25GB36ZYIU61I2XAR4"
+          },
+          {
+            "id": "25GB363ZJZ5U7NMAR4"
+          }
+        ]
+      },
+      "checkedInCrossing": {
+        "routeId": "56",
+        "localDateTimeOfArrival": "2025-03-24T05:15"
+      },
+      "state": "CHECKED_IN",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "20"
+      },
+      "haulierEORI": "GA354257724163",
+      "state": "OPEN",
+      "gmrId": "AFYC55HV3ZNR",
+      "vehicleRegNum": "7A6 0709",
+      "trailerRegistrationNums": [
+        "HS-27-LE"
+      ],
+      "updatedDateTime": "2025-03-22T16:22:08.621Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "49US252F36FFJGIGA5"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "WN648525474831",
+      "state": "OPEN",
+      "gmrId": "ZGYI29YY03H1",
+      "vehicleRegNum": "IX3241SN",
+      "trailerRegistrationNums": [
+        "MQ5987SC"
+      ],
+      "updatedDateTime": "2025-03-23T10:49:46.599Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "94VS421910WQLRKWO5"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "AX590640595137",
+      "state": "OPEN",
+      "gmrId": "NZCH89IN9O73",
+      "vehicleRegNum": "AMM1584W",
+      "updatedDateTime": "2025-03-23T12:39:07.238Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "19HG698RRXEPXHZYZ8"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "UL646098144492",
+      "state": "OPEN",
+      "gmrId": "LINF33KR6KSA",
+      "vehicleRegNum": "6083DBT",
+      "trailerRegistrationNums": [
+        "120581"
+      ],
+      "updatedDateTime": "2025-03-23T13:24:05.026Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "03VH295038275756D6"
+          },
+          {
+            "id": "25ES002141500920K4"
+          },
+          {
+            "id": "11LV710875351604N4"
+          },
+          {
+            "id": "85VD362740604802W5"
+          },
+          {
+            "id": "25ES002141500907K9"
+          },
+          {
+            "id": "74FR674637982186Y7"
+          },
+          {
+            "id": "25ES002141500917K3"
+          },
+          {
+            "id": "25ES002141500913K7"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "UL646098144492",
+      "state": "OPEN",
+      "gmrId": "PLQN22YU40L0",
+      "vehicleRegNum": "3919UJE",
+      "trailerRegistrationNums": [
+        "B5335CBH"
+      ],
+      "updatedDateTime": "2025-03-23T23:54:23.26Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "25ES002141500896K3"
+          },
+          {
+            "id": "77AF715218893186Q1"
+          },
+          {
+            "id": "25ES002141500894K5"
+          },
+          {
+            "id": "57UC783710699387H8"
+          },
+          {
+            "id": "25ES002141500892K7"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "21"
+      },
+      "haulierEORI": "UL646098144492",
+      "state": "OPEN",
+      "gmrId": "CKOT30HE116B",
+      "vehicleRegNum": "ZY62IAF",
+      "trailerRegistrationNums": [
+        "K5911YXO"
+      ],
+      "updatedDateTime": "2025-03-23T15:18:11.25Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "23BF669008352685N8"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "142"
+      },
+      "haulierEORI": "WR366109143082",
+      "state": "OPEN",
+      "gmrId": "HKUL93BF0HN6",
+      "trailerRegistrationNums": [
+        "QEQ74L"
+      ],
+      "updatedDateTime": "2025-03-23T16:32:17.783Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "60UZ131114O3RMTVX1"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    },
+    {
+      "plannedCrossing": {
+        "routeId": "23"
+      },
+      "haulierEORI": "VQ834755333064",
+      "state": "OPEN",
+      "gmrId": "EPIC25ZC1982",
+      "vehicleRegNum": "TJD1818N",
+      "updatedDateTime": "2025-03-23T21:21:17.374Z",
+      "declarations": {
+        "customs": [
+          {
+            "id": "85CB88R5EHVP9UTZW1"
+          },
+          {
+            "id": "68BG80MD0ZEVOGBEK7"
+          },
+          {
+            "id": "25GB36YBKX45XQWAR6"
+          }
+        ]
+      },
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": false
+    }
+  ]
+}
