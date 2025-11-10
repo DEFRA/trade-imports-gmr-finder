@@ -42,7 +42,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       LOCALSTACK_ENDPOINT: http://localstack:4566
-      MONGO_URI: mongodb://mongodb:27017/
+      Mongo__DatabaseUri: mongodb://mongodb:27017/
       PORT: 8080
       SQS_ENDPOINT: http://localstack:4566
 
