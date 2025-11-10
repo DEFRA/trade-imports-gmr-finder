@@ -43,11 +43,11 @@ public abstract class CronHostedService(
         }
     }
 
-    protected abstract Task DoWork();
+    protected abstract Task DoWork(CancellationToken cancellationToken);
 
-    private async Task ExecuteAsync(CancellationToken stoppingToken)
+    private async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        while (!cancellationToken.IsCancellationRequested)
         {
             var now = _timeProvider.GetUtcNow();
             var nextOccurrence = _schedule.GetNextOccurrence(now.UtcDateTime, TimeZoneInfo.Utc);
@@ -69,14 +69,14 @@ public abstract class CronHostedService(
             try
             {
                 logger.LogInformation("Next scheduled run at: {NextRunTimeUtc}", nextOccurrence.Value);
-                await Task.Delay(delay, _timeProvider, stoppingToken);
+                await Task.Delay(delay, _timeProvider, cancellationToken);
             }
-            catch (OperationCanceledException)
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
                 break;
             }
 
-            if (stoppingToken.IsCancellationRequested)
+            if (cancellationToken.IsCancellationRequested)
                 break;
 
             try
@@ -89,7 +89,7 @@ public abstract class CronHostedService(
                 if (token)
                 {
                     logger.LogInformation("Execution token acquired - Executing.");
-                    await DoWork();
+                    await DoWork(cancellationToken);
                 }
                 else
                 {
@@ -98,7 +98,7 @@ public abstract class CronHostedService(
             }
             catch (Exception ex) when (ex is not OperationCanceledException)
             {
-                logger.LogError(ex, "An error occurred executing the scheduled.");
+                logger.LogError(ex, "An error occurred executing the schedule");
             }
         }
 

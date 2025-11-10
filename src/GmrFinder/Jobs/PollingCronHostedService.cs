@@ -11,9 +11,9 @@ public class PollingCronHostedService(
 {
     private const string JobName = "poll_gvms_by_declaration";
 
-    protected override async Task DoWork()
+    protected override async Task DoWork(CancellationToken cancellationToken)
     {
-        logger.LogWarning("executing {Name}", nameof(PollingCronHostedService));
+        logger.LogInformation("executing {Name}", nameof(PollingCronHostedService));
         await Task.CompletedTask;
     }
 }

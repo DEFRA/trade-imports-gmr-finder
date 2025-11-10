@@ -199,7 +199,7 @@ public class CronHostedServiceTests
     {
         public int ExecutionCount { get; private set; }
 
-        protected override async Task DoWork()
+        protected override async Task DoWork(CancellationToken cancellationToken)
         {
             ExecutionCount++;
             action?.Invoke(ExecutionCount);
