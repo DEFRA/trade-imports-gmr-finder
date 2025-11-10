@@ -30,7 +30,7 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
                     await ProcessMessageAsync(message, stoppingToken);
                     await sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle, stoppingToken);
                 }
-                catch (OperationCanceledException)
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
                 {
                     return;
                 }

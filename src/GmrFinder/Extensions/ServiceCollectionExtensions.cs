@@ -1,6 +1,10 @@
 using Amazon;
 using Amazon.Runtime;
 using Amazon.SQS;
+using GmrFinder.Configuration;
+using GvmsClient.Client;
+using Microsoft.Extensions.Options;
+using Polly;
 
 namespace GmrFinder.Extensions;
 
@@ -31,6 +35,46 @@ public static class ServiceCollectionExtensions
         }
 
         services.AddSingleton<IAmazonSQS>(sp => new AmazonSQSClient());
+        return services;
+    }
+
+    public static IServiceCollection AddGvmsApiClient(this IServiceCollection services)
+    {
+        services
+            .AddValidateOptions<GmrFinderGvmsApiOptions>(GmrFinderGvmsApiOptions.SectionName)
+            .Validate(
+                apiOptions =>
+                {
+                    var baseUri = apiOptions.BaseUri;
+                    return Uri.TryCreate(baseUri, UriKind.Absolute, out _) && baseUri.EndsWith('/');
+                },
+                "BaseUri must be a valid absolute URI with trailing slash"
+            );
+
+        services.AddValidateOptions<GvmsApiOptions>(GmrFinderGvmsApiOptions.SectionName);
+
+        services
+            .AddMemoryCache()
+            .AddHttpClient<IGvmsApiClient, GvmsApiClient>(
+                (sp, c) =>
+                {
+                    var settings = sp.GetRequiredService<IOptions<GmrFinderGvmsApiOptions>>().Value;
+                    c.BaseAddress = new Uri(settings.BaseUri);
+                }
+            )
+            .AddResilienceHandler(
+                "GvmsApi",
+                (pipelineBuilder, context) =>
+                {
+                    var gvmsApiSettings = context.GetOptions<GmrFinderGvmsApiOptions>();
+
+                    pipelineBuilder
+                        .AddRetry(gvmsApiSettings.Retry)
+                        .AddTimeout(gvmsApiSettings.Timeout)
+                        .AddCircuitBreaker(gvmsApiSettings.CircuitBreaker);
+                }
+            );
+
         return services;
     }
 }

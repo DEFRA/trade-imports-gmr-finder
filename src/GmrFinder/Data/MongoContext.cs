@@ -5,9 +5,9 @@ namespace GmrFinder.Data;
 
 public class MongoContext(IMongoDbClientFactory database) : IMongoContext
 {
-    private readonly IMongoCollection<ScheduleToken> _scheduleTokens = database.GetCollection<ScheduleToken>(
+    public IMongoCollection<ScheduleToken> ScheduleTokens { get; } = database.GetCollection<ScheduleToken>(
         nameof(ScheduleToken)
     );
 
-    public IMongoCollection<ScheduleToken> ScheduleTokens => _scheduleTokens;
+    public IMongoCollectionSet<PollingItem> PollingItems { get; } = new MongoCollectionSet<PollingItem>(database);
 }

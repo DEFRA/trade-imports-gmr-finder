@@ -1,0 +1,2838 @@
+﻿{
+  GmrByDeclarationId: [
+    {
+      dec: 74FR674637982186Y7,
+      gmrs: [
+        LINF33KR6KSA
+      ]
+    },
+    {
+      dec: 68BG80MD0ZEVOGBEK7,
+      gmrs: [
+        EPIC25ZC1982
+      ]
+    },
+    {
+      dec: 57UC783710699387H8,
+      gmrs: [
+        PLQN22YU40L0
+      ]
+    },
+    {
+      dec: 60UZ131114O3RMTVX1,
+      gmrs: [
+        HKUL93BF0HN6
+      ]
+    },
+    {
+      dec: 85VD362740604802W5,
+      gmrs: [
+        LINF33KR6KSA
+      ]
+    },
+    {
+      dec: 11LV710875351604N4,
+      gmrs: [
+        LINF33KR6KSA
+      ]
+    },
+    {
+      dec: 03VH295038275756D6,
+      gmrs: [
+        LINF33KR6KSA
+      ]
+    },
+    {
+      dec: 48WY9FWIVDTX3TLAQ8,
+      gmrs: [
+        WYMM84IYB4LG
+      ]
+    },
+    {
+      dec: 19HG698RRXEPXHZYZ8,
+      gmrs: [
+        NZCH89IN9O73
+      ]
+    },
+    {
+      dec: 94VS421910WQLRKWO5,
+      gmrs: [
+        ZGYI29YY03H1
+      ]
+    },
+    {
+      dec: 26WS71X7T53MLQ9IT6,
+      gmrs: [
+        PAMH56OXI0S4
+      ]
+    },
+    {
+      dec: 54ZQ63804XPBDIGCN2,
+      gmrs: [
+        EJBU01AFOFJI
+      ]
+    },
+    {
+      dec: 53TS571206GXKCDBL4,
+      gmrs: [
+        EJBU01AFOFJI
+      ]
+    },
+    {
+      dec: 55YY134RM9RIIYZMW6,
+      gmrs: [
+        FSAR35MEKO40
+      ]
+    },
+    {
+      dec: 93IZ29YGM14BLM8HZ4,
+      gmrs: [
+        KVTE55WZWR03
+      ]
+    },
+    {
+      dec: 68RN315961VVVFLZA5,
+      gmrs: [
+        GKRB91XWU7LS
+      ]
+    },
+    {
+      dec: 49US252F36FFJGIGA5,
+      gmrs: [
+        AFYC55HV3ZNR
+      ]
+    },
+    {
+      dec: 57HW34V1MLI6NI5LV4,
+      gmrs: [
+        IFXK51UZY5GZ
+      ]
+    },
+    {
+      dec: 01EL01E8Z6R45MZPV4,
+      gmrs: [
+        IFXK51UZY5GZ
+      ]
+    },
+    {
+      dec: 48GN115GJIKTDT0JV6,
+      gmrs: [
+        JSYG45XTKHRZ
+      ]
+    },
+    {
+      dec: 34GP89U5FMENP2EYS9,
+      gmrs: [
+        IFXK51UZY5GZ
+      ]
+    },
+    {
+      dec: 27KC076279636685G8,
+      gmrs: [
+        STGK00CVZF2P
+      ]
+    },
+    {
+      dec: 39PS274TVZTOFHXBQ5,
+      gmrs: [
+        LUZA01UC2399
+      ]
+    },
+    {
+      dec: 04OH151258039516X3,
+      gmrs: [
+        LIEI69YVF2YM
+      ]
+    },
+    {
+      dec: 78CL00J6W8L7CXVQN9,
+      gmrs: [
+        YLCT36WN21TK
+      ]
+    },
+    {
+      dec: 75TW289T91MXQ1GSN4,
+      gmrs: [
+        ARMC58FP73QO
+      ]
+    },
+    {
+      dec: 02ZJALA79030J838Z4,
+      gmrs: [
+        EQSO45VQK1XP
+      ]
+    },
+    {
+      dec: 61QQ14ZCF76GTT4MK3,
+      gmrs: [
+        GQQF58CF1Q89
+      ]
+    },
+    {
+      dec: 70FRB88556477300A8
+    },
+    {
+      dec: 04FS064680823028L0
+    },
+    {
+      dec: 67WH3DO3LBQN2URTR2
+    },
+    {
+      dec: 74TK2SZRIETGGIJPD3
+    },
+    {
+      dec: 61IC9PAGTB66EHMXJ1
+    },
+    {
+      dec: 29WF499126492933B2
+    },
+    {
+      dec: 62VZ068390400950W7
+    },
+    {
+      dec: 66FYUL82MEI59471F2
+    },
+    {
+      dec: 22XX1839556882NBC6
+    },
+    {
+      dec: 11CE918380029881S3
+    },
+    {
+      dec: 50ZH174796784812GS
+    },
+    {
+      dec: 91HLIE1908749376J3
+    },
+    {
+      dec: 11MY84815191WDFYS5
+    },
+    {
+      dec: 84VF20397LIU22ASW7
+    },
+    {
+      dec: 88CK451960501934D8
+    },
+    {
+      dec: 48HA319409809262J5
+    },
+    {
+      dec: 19WW011523148869D2
+    },
+    {
+      dec: 05RN80SRSVIOI5HDX0
+    },
+    {
+      dec: 98VJ874802842915H5
+    },
+    {
+      dec: 19YB301115U51Z67T7
+    },
+    {
+      dec: 59WD34900033QOIBU0
+    },
+    {
+      dec: 22RF8CEB35T2IC2OKV
+    },
+    {
+      dec: 09BEDOM1VGP18359E6
+    },
+    {
+      dec: 63SJ3BHEMIN1RC9TR1
+    },
+    {
+      dec: 81XY889993003561E5
+    },
+    {
+      dec: 87XTKEX1491Q6NPBC4
+    },
+    {
+      dec: 28KQ779390580907N8
+    },
+    {
+      dec: 51QY26497709CNR1U5
+    },
+    {
+      dec: 94PB89968383D8XUG8
+    },
+    {
+      dec: 80QYZ41330355206Q1
+    },
+    {
+      dec: 59CP750683999957D2
+    },
+    {
+      dec: 76GA566418414454B3
+    },
+    {
+      dec: 96XUFC78ZYE47806U1
+    },
+    {
+      dec: 06PN263232695951P8
+    },
+    {
+      dec: 37EBW0W5XTT51963N3
+    },
+    {
+      dec: 49CGC70322257762M7
+    },
+    {
+      dec: 64IU7T64NK0NPC6WY5
+    },
+    {
+      dec: 18ZA659797108280N8
+    },
+    {
+      dec: 81KFKC6427243246D1
+    },
+    {
+      dec: 38XD8859J031ZAFFO7
+    },
+    {
+      dec: 88VN648071417121E2
+    },
+    {
+      dec: 35ZR526287431437L6
+    },
+    {
+      dec: 42WJ12F2G4J9QLWIQ4
+    },
+    {
+      dec: 72SC607820526777Y9
+    },
+    {
+      dec: 32CR77VPDULRGNPOJ2
+    },
+    {
+      dec: 57PYW67547613742I2
+    },
+    {
+      dec: 21SC7VMDX1VKTV5CI3
+    },
+    {
+      dec: 77TT7KULCK6WZ0GHB0
+    },
+    {
+      dec: 35JY763547390213M6
+    },
+    {
+      dec: 07GOO93143971696Q0
+    },
+    {
+      dec: 25KWRG67DHA71292C5
+    },
+    {
+      dec: 35KGYJA52558SRGXG5
+    },
+    {
+      dec: 27BKVIT80668MYPUI1
+    },
+    {
+      dec: 96ZHZE5644133132C3
+    },
+    {
+      dec: 83BJHIO97998RFKAX8
+    },
+    {
+      dec: 55XN841936H8W944S0
+    },
+    {
+      dec: 44YY43RYXLJCRRIMV9
+    },
+    {
+      dec: 44KH509062686441X9
+    },
+    {
+      dec: 73MJ016579L9047XN0
+    },
+    {
+      dec: 23BB616091023707T2
+    },
+    {
+      dec: 35BMNVR1563KW95DQ1
+    },
+    {
+      dec: 69VQ551850563475Q7
+    },
+    {
+      dec: 70EV556937593OP8V1
+    },
+    {
+      dec: 66NFVRJ62869WG0GR6
+    },
+    {
+      dec: 66QZ80G8BR0N57H661
+    },
+    {
+      dec: 67WNXGS720124XXDV6
+    },
+    {
+      dec: 23DS29VH7QUEGLSRF0
+    },
+    {
+      dec: 81GT65734848K6T4N0
+    },
+    {
+      dec: 79VR160KU3IFBZHIW5
+    },
+    {
+      dec: 45TU440ISSW79KLSZ9
+    },
+    {
+      dec: 97QDXK6577551812M2
+    },
+    {
+      dec: 68CV967207B5758JP0
+    },
+    {
+      dec: 56TB29PPGIOK8U0AC2
+    },
+    {
+      dec: 23ODKP2353547640P8
+    },
+    {
+      dec: 70TH467638684OZID9
+    },
+    {
+      dec: 01VI482427559794F0
+    },
+    {
+      dec: 40UR96R1Y4UDC1E714
+    },
+    {
+      dec: 47SW9X25GB7RDPKQT8
+    },
+    {
+      dec: 35GV38W6GOUXMBUIW4
+    },
+    {
+      dec: 35SG860693542109C8
+    },
+    {
+      dec: 49EB914643622965O3
+    },
+    {
+      dec: 20ZGTJD2379UKS6EP9
+    },
+    {
+      dec: 79ZI43D3QZJW04BET7
+    },
+    {
+      dec: 32XGIVX5362TXIXCI8
+    },
+    {
+      dec: 16UE893281919133C6
+    },
+    {
+      dec: 41DB864291490GW7R6
+    },
+    {
+      dec: 21CP520809595931K2
+    },
+    {
+      dec: 86KB2EPQZO9G8GTVM0
+    },
+    {
+      dec: 44HI506464052194R1
+    },
+    {
+      dec: 88PDHF1191GV0334L4
+    },
+    {
+      dec: 92BL95AP4RFKV4BIU1
+    },
+    {
+      dec: 90LE643460HT4TGRR5
+    },
+    {
+      dec: 22UK1ERTR61H445TR2
+    },
+    {
+      dec: 87YKPQ1634655899S1
+    },
+    {
+      dec: 47OF504400427323E6
+    },
+    {
+      dec: 98BFXHRX6K8FNSFVJ5
+    },
+    {
+      dec: 68XCL16821199950C3
+    },
+    {
+      dec: 47HN57355977GXBGW7
+    },
+    {
+      dec: 08BY82O7VZIBU4XQW4
+    },
+    {
+      dec: 83MZQY93ERK88462G8
+    },
+    {
+      dec: 55DW3Y6KGCJWQJ3JG7
+    },
+    {
+      dec: 33EQ6FKP1UAADN9MO5
+    },
+    {
+      dec: 71BH747974561713T2
+    },
+    {
+      dec: 17SS043040681135Z8
+    },
+    {
+      dec: 77IM36F44TB4EBLGB2
+    },
+    {
+      dec: 63UE748813349528P7
+    },
+    {
+      dec: 81LBFZJ82174J6HOC6
+    },
+    {
+      dec: 04WJMLZT6NOTMDCOH9
+    },
+    {
+      dec: 09WQ092651612291P8
+    },
+    {
+      dec: 65QC8D7FK4O0XW4KC7
+    },
+    {
+      dec: 88KT882007039806T4
+    },
+    {
+      dec: 77KY214498804231A1
+    },
+    {
+      dec: 53OWD76289468052O6
+    },
+    {
+      dec: 14AH90A2W6OTQYWYZ7
+    },
+    {
+      dec: 93EY650728341767A0
+    },
+    {
+      dec: 23VJ60B8PYNPSR2ZW7
+    },
+    {
+      dec: 94QO389396615037S1
+    },
+    {
+      dec: 09DH10WX70ZKBVRAM8
+    },
+    {
+      dec: 77MT856123076965X1
+    },
+    {
+      dec: 23AXDV9619448507Q9
+    },
+    {
+      dec: 82XUZ80586138585G8
+    },
+    {
+      dec: 90BLYG1203040274V7
+    },
+    {
+      dec: 28IH706522435254I1
+    },
+    {
+      dec: 47XO817204748623U1
+    },
+    {
+      dec: 35WJ376302725245F8
+    },
+    {
+      dec: 77HW352219388LB7W3
+    },
+    {
+      dec: 17YPYFU6UIF65430N5
+    },
+    {
+      dec: 02SG231OAGJZ43CBM5
+    },
+    {
+      dec: 92FX5PB168M7IP1RB7
+    },
+    {
+      dec: 90JYL91050521539T2
+    },
+    {
+      dec: 09MCPG68AOM83332A2
+    },
+    {
+      dec: 37OP19HKAWK9AIJRO1
+    },
+    {
+      dec: 86XL2257166R0LN5U7
+    },
+    {
+      dec: 30KHSL77JUG68251J8
+    },
+    {
+      dec: 51JE489291424898J7
+    },
+    {
+      dec: 52HFS88703729593I6
+    },
+    {
+      dec: 20UVCDZ13374MLMXX9
+    },
+    {
+      dec: 44CFLQ520582P7J6I2
+    },
+    {
+      dec: 03BL425339334898U7
+    },
+    {
+      dec: 10GTT04600295367A6
+    },
+    {
+      dec: 27HL4KZC6MXZB59EB0
+    },
+    {
+      dec: 38UB467589Q78M31F3
+    },
+    {
+      dec: 29OJ1KXXQIOCJAWFH6
+    },
+    {
+      dec: 33NWFX8091864712V4
+    },
+    {
+      dec: 59KA582031868096P9
+    },
+    {
+      dec: 77OD121735488809F0
+    },
+    {
+      dec: 92BG991219589454S7
+    },
+    {
+      dec: 47VY219S7AVEFL3ZW0
+    },
+    {
+      dec: 13QPN24736317380E6
+    },
+    {
+      dec: 73BU3XV3LYHJ7EASS7
+    },
+    {
+      dec: 94PH18269585811988
+    },
+    {
+      dec: 77DHEA38391108M9A8
+    },
+    {
+      dec: 83XDMFX7009MIDFJV8
+    },
+    {
+      dec: 02XD730048H5V412E9
+    },
+    {
+      dec: 35AE94BQ1KU27YGFF1
+    },
+    {
+      dec: 87PBFF4186824728Q4
+    },
+    {
+      dec: 03ZXYB1306DS9889G9
+    },
+    {
+      dec: 43AWX19266531043W3
+    },
+    {
+      dec: 91DZVO201529Y0A0Y7
+    },
+    {
+      dec: 16DY21YDHXHUJPLQB5
+    },
+    {
+      dec: 29ZHJJG60125FGJ1W0
+    },
+    {
+      dec: 62ST832353P04388Y4
+    },
+    {
+      dec: 75LMFBK6170MZNBTN7
+    },
+    {
+      dec: 78ZK36ZBNG189Z0XR5
+    },
+    {
+      dec: 86RQWPB64505HUD2Y3
+    },
+    {
+      dec: 64GG6341Z8DS296CD2
+    },
+    {
+      dec: 90LV921H3VIMB5RCO9
+    },
+    {
+      dec: 47DW27OD4XJADY6YC4
+    },
+    {
+      dec: 59XVO96237933443R5
+    },
+    {
+      dec: 16LTBU12HOT90266J0
+    },
+    {
+      dec: 90BW975894712322X4
+    },
+    {
+      dec: 25KN6998U669UUTKI4
+    },
+    {
+      dec: 04KW43974217893336
+    },
+    {
+      dec: 17UT697SBGZ7EY1XU1
+    },
+    {
+      dec: 39PN442E0IILEQJGK4
+    },
+    {
+      dec: 19LP033GQL6RULCLA3
+    },
+    {
+      dec: 78ZE856831S562SYH7
+    },
+    {
+      dec: 03ZK811757279970C3
+    },
+    {
+      dec: 67YX19JZJK88CCFAK4
+    },
+    {
+      dec: 03HYJMH40817KD1HH4
+    },
+    {
+      dec: 68OX341615779652H2
+    },
+    {
+      dec: 04X8KY5797KE6706V9
+    },
+    {
+      dec: 56AP862405511020R9
+    },
+    {
+      dec: 00PI875455259HBDH9
+    },
+    {
+      dec: 90HO82U8IKRQQQFGD6
+    },
+    {
+      dec: 49JVK87155308457A5
+    },
+    {
+      dec: 09JX902850254957T5
+    },
+    {
+      dec: 25LQ854773SOZPLEM9
+    },
+    {
+      dec: 46UC555655667230A5
+    },
+    {
+      dec: 49IZX98074492371W9
+    },
+    {
+      dec: 96OVPM0605491292R1
+    },
+    {
+      dec: 47RN291671620416E5
+    },
+    {
+      dec: 90SS457458717774F6
+    },
+    {
+      dec: 11ZGZD5145996XV0C5
+    },
+    {
+      dec: 18RL42W67F28HT0VK0
+    },
+    {
+      dec: 60ZFVH9040622225B4
+    },
+    {
+      dec: 98KWNWH03131N4U6S9
+    },
+    {
+      dec: 77ZB414WU85GAAQQJ3
+    },
+    {
+      dec: 59DX906168T1940EC6
+    },
+    {
+      dec: 42MF7FZ787B4R5HNH2
+    },
+    {
+      dec: 99RQ363100337424Y7
+    },
+    {
+      dec: 98DH758919316242F4
+    },
+    {
+      dec: 93KH187767206778M0
+    },
+    {
+      dec: 26AC587031809COEE1
+    },
+    {
+      dec: 43XW9J0QEAY661BWB9
+    },
+    {
+      dec: 91GV019457438475Z5
+    },
+    {
+      dec: 03RP471487819634Y2
+    },
+    {
+      dec: 20HA1MOZYT6UA2ZLE2
+    },
+    {
+      dec: 54KLCFQ6440YT2XOL8
+    },
+    {
+      dec: 11LVB45391AR3447S9
+    },
+    {
+      dec: 10ZB063320859876R0
+    },
+    {
+      dec: 02HO8QPYMB9NUO9WX7
+    },
+    {
+      dec: 09TS3RZWTHM4DSLMJ9
+    },
+    {
+      dec: 75JQ001823625759W2
+    },
+    {
+      dec: 70HIBD3773779236N7
+    },
+    {
+      dec: 55LY25L5O4ML8K1EU2
+    },
+    {
+      dec: 99KU0D8ZNI3NOYHEB7
+    },
+    {
+      dec: 16KK130278N8GQL4V6
+    },
+    {
+      dec: 34AV07DV4JEYQQADO2
+    },
+    {
+      dec: 88NDMK29YUR35765L1
+    },
+    {
+      dec: 86WX427589H44V29O9
+    },
+    {
+      dec: 32AVLP5560921498R6
+    },
+    {
+      dec: 34NP610837888377A6
+    },
+    {
+      dec: 80AGOMO59578ATTBE8
+    },
+    {
+      dec: 07IT732092671749P3
+    },
+    {
+      dec: 30ZT3N152XDA0POZF1
+    },
+    {
+      dec: 78FA771028841407F7
+    },
+    {
+      dec: 24HBY72193039206S8
+    },
+    {
+      dec: 47FU69VVVWDPJDZJP5
+    },
+    {
+      dec: 05PL87ETI9QMZZEHL2
+    },
+    {
+      dec: 67PT061909CY5UKFF6
+    },
+    {
+      dec: 84UG611723K78TT9M5
+    },
+    {
+      dec: 83WM4D1RJKSX5K7YA2
+    },
+    {
+      dec: 60ZM412778422163F3
+    },
+    {
+      dec: 41QS23A3C4GYG2E410
+    },
+    {
+      dec: 92PUCJQ3YYO51671V0
+    },
+    {
+      dec: 74OQ687740176309Q2
+    },
+    {
+      dec: 88KAKCD6511OBHFPL1
+    },
+    {
+      dec: 22IG5595322TNL7XL1
+    },
+    {
+      dec: 05OW214355X58IQEL7
+    },
+    {
+      dec: 37WYSWK10934DI8KM1
+    },
+    {
+      dec: 76RXHI1958658391P4
+    },
+    {
+      dec: 52FPFKL0340D36YGD2
+    },
+    {
+      dec: 20XK8ICPZSOTL8KBR4
+    },
+    {
+      dec: 34MH5ILGYZ32R9CED3
+    },
+    {
+      dec: 87PFB58294194513N3
+    },
+    {
+      dec: 28JG324886TQG62CT4
+    },
+    {
+      dec: 17ZCKK1550690284V2
+    },
+    {
+      dec: 04CNVBG059799DVKV8
+    },
+    {
+      dec: 32ZGX18317270908H2
+    },
+    {
+      dec: 07LX356753689251I5
+    },
+    {
+      dec: 15GMCSA2IDN11840Z8
+    },
+    {
+      dec: 37DO259275627821K6
+    },
+    {
+      dec: 49VL0IZMEKMOIJLWR4
+    },
+    {
+      dec: 32UI356226905725G5
+    },
+    {
+      dec: 40BN6XXUKE8S9CSFC2
+    },
+    {
+      dec: 73PU920049I0RV7XJ8
+    },
+    {
+      dec: 08TV82FBUEYAE1TRE6
+    },
+    {
+      dec: 94MRAGE3RUB19584T3
+    },
+    {
+      dec: 95JNKA2586064394Y4
+    },
+    {
+      dec: 65XKIT0539DN1648J6
+    },
+    {
+      dec: 15JV8L7KZJISI5YQY7
+    },
+    {
+      dec: 34HH731208640656K8
+    },
+    {
+      dec: 28QL365952412874K5
+    },
+    {
+      dec: 40PH057065802EW7S4
+    },
+    {
+      dec: 68LR737LUFD0ON7LP3
+    },
+    {
+      dec: 59KQO57283550915T3
+    },
+    {
+      dec: 07OL8NXQDP2XU4RNY3
+    },
+    {
+      dec: 38ZZ611472942172N6
+    },
+    {
+      dec: 13CDY22821459307R4
+    },
+    {
+      dec: 03MN7ANZPV4NDEMQX3
+    },
+    {
+      dec: 35FSD76691160349A7
+    },
+    {
+      dec: 12HJ53FXX417FXEUL2
+    },
+    {
+      dec: 56YG3FHHGKLH5WODJ6
+    },
+    {
+      dec: 94HAVB882325GJ14Q2
+    },
+    {
+      dec: 28OT89MLVQCUV41PB7
+    },
+    {
+      dec: 15EW189066698U57T3
+    },
+    {
+      dec: 20JT860480883771M8
+    },
+    {
+      dec: 43YX1FVRD46Q5LFTY1
+    },
+    {
+      dec: 55TEBX94EMX68457Y7
+    },
+    {
+      dec: 16GCF72508739886E9
+    },
+    {
+      dec: 78HTWC9656274955M8
+    },
+    {
+      dec: 99EYYH5934319948B8
+    },
+    {
+      dec: 63SF2BTCPSR2RDRBU6
+    },
+    {
+      dec: 83WWY88511158877H2
+    },
+    {
+      dec: 88FS84K555FZF56JU7
+    },
+    {
+      dec: 50TZ4NHYPCIRX3OLD9
+    },
+    {
+      dec: 09KO225313514305D3
+    },
+    {
+      dec: 80DABRX3479A8MTCE1
+    },
+    {
+      dec: 89QXK23196391063K9
+    },
+    {
+      dec: 81FPAF305221U2W7Y6
+    },
+    {
+      dec: 88PS474064157AQ9K4
+    },
+    {
+      dec: 37YX428454929XK2E7
+    },
+    {
+      dec: 17MM428661604411D5
+    },
+    {
+      dec: 98GNAZ3743HH1366J8
+    },
+    {
+      dec: 27OWMR5572973245H2
+    },
+    {
+      dec: 43RN258008060467S1
+    },
+    {
+      dec: 65XQ091362047369V4
+    },
+    {
+      dec: 87OO494895467BIFJ5
+    },
+    {
+      dec: 66MZ42WUWMCBT22RS9
+    },
+    {
+      dec: 95DFNXJ33353GKBBI0
+    },
+    {
+      dec: 74IC41TNGSILLGASF6
+    },
+    {
+      dec: 67VK8452BE47VEGZZ1
+    },
+    {
+      dec: 28JN152704506238W2
+    },
+    {
+      dec: 62JN985384058120F2
+    },
+    {
+      dec: 57NH169518L4204CT0
+    },
+    {
+      dec: 74JD2W1GMESTJ6NXF6
+    },
+    {
+      dec: 42JU205248995R0UX0
+    },
+    {
+      dec: 55DTWIN54432I8PVC0
+    },
+    {
+      dec: 57WQ72771532F3FJE4
+    },
+    {
+      dec: 10LN458405804975J3
+    },
+    {
+      dec: 87QCW47ZR73V3LSPZ8
+    },
+    {
+      dec: 35CCXE2345RS8843I9
+    },
+    {
+      dec: 23SN49NTSLFPZZ2TU1
+    },
+    {
+      dec: 01WQA34904343359G8
+    },
+    {
+      dec: 46IG350759874152R6
+    },
+    {
+      dec: 71LBZQ9972462711I6
+    },
+    {
+      dec: 09YO614811876310H8
+    },
+    {
+      dec: 85DM9IVB0GD990LOY1
+    },
+    {
+      dec: 30KG84DLVLF07JTJI4
+    },
+    {
+      dec: 60EX2494WVK26VNMF2
+    },
+    {
+      dec: 21KJ318072920382B5
+    },
+    {
+      dec: 70JXXWM6439H0CTPT7
+    },
+    {
+      dec: 48ZEU72030321638X7
+    },
+    {
+      dec: 43HSN14590650809W1
+    },
+    {
+      dec: 34IUSP65JOZ48422I8
+    },
+    {
+      dec: 11QH4JNMDY9YPQKVO1
+    },
+    {
+      dec: 30QI7FK61CT4VQ8CD1
+    },
+    {
+      dec: 03JJLN8831331540M4
+    },
+    {
+      dec: 73AO463ESXUJIL2RM5
+    },
+    {
+      dec: 98SR499137590482L1
+    },
+    {
+      dec: 70ZKDFY13760JJSOX9
+    },
+    {
+      dec: 75YS07BPU1AZWU7GR3
+    },
+    {
+      dec: 06GW093991419KIWA5
+    },
+    {
+      dec: 85RW3Q8KTSKT7GLDE0
+    },
+    {
+      dec: 39WXMBW4709QPONDP9
+    },
+    {
+      dec: 50VT47S6QS9PQQLNP8
+    },
+    {
+      dec: 00TY94259021NTD5R7
+    },
+    {
+      dec: 03ES376081X6I1H7N9
+    },
+    {
+      dec: 36GNV05313691273R2
+    },
+    {
+      dec: 48DC295464887FBMH8
+    },
+    {
+      dec: 35ULZJ88442F3226T0
+    },
+    {
+      dec: 57TM5XSJ0799C69PN6
+    },
+    {
+      dec: 01YNFSG4399NQYKGN7
+    },
+    {
+      dec: 59BXXK6382999459R8
+    },
+    {
+      dec: 61DO299446199615Z0
+    },
+    {
+      dec: 77JHN86257380632Z3
+    },
+    {
+      dec: 82XL600526778910W9
+    },
+    {
+      dec: 15ALFII4110F3SCXF3
+    },
+    {
+      dec: 70LFHGL06652C2S8J7
+    },
+    {
+      dec: 74JU777715005989P1
+    },
+    {
+      dec: 61CNXFV9048VLG4WI8
+    },
+    {
+      dec: 53XR81XI7Y7ACL0VN1
+    },
+    {
+      dec: 34DM4BN08C9XOC1NE2
+    },
+    {
+      dec: 75LDU95630925881W9
+    },
+    {
+      dec: 66FC6JIUYDFC2TTTY9
+    },
+    {
+      dec: 20IX59X0P0CTM6QVV0
+    },
+    {
+      dec: 42UX389075734688W8
+    },
+    {
+      dec: 25XP9845473583CWX4
+    },
+    {
+      dec: 36IKNA1435835234J1
+    },
+    {
+      dec: 72VCNUJULYS4O80WR8
+    },
+    {
+      dec: 00DFBY0192713512J0
+    },
+    {
+      dec: 15AD802511839511B7
+    },
+    {
+      dec: 89WHYX07332146P5X0
+    },
+    {
+      dec: 09QKP18687935659K9
+    },
+    {
+      dec: 54JEAH2300084558S9
+    },
+    {
+      dec: 35KW461905498240C7
+    },
+    {
+      dec: 00FS833468968984Z2
+    },
+    {
+      dec: 86FO232899L5BYGAL8
+    },
+    {
+      dec: 60WOZD3587837554X5
+    },
+    {
+      dec: 51HU433049184892S1
+    },
+    {
+      dec: 80ZN939189393544C2
+    },
+    {
+      dec: 64LI49RIQCVASSEBN5
+    },
+    {
+      dec: 17KLTXH4MNK84308Y5
+    },
+    {
+      dec: 07WR297011815695Y1
+    },
+    {
+      dec: 13SB6505KZNKJFCFN4
+    },
+    {
+      dec: 34AF934389F1MWD4D2
+    },
+    {
+      dec: 34KREE9571436748V2
+    },
+    {
+      dec: 31AP366046041583G5
+    },
+    {
+      dec: 63FX238525N0097RV1
+    },
+    {
+      dec: 77NUWZU3ARI05036T1
+    },
+    {
+      dec: 34SY099516207453R9
+    },
+    {
+      dec: 06SZJ02964650036M9
+    },
+    {
+      dec: 42LM77PYQ57V7UQSK2
+    },
+    {
+      dec: 46OT670944844544Z7
+    },
+    {
+      dec: 16KI2PEFZHT5WE3GD1
+    },
+    {
+      dec: 50ALEO0938428796O5
+    },
+    {
+      dec: 41ZV221T11C3OBAYF5
+    },
+    {
+      dec: 19UXOK07BXT21580L6
+    },
+    {
+      dec: 13NMZGV5147D1CQOE4
+    },
+    {
+      dec: 69PV290785420PLDG5
+    },
+    {
+      dec: 65OS328928G55L86N3
+    },
+    {
+      dec: 29LK4UWYRC95P15GD6
+    },
+    {
+      dec: 09SP6817HT9HE5XIU1
+    },
+    {
+      dec: 26BF370954958648U1
+    },
+    {
+      dec: 96ZJPDG91981KH8LV7
+    },
+    {
+      dec: 04UF411669V48G7IB9
+    },
+    {
+      dec: 29WI9WPG6V4TJCKHT8
+    },
+    {
+      dec: 22RZD9WU7PAOY82JA2
+    },
+    {
+      dec: 48MK126669767690C3
+    },
+    {
+      dec: 42DQZO9376622004G5
+    },
+    {
+      dec: 94HM049570160136T7
+    },
+    {
+      dec: 44AT530471146652V7
+    },
+    {
+      dec: 07XOIGV4990HQJGUM3
+    },
+    {
+      dec: 69QB25D1H3PF9DZ662
+    },
+    {
+      dec: 05ITPD6801771882J5
+    },
+    {
+      dec: 18VPQYQ016552YTWP4
+    },
+    {
+      dec: 69AY8A0EM87WUD4JF3
+    },
+    {
+      dec: 90SU749687832X36W5
+    },
+    {
+      dec: 18MY735739855SAAJ5
+    },
+    {
+      dec: 94AX8ZAU5NI6PKHHD4
+    },
+    {
+      dec: 72PU300421378038I5
+    },
+    {
+      dec: 49LTD2ZAHS45LRCHO8
+    },
+    {
+      dec: 03RBQ21089890700P2
+    },
+    {
+      dec: 89GXTMA3879MM1LPV5
+    },
+    {
+      dec: 29CG924251213988R6
+    },
+    {
+      dec: 81FB74789874PT3KK4
+    },
+    {
+      dec: 73CC50EXLYUFGB5MQ1
+    },
+    {
+      dec: 90VWYF11KZX88618R4
+    },
+    {
+      dec: 32HQZSF50026K177B5
+    },
+    {
+      dec: 48ZD454807330380X6
+    },
+    {
+      dec: 09QNVQV90729AS4NR0
+    },
+    {
+      dec: 70AA627805055840H7
+    },
+    {
+      dec: 40WA3BMERAPSDP5QZ2
+    },
+    {
+      dec: 43UW857900350732R6
+    },
+    {
+      dec: 09YC7LB35IXV96LML9
+    },
+    {
+      dec: 41AE274847749530C1
+    },
+    {
+      dec: 62ZF93A2QN34QK3CV8
+    },
+    {
+      dec: 29OS8OM5HQRI4K9XA0
+    },
+    {
+      dec: 29DJ549Q2MKYC0CJR1
+    },
+    {
+      dec: 50VCYRG6331J4MFCN2
+    },
+    {
+      dec: 77EBSBX5458Q4KTFA9
+    },
+    {
+      dec: 56VAHP398056H313Q5
+    },
+    {
+      dec: 01HW1YERINDSZ4FEC7
+    },
+    {
+      dec: 41DX306802224449O9
+    },
+    {
+      dec: 41RF307MPFN9ITYSW6
+    },
+    {
+      dec: 20SJAZ31JUQ04399D7
+    },
+    {
+      dec: 17QNMW96S6VWYEHTW6
+    },
+    {
+      dec: 21TT854060978197K4
+    },
+    {
+      dec: 43KTY7DR7YNR1BTWW3
+    },
+    {
+      dec: 20FJ6QSK0UMDU0TUZ0
+    },
+    {
+      dec: 88OZ13ZVOTJTV1IMR5
+    },
+    {
+      dec: 45PVTN0140937387X4
+    },
+    {
+      dec: 38AO43WI96R8F8IXF7,
+      gmrs: [
+        GPTQ63YUBJ7A
+      ]
+    },
+    {
+      dec: 86VG62L1ICQ3AGGOV3,
+      gmrs: [
+        YCJS96SFTHHF
+      ]
+    },
+    {
+      dec: 96DX25YXXCR99IZND5,
+      gmrs: [
+        SMZI85QTNGPD
+      ]
+    },
+    {
+      dec: 27YJ199C6DR2H6CDE6,
+      gmrs: [
+        YBWK80AV95ZQ
+      ]
+    },
+    {
+      dec: 86LA751114184675R9,
+      gmrs: [
+        JRRM97FQNZNB
+      ]
+    },
+    {
+      dec: 57HW17DQZFW1NDRDI6,
+      gmrs: [
+        LRAU32SF2WUZ
+      ]
+    },
+    {
+      dec: 56SL03VH23BNMEELH1,
+      gmrs: [
+        FSAR35MEKO40
+      ]
+    },
+    {
+      dec: 75LL615OJZL3WOHJA3,
+      gmrs: [
+        EJBU01AFOFJI
+      ]
+    },
+    {
+      dec: 53TT54AGE1U9293RQ5,
+      gmrs: [
+        PQNI55PAAZ0J
+      ]
+    },
+    {
+      dec: 82GR272950IYDLILD2,
+      gmrs: [
+        TSXL95CN7SP6
+      ]
+    },
+    {
+      dec: 83OY92HGKNTN0DFDD9,
+      gmrs: [
+        IJAA51UIY473
+      ]
+    },
+    {
+      dec: 48CR282VPJMUIYZBB9,
+      gmrs: [
+        LUZA01UC2399
+      ]
+    },
+    {
+      dec: 78IL41B2LD9DOOQBO1,
+      gmrs: [
+        MKLP17YFIBVO
+      ]
+    },
+    {
+      dec: 16HZ50E4ZYECZ16GN7,
+      gmrs: [
+        MKLP17YFIBVO
+      ]
+    },
+    {
+      dec: 70CL51I1TKFMXMVNE1,
+      gmrs: [
+        MKLP17YFIBVO
+      ]
+    },
+    {
+      dec: 17IF98Z260TX3M7XQ9,
+      gmrs: [
+        UJJF79ER3698
+      ]
+    },
+    {
+      dec: 06RI926VES3CD7IDH0,
+      gmrs: [
+        HMDF16QG41Q4
+      ]
+    },
+    {
+      dec: 61RI34D3GES76R0JZ6,
+      gmrs: [
+        JOBI74PSBRY0
+      ]
+    },
+    {
+      dec: 67BW12TPKVHOG8DYW8,
+      gmrs: [
+        PSSA61RKF436
+      ]
+    },
+    {
+      dec: 95UR73GU7L5UPRQJT1,
+      gmrs: [
+        PIWV61IKIJ9O
+      ]
+    },
+    {
+      dec: 23BF669008352685N8,
+      gmrs: [
+        CKOT30HE116B
+      ]
+    },
+    {
+      dec: 85CB88R5EHVP9UTZW1,
+      gmrs: [
+        EPIC25ZC1982
+      ]
+    },
+    {
+      dec: 77AF715218893186Q1,
+      gmrs: [
+        PLQN22YU40L0
+      ]
+    },
+    {
+      dec: 95GM777M614QDUZPD5,
+      gmrs: [
+        HMDF16QG41Q4
+      ]
+    },
+    {
+      dec: 46AU5P44841FKRAXR1,
+      gmrs: [
+        YDVN93FJ7TE0
+      ]
+    },
+    {
+      dec: 01HF927772UMYMTMY4,
+      gmrs: [
+        HQKQ90YRGIWR
+      ]
+    },
+    {
+      dec: 65LY78V5VYX3LO1DN4,
+      gmrs: [
+        YPOW69YBTI2N
+      ]
+    },
+    {
+      dec: 56XK525792BOBCNRG7,
+      gmrs: [
+        ZMJC63UFL25F
+      ]
+    },
+    {
+      dec: 29PG03DI0AG6TZ8YL6,
+      gmrs: [
+        QARD64WD2T3M
+      ]
+    }
+  ],
+  Gmrs: [
+    {
+      GmrId: ZMJC63UFL25F,
+      HaulierEori: TX137604595281,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_1,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 8487IPO,
+      TrailerRegistrationNums: [
+        M0816IYA
+      ],
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 56XK525792BOBCNRG7
+          }
+        ]
+      }
+    },
+    {
+      GmrId: YPOW69YBTI2N,
+      HaulierEori: ES288100398031,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_2,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 544Z0293,
+      PlannedCrossing: {
+        RouteId: 109
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 65LY78V5VYX3LO1DN4
+          }
+        ]
+      }
+    },
+    {
+      GmrId: YDVN93FJ7TE0,
+      HaulierEori: AQ375427245179,
+      State: NOT_FINALISABLE,
+      UpdatedDateTime: DateTimeOffset_3,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: SX18TAO,
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 46AU5P44841FKRAXR1
+          }
+        ]
+      }
+    },
+    {
+      GmrId: HQKQ90YRGIWR,
+      HaulierEori: KD659123308408,
+      State: NOT_FINALISABLE,
+      UpdatedDateTime: DateTimeOffset_4,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: OP8706NY,
+      PlannedCrossing: {
+        RouteId: 140
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 01HF927772UMYMTMY4
+          }
+        ]
+      }
+    },
+    {
+      GmrId: LIEI69YVF2YM,
+      HaulierEori: JS745632434889,
+      State: NOT_FINALISABLE,
+      UpdatedDateTime: DateTimeOffset_5,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 63MTK557,
+      TrailerRegistrationNums: [
+        73BW555
+      ],
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 04OH151258039516X3
+          }
+        ]
+      }
+    },
+    {
+      GmrId: GQQF58CF1Q89,
+      HaulierEori: DM549096811031,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_6,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: G3504GC,
+      PlannedCrossing: {
+        LocalDateTimeOfDeparture: 2025-03-22T00:00,
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 61QQ14ZCF76GTT4MK3
+          }
+        ]
+      }
+    },
+    {
+      GmrId: GKRB91XWU7LS,
+      HaulierEori: TP793148368569,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_7,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: ZH2745YE,
+      TrailerRegistrationNums: [
+        NW9180LS
+      ],
+      PlannedCrossing: {
+        RouteId: 140
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 68RN315961VVVFLZA5
+          }
+        ]
+      }
+    },
+    {
+      GmrId: EQSO45VQK1XP,
+      HaulierEori: KJ336535443226,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_8,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 231VA274,
+      TrailerRegistrationNums: [
+        WCC075
+      ],
+      PlannedCrossing: {
+        RouteId: 109
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T10:45,
+        RouteId: 33
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 02ZJALA79030J838Z4
+          }
+        ]
+      }
+    },
+    {
+      GmrId: JSYG45XTKHRZ,
+      HaulierEori: VS656972688704,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_9,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 71DUD9,
+      TrailerRegistrationNums: [
+        LF79UY
+      ],
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB345A02J9NXJAR2
+          },
+          {
+            Id: 48GN115GJIKTDT0JV6
+          }
+        ]
+      }
+    },
+    {
+      GmrId: PQNI55PAAZ0J,
+      HaulierEori: OU250804152360,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_10,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: true,
+      TrailerRegistrationNums: [
+        W4493ARH
+      ],
+      PlannedCrossing: {
+        RouteId: 42
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 53TT54AGE1U9293RQ5
+          }
+        ]
+      }
+    },
+    {
+      GmrId: PIWV61IKIJ9O,
+      HaulierEori: WU729371792387,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_11,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: true,
+      TrailerRegistrationNums: [
+        BD7736
+      ],
+      PlannedCrossing: {
+        RouteId: 33
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 95UR73GU7L5UPRQJT1
+          }
+        ]
+      }
+    },
+    {
+      GmrId: TSXL95CN7SP6,
+      HaulierEori: ZZ912461229177,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_12,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: EM1720MD,
+      TrailerRegistrationNums: [
+        BG9450IL
+      ],
+      PlannedCrossing: {
+        RouteId: 140
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 82GR272950IYDLILD2
+          }
+        ]
+      }
+    },
+    {
+      GmrId: LRAU32SF2WUZ,
+      HaulierEori: NY875574282425,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_13,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: true,
+      TrailerRegistrationNums: [
+        ZIRN595
+      ],
+      PlannedCrossing: {
+        RouteId: 272
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T04:00,
+        RouteId: 118
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 57HW17DQZFW1NDRDI6
+          }
+        ]
+      }
+    },
+    {
+      GmrId: QARD64WD2T3M,
+      HaulierEori: GZ769406952122,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_14,
+      Direction: UK_INBOUND,
+      HaulierType: STANDARD,
+      IsUnaccompanied: false,
+      VehicleRegNum: RS02XKU,
+      PlannedCrossing: {
+        RouteId: 107
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB35FPA2NI4RIAR8
+          },
+          {
+            Id: 29PG03DI0AG6TZ8YL6
+          }
+        ]
+      }
+    },
+    {
+      GmrId: WYMM84IYB4LG,
+      HaulierEori: NY875574282425,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_15,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: true,
+      TrailerRegistrationNums: [
+        MDZA344
+      ],
+      PlannedCrossing: {
+        RouteId: 272
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T04:00,
+        RouteId: 118
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 48WY9FWIVDTX3TLAQ8
+          }
+        ]
+      }
+    },
+    {
+      GmrId: YCJS96SFTHHF,
+      HaulierEori: DC158749377319,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_16,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 15-QEG-5,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB35WYR58QZVBAR4
+          },
+          {
+            Id: 86VG62L1ICQ3AGGOV3
+          }
+        ]
+      }
+    },
+    {
+      GmrId: SMZI85QTNGPD,
+      HaulierEori: HP195408857855,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_17,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: PXN366,
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 96DX25YXXCR99IZND5
+          },
+          {
+            Id: 25GB35O8DKKARF9AR4
+          },
+          {
+            Id: 25GB32Z6R5HICXJAR7
+          },
+          {
+            Id: 25GB35MZOSGQY3CAR2
+          },
+          {
+            Id: 25GB35MC1LBVHEPAR5
+          },
+          {
+            Id: 25GB35JSVK17RK8AR8
+          }
+        ]
+      }
+    },
+    {
+      GmrId: PAMH56OXI0S4,
+      HaulierEori: TZ314679784477,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_18,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: EO7489CS,
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 26WS71X7T53MLQ9IT6
+          }
+        ]
+      }
+    },
+    {
+      GmrId: PSSA61RKF436,
+      HaulierEori: PZ655074874064,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_19,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: UR32AGT,
+      PlannedCrossing: {
+        RouteId: 20
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB35TP8Z0VORGAR7
+          },
+          {
+            Id: 67BW12TPKVHOG8DYW8
+          }
+        ]
+      }
+    },
+    {
+      GmrId: IJAA51UIY473,
+      HaulierEori: QH257612451813,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_20,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 7010QBS,
+      PlannedCrossing: {
+        RouteId: 107
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB31JJ90J2NN0AR1
+          },
+          {
+            Id: 83OY92HGKNTN0DFDD9
+          },
+          {
+            Id: 25GB35KBH4ISYHBAR9
+          },
+          {
+            Id: 25GB31K2BRIW4W8AR3
+          },
+          {
+            Id: 25GB3047JQ9KH71AR4
+          },
+          {
+            Id: 25GB34ABB9UAXSQAR2
+          },
+          {
+            Id: 25GB34C5B1KPPVSAR5
+          },
+          {
+            Id: 25GB32RP3BGJBF8AR1
+          }
+        ]
+      }
+    },
+    {
+      GmrId: GPTQ63YUBJ7A,
+      HaulierEori: LS648908550527,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_21,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 84SMS1,
+      TrailerRegistrationNums: [
+        LY55FU
+      ],
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB35ULA1317F7AR7
+          },
+          {
+            Id: 25GB35V17ARZKU5AR3
+          },
+          {
+            Id: 38AO43WI96R8F8IXF7
+          },
+          {
+            Id: 25GB35UFNS00IYEAR0
+          }
+        ]
+      }
+    },
+    {
+      GmrId: STGK00CVZF2P,
+      HaulierEori: NO881272816229,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_22,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 50SGC425,
+      TrailerRegistrationNums: [
+        88VJQ518
+      ],
+      PlannedCrossing: {
+        RouteId: 140
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 27KC076279636685G8
+          }
+        ]
+      }
+    },
+    {
+      GmrId: MKLP17YFIBVO,
+      HaulierEori: LO508854878530,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_23,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: QV757LP,
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 70CL51I1TKFMXMVNE1
+          },
+          {
+            Id: 16HZ50E4ZYECZ16GN7
+          },
+          {
+            Id: 78IL41B2LD9DOOQBO1
+          },
+          {
+            Id: 25GB36LV6PNKJLIAR2
+          },
+          {
+            Id: 25GB36LV90GKK5BAR7
+          }
+        ]
+      }
+    },
+    {
+      GmrId: JOBI74PSBRY0,
+      HaulierEori: YQ926598759433,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_24,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: true,
+      TrailerRegistrationNums: [
+        HQ2091
+      ],
+      PlannedCrossing: {
+        RouteId: 310
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T06:30,
+        RouteId: 310
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 61RI34D3GES76R0JZ6
+          }
+        ]
+      }
+    },
+    {
+      GmrId: IFXK51UZY5GZ,
+      HaulierEori: LO508854878530,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_25,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: BF093DP,
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 34GP89U5FMENP2EYS9
+          },
+          {
+            Id: 01EL01E8Z6R45MZPV4
+          },
+          {
+            Id: 25GB36VDLL3VZTOAR9
+          },
+          {
+            Id: 57HW34V1MLI6NI5LV4
+          }
+        ]
+      }
+    },
+    {
+      GmrId: FSAR35MEKO40,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_26,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: KET20798,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB36WT1ET9UAHAR0
+          },
+          {
+            Id: 25GB36V6SPCUF1MAR7
+          },
+          {
+            Id: 56SL03VH23BNMEELH1
+          },
+          {
+            Id: 25GB36UBXPFT6ZWAR9
+          },
+          {
+            Id: 55YY134RM9RIIYZMW6
+          }
+        ]
+      }
+    },
+    {
+      GmrId: KVTE55WZWR03,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_27,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: ZC591VQ,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB371YFP0HV0YAR5
+          },
+          {
+            Id: 25GB36YWYJ16ZGYAR4
+          },
+          {
+            Id: 25GB36YQKX55ILHAR3
+          },
+          {
+            Id: 93IZ29YGM14BLM8HZ4
+          },
+          {
+            Id: 25GB36X7Z2AUOI6AR8
+          },
+          {
+            Id: 25GB36WTM6RADP7AR2
+          }
+        ]
+      }
+    },
+    {
+      GmrId: EJBU01AFOFJI,
+      HaulierEori: XM234764503630,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_28,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: LY7HG19,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB372K3QA4EHTAR0
+          },
+          {
+            Id: 75LL615OJZL3WOHJA3
+          },
+          {
+            Id: 54ZQ63804XPBDIGCN2
+          },
+          {
+            Id: 25GB36XB5VWYQ6FAR4
+          },
+          {
+            Id: 25GB3650XRLCWUVAR3
+          },
+          {
+            Id: 53TS571206GXKCDBL4
+          }
+        ]
+      }
+    },
+    {
+      GmrId: JRRM97FQNZNB,
+      HaulierEori: FW329973873124,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_29,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 3390OUN,
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 86LA751114184675R9
+          }
+        ]
+      }
+    },
+    {
+      GmrId: ARMC58FP73QO,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_30,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: OL0DM88,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB370MJPM85FIAR8
+          },
+          {
+            Id: 75TW289T91MXQ1GSN4
+          },
+          {
+            Id: 25GB3700R3ZYOXOAR8
+          },
+          {
+            Id: 25GB36ZWOBXUZ5SAR9
+          },
+          {
+            Id: 25GB36ZRDF3UJ8MAR9
+          },
+          {
+            Id: 25GB36ZM0QVW2AMAR7
+          },
+          {
+            Id: 25GB36ZGIG22E0NAR4
+          },
+          {
+            Id: 25GB36YY5XY8DY9AR4
+          },
+          {
+            Id: 25GB3657LAFHF6FAR1
+          }
+        ]
+      }
+    },
+    {
+      GmrId: UJJF79ER3698,
+      HaulierEori: RN441844610236,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_31,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: HJMN958,
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB35P1QJ8F1YSAR6
+          },
+          {
+            Id: 17IF98Z260TX3M7XQ9
+          }
+        ]
+      }
+    },
+    {
+      GmrId: LUZA01UC2399,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_32,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: FZZ42037,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 25GB37435Q8AUCFAR3
+          },
+          {
+            Id: 25GB373VZ57HMIZAR5
+          },
+          {
+            Id: 48CR282VPJMUIYZBB9
+          },
+          {
+            Id: 39PS274TVZTOFHXBQ5
+          },
+          {
+            Id: 25GB3739M5GU20VAR6
+          },
+          {
+            Id: 25GB373616K1027AR1
+          },
+          {
+            Id: 25GB3736167A6E2AR9
+          }
+        ]
+      }
+    },
+    {
+      GmrId: YLCT36WN21TK,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_33,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: VAZ6005T,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 78CL00J6W8L7CXVQN9
+          },
+          {
+            Id: 25GB36YLC74IT5BAR1
+          },
+          {
+            Id: 25GB36XCHEHQC9PAR8
+          },
+          {
+            Id: 25GB360N2G8FK4MAR5
+          }
+        ]
+      }
+    },
+    {
+      GmrId: HMDF16QG41Q4,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_34,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: AO5259D,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 95GM777M614QDUZPD5
+          },
+          {
+            Id: 06RI926VES3CD7IDH0
+          },
+          {
+            Id: 25GB372SBM4PCSGAR2
+          },
+          {
+            Id: 25GB37076YUYTXKAR5
+          },
+          {
+            Id: 25GB36ZLDP45JMRAR1
+          },
+          {
+            Id: 25GB36ZCIZR18HAAR3
+          }
+        ]
+      }
+    },
+    {
+      GmrId: YBWK80AV95ZQ,
+      HaulierEori: XM234764503630,
+      State: CHECKED_IN,
+      UpdatedDateTime: DateTimeOffset_35,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: BCX3680B,
+      PlannedCrossing: {
+        RouteId: 56
+      },
+      CheckedInCrossing: {
+        LocalDateTimeOfArrival: 2025-03-24T05:15,
+        RouteId: 56
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 27YJ199C6DR2H6CDE6
+          },
+          {
+            Id: 25GB375RO93K3DDAR9
+          },
+          {
+            Id: 25GB375MVSDXHUPAR5
+          },
+          {
+            Id: 25GB371XUTMXC2PAR1
+          },
+          {
+            Id: 25GB36ZYIU61I2XAR4
+          },
+          {
+            Id: 25GB363ZJZ5U7NMAR4
+          }
+        ]
+      }
+    },
+    {
+      GmrId: AFYC55HV3ZNR,
+      HaulierEori: GA354257724163,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_36,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 7A6 0709,
+      TrailerRegistrationNums: [
+        HS-27-LE
+      ],
+      PlannedCrossing: {
+        RouteId: 20
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 49US252F36FFJGIGA5
+          }
+        ]
+      }
+    },
+    {
+      GmrId: ZGYI29YY03H1,
+      HaulierEori: WN648525474831,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_37,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: IX3241SN,
+      TrailerRegistrationNums: [
+        MQ5987SC
+      ],
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 94VS421910WQLRKWO5
+          }
+        ]
+      }
+    },
+    {
+      GmrId: NZCH89IN9O73,
+      HaulierEori: AX590640595137,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_38,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: AMM1584W,
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 19HG698RRXEPXHZYZ8
+          }
+        ]
+      }
+    },
+    {
+      GmrId: LINF33KR6KSA,
+      HaulierEori: UL646098144492,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_39,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 6083DBT,
+      TrailerRegistrationNums: [
+        120581
+      ],
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 03VH295038275756D6
+          },
+          {
+            Id: 25ES002141500920K4
+          },
+          {
+            Id: 11LV710875351604N4
+          },
+          {
+            Id: 85VD362740604802W5
+          },
+          {
+            Id: 25ES002141500907K9
+          },
+          {
+            Id: 74FR674637982186Y7
+          },
+          {
+            Id: 25ES002141500917K3
+          },
+          {
+            Id: 25ES002141500913K7
+          }
+        ]
+      }
+    },
+    {
+      GmrId: PLQN22YU40L0,
+      HaulierEori: UL646098144492,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_40,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: 3919UJE,
+      TrailerRegistrationNums: [
+        B5335CBH
+      ],
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 25ES002141500896K3
+          },
+          {
+            Id: 77AF715218893186Q1
+          },
+          {
+            Id: 25ES002141500894K5
+          },
+          {
+            Id: 57UC783710699387H8
+          },
+          {
+            Id: 25ES002141500892K7
+          }
+        ]
+      }
+    },
+    {
+      GmrId: CKOT30HE116B,
+      HaulierEori: UL646098144492,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_41,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: ZY62IAF,
+      TrailerRegistrationNums: [
+        K5911YXO
+      ],
+      PlannedCrossing: {
+        RouteId: 21
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 23BF669008352685N8
+          }
+        ]
+      }
+    },
+    {
+      GmrId: HKUL93BF0HN6,
+      HaulierEori: WR366109143082,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_42,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: true,
+      TrailerRegistrationNums: [
+        QEQ74L
+      ],
+      PlannedCrossing: {
+        RouteId: 142
+      },
+      Declarations: {
+        Transits: [
+          {
+            Id: 60UZ131114O3RMTVX1
+          }
+        ]
+      }
+    },
+    {
+      GmrId: EPIC25ZC1982,
+      HaulierEori: VQ834755333064,
+      State: OPEN,
+      UpdatedDateTime: DateTimeOffset_43,
+      Direction: UK_INBOUND,
+      IsUnaccompanied: false,
+      VehicleRegNum: TJD1818N,
+      PlannedCrossing: {
+        RouteId: 23
+      },
+      Declarations: {
+        Customs: [
+          {
+            Id: 85CB88R5EHVP9UTZW1
+          },
+          {
+            Id: 68BG80MD0ZEVOGBEK7
+          },
+          {
+            Id: 25GB36YBKX45XQWAR6
+          }
+        ]
+      }
+    }
+  ]
+}
