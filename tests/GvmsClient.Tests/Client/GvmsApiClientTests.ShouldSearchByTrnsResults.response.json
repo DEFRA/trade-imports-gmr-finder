@@ -1,0 +1,33 @@
+{
+  "gmrsByVrn": [
+    {
+      "vrn": "PO33RT5",
+      "gmrs": ["GMRADOWNAOAX"]
+    }
+  ],
+  "gmrs": [
+    {
+      "plannedCrossing": {
+        "routeId": "19",
+        "localDateTimeOfDeparture": "2025-09-14T14:34"
+      },
+      "gmrId": "GMRADOWNAOAP",
+      "vehicleRegNum": "PO33RT5",
+      "trailerRegistrationNums": ["999AB", "999EY"],
+      "updatedDateTime": "2025-09-04T14:34:17.753Z",
+      "haulierType": "FPO_ASN",
+      "actualCrossing": {
+        "routeId": "19",
+        "localDateTimeOfArrival": "2025-09-16T14:34"
+      },
+      "haulierEORI": "GB6283151245999",
+      "checkedInCrossing": {
+        "routeId": "19",
+        "localDateTimeOfArrival": "2025-09-15T14:34"
+      },
+      "state": "COMPLETED",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    }
+  ]
+}

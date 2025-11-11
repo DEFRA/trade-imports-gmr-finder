@@ -42,6 +42,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       LOCALSTACK_ENDPOINT: http://localstack:4566
+      GvmsApi__ClientId: ${GVMS_API_CLIENT_ID}
+      GvmsApi__ClientSecret: ${GVMS_API_CLIENT_SECRET}
       Mongo__DatabaseUri: mongodb://mongodb:27017/
       PORT: 8080
       SQS_ENDPOINT: http://localstack:4566

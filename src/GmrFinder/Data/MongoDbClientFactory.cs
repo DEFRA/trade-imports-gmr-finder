@@ -24,11 +24,10 @@ public class MongoDbClientFactory : IMongoDbClientFactory
             throw new ArgumentException("MongoDB database name cannot be empty");
 
         var settings = MongoClientSettings.FromConnectionString(uri);
-        
+
         _client = new MongoClient(settings);
 
         var camelCaseConvention = new ConventionPack { new CamelCaseElementNameConvention() };
-        // convention must be registered before initialising collection
         ConventionRegistry.Register("CamelCase", camelCaseConvention, _ => true);
 
         _mongoDatabase = _client.GetDatabase(databaseName);

@@ -1,0 +1,43 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Verify.XunitV3" Version="31.4.3" />
+    <PackageReference Include="WireMock.Net" Version="1.12.0" />
+    <PackageReference Include="xunit.v3" Version="3.2.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Client\GvmsApiClientTests.ShouldSearchByMrnsResults.response.json" />
+    <EmbeddedResource Include="Client\GvmsApiClientTests.ShouldSearchByVrnsResults.response.json" />
+    <EmbeddedResource Include="Client\GvmsApiClientTests.ShouldSearchByTrnsResults.response.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Client\GvmsApiClientTests.ShouldSearchByMrnsResults.verified.txt" />
+    <ProjectReference Include="../../src/GvmsClient/GvmsClient.csproj" />
+    <Resource Include="Client\GvmsApiClientTests.ShouldSearchByMrnsResults.verified.txt">
+      <DependentUpon>GvmsApiClientTests.cs</DependentUpon>
+    </Resource>
+    <None Update="Client\GvmsApiClientTests.ShouldSearchByVrnsResults.verified.txt">
+      <DependentUpon>GvmsApiClientTests.cs</DependentUpon>
+    </None>
+    <None Update="Client\GvmsApiClientTests.ShouldSearchByTrnResults.verified.txt">
+      <DependentUpon>GvmsApiClientTests.cs</DependentUpon>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,17 @@
+﻿{
+  Gmrs: [
+    {
+      GmrId: GMRADOWNAOAP,
+      State: COMPLETED,
+      Direction: UK_INBOUND,
+      ActualCrossing: {
+        RouteId: 19,
+        LocalDateTimeOfArrival: DateTime_1
+      },
+      TrailerRegistrationNums: [
+        999AB,
+        999EY
+      ]
+    }
+  ]
+}
