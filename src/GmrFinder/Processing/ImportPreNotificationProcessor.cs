@@ -39,9 +39,6 @@ public class ImportPreNotificationProcessor(
 
         logger.LogInformation("Processing CHED {ChedReference} with MRN {NctsMrn}", chedReference, nctsMrn);
 
-        await pollingService.Process(
-            new PollingRequest { ChedReferences = [chedReference], Mrn = nctsMrn },
-            cancellationToken
-        );
+        await pollingService.Process(new PollingRequest { Mrn = nctsMrn }, cancellationToken);
     }
 }

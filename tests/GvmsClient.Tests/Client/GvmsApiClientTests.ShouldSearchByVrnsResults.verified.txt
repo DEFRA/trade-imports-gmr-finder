@@ -1,0 +1,16 @@
+﻿{
+  Gmrs: [
+    {
+      GmrId: GMRATOMBIGT1,
+      State: COMPLETED,
+      Direction: UK_INBOUND,
+      ActualCrossing: {
+        RouteId: 19,
+        LocalDateTimeOfArrival: DateTime_1
+      },
+      TrailerRegistrationNums: [
+        POO5235
+      ]
+    }
+  ]
+}

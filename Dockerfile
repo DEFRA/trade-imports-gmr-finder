@@ -19,7 +19,9 @@ COPY .csharpierrc .csharpierrc
 RUN dotnet tool restore
 RUN dotnet csharpier check .
 
+COPY src/GvmsClient/GvmsClient.csproj src/GvmsClient/GvmsClient.csproj
 COPY src/GmrFinder/GmrFinder.csproj src/GmrFinder/GmrFinder.csproj
+COPY tests/GvmsClient.Tests/GvmsClient.Tests.csproj tests/GvmsClient.Tests/GvmsClient.Tests.csproj
 COPY tests/GmrFinder.Tests/GmrFinder.Tests.csproj tests/GmrFinder.Tests/GmrFinder.Tests.csproj
 COPY tests/GmrFinder.IntegrationTests/GmrFinder.IntegrationTests.csproj tests/GmrFinder.IntegrationTests/GmrFinder.IntegrationTests.csproj
 COPY tests/TestFixtures/TestFixtures.csproj tests/TestFixtures/TestFixtures.csproj
@@ -29,7 +31,9 @@ COPY NuGet.config NuGet.config
 
 RUN dotnet restore
 
+COPY src/GvmsClient src/GvmsClient
 COPY src/GmrFinder src/GmrFinder
+COPY tests/GvmsClient.Tests tests/GvmsClient.Tests
 COPY tests/GmrFinder.Tests tests/GmrFinder.Tests
 COPY tests/GmrFinder.IntegrationTests tests/GmrFinder.IntegrationTests
 COPY tests/TestFixtures tests/TestFixtures

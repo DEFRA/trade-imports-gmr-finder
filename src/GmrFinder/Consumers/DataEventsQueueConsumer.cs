@@ -26,7 +26,7 @@ public sealed class DataEventsQueueConsumer(
     {
         var json = MessageDeserializer.Deserialize<JsonElement>(message.Body, message.GetContentEncoding());
 
-        _logger.LogInformation("Message received: {ResourceType} {Body}", message.GetResourceType(), json);
+        _logger.LogInformation("Message received: {ResourceType}", message.GetResourceType());
 
         switch (message.GetResourceType())
         {
@@ -38,10 +38,7 @@ public sealed class DataEventsQueueConsumer(
             case ResourceEventResourceTypes.ImportPreNotification:
                 var importPreNotification = json.Deserialize<ResourceEvent<ImportPreNotification>>()!;
                 await importPreNotificationProcessor.ProcessAsync(importPreNotification, stoppingToken);
-                _logger.LogInformation("Received import pre notification: {Body}", "text");
                 break;
         }
-
-        return;
     }
 }

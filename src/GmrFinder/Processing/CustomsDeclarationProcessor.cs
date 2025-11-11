@@ -57,9 +57,6 @@ public class CustomsDeclarationProcessor(
 
         logger.LogInformation("Processing MRN {Mrn}", mrn);
 
-        await pollingService.Process(
-            new PollingRequest { ChedReferences = chedReferences, Mrn = mrn },
-            cancellationToken
-        );
+        await pollingService.Process(new PollingRequest { Mrn = mrn }, cancellationToken);
     }
 }

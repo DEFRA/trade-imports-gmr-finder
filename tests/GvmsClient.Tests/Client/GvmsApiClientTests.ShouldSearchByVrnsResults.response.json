@@ -1,0 +1,34 @@
+{
+  "gmrs": [
+    {
+      "plannedCrossing": {
+        "routeId": "19",
+        "localDateTimeOfDeparture": "2025-09-14T14:31"
+      },
+      "gmrId": "GMRATOMBIGT1",
+      "vehicleRegNum": "POOWJW",
+      "trailerRegistrationNums": ["POO5235"],
+      "updatedDateTime": "2025-09-04T14:31:01.910Z",
+      "declarations": {
+        "transits": [
+          {
+            "id": "24AT123456789AB999"
+          }
+        ]
+      },
+      "haulierType": "NATO_MOD",
+      "actualCrossing": {
+        "routeId": "19",
+        "localDateTimeOfArrival": "2025-09-16T14:31"
+      },
+      "haulierEORI": "GB3518058618999",
+      "checkedInCrossing": {
+        "routeId": "19",
+        "localDateTimeOfArrival": "2025-09-15T14:31"
+      },
+      "state": "COMPLETED",
+      "direction": "UK_INBOUND",
+      "isUnaccompanied": true
+    }
+  ]
+}

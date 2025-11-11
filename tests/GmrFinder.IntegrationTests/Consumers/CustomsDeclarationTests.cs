@@ -18,9 +18,12 @@ public class CustomsDeclarationTests : IntegrationTestBase
         var config = ServiceProvider.GetRequiredService<IOptions<DataEventsQueueConsumerOptions>>().Value;
         var (sqsClient, queueUrl) = await GetSqsClient(config.QueueName);
 
+        var expectedMrn = CustomsDeclarationFixtures.GenerateMrn();
+
         var customsDeclaration = CustomsDeclarationFixtures.CustomsDeclarationFixture().Create();
         var resourceEvent = CustomsDeclarationFixtures
             .CustomsDeclarationResourceEventFixture(customsDeclaration)
+            .With(r => r.ResourceId, expectedMrn)
             .Create();
 
         var message = new SendMessageRequest
@@ -42,7 +45,7 @@ public class CustomsDeclarationTests : IntegrationTestBase
 
         await sqsClient.SendMessageAsync(message, TestContext.Current.CancellationToken);
 
-        var success = await AsyncWaiter.WaitForAsync(
+        var messageConsumed = await AsyncWaiter.WaitForAsync(
             async () =>
             {
                 var numberMessagesOnQueue = await sqsClient.GetQueueAttributesAsync(
@@ -57,6 +60,21 @@ public class CustomsDeclarationTests : IntegrationTestBase
             TestContext.Current.CancellationToken
         );
 
-        success.Should().BeTrue();
+        messageConsumed.Should().BeTrue();
+
+        var pollingItemCreated = await AsyncWaiter.WaitForAsync(
+            async () =>
+            {
+                return (
+                        await Mongo.PollingItems.FindOne(
+                            p => p.Id == expectedMrn,
+                            TestContext.Current.CancellationToken
+                        )
+                    ) != null;
+            },
+            TestContext.Current.CancellationToken
+        );
+
+        pollingItemCreated.Should().BeTrue();
     }
 }
