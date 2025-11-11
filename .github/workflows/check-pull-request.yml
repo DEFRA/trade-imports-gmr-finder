@@ -48,7 +48,8 @@ jobs:
       - name: Check with Trivy
         run: docker run -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image trade-imports-gmr-finder:latest --ignore-unfixed
   sonarcloud-scan:
-   name: CDP SonarCloud Scan
-   uses: ./.github/workflows/sonarcloud.yml
-   needs: pr-validator
-   secrets: inherit
+    name: CDP SonarCloud Scan
+    uses: ./.github/workflows/sonarcloud.yml
+    needs: pr-validator
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
