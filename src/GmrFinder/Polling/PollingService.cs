@@ -1,5 +1,3 @@
-using System;
-using System.Security.Cryptography;
 using System.Text.Json;
 
 namespace GmrFinder.Polling;

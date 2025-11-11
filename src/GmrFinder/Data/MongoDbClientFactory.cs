@@ -24,7 +24,7 @@ public class MongoDbClientFactory : IMongoDbClientFactory
             throw new ArgumentException("MongoDB database name cannot be empty");
 
         var settings = MongoClientSettings.FromConnectionString(uri);
-        
+
         _client = new MongoClient(settings);
 
         var camelCaseConvention = new ConventionPack { new CamelCaseElementNameConvention() };

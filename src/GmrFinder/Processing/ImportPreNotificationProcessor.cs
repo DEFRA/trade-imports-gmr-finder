@@ -1,13 +1,14 @@
-using System;
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Polling;
+using GmrFinder.Utils.Validators;
 
 namespace GmrFinder.Processing;
 
 public class ImportPreNotificationProcessor(
     ILogger<ImportPreNotificationProcessor> logger,
-    IPollingService pollingService
+    IPollingService pollingService,
+    IStringValidators stringValidators
 ) : IImportPreNotificationProcessor
 {
     public async Task ProcessAsync(
@@ -27,6 +28,12 @@ public class ImportPreNotificationProcessor(
                 "Skipping Ipaffs record {ChedReference} because it does not have an NCTS MRN",
                 chedReference
             );
+            return;
+        }
+
+        if (!stringValidators.IsValidMrn(nctsMrn))
+        {
+            logger.LogInformation("Received invalid NCTS MRN: {Mrn}, skipping", nctsMrn);
             return;
         }
 

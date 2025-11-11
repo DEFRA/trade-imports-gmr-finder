@@ -1,10 +1,8 @@
-using System.Security.AccessControl;
 using AutoFixture;
-using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
-using Defra.TradeImportsDataApi.Domain.Events;
 using FluentAssertions;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
+using GmrFinder.Utils.Validators;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TestFixtures;
@@ -15,6 +13,7 @@ public class CustomsDeclarationProcessorTests
 {
     private readonly Mock<ILogger<CustomsDeclarationProcessor>> _logger = new();
     private readonly Mock<IPollingService> _pollingService = new();
+    private readonly Mock<IStringValidators> _stringValidators = new();
     private readonly CustomsDeclarationProcessor _processor;
 
     public CustomsDeclarationProcessorTests()
@@ -23,7 +22,28 @@ public class CustomsDeclarationProcessorTests
             .Setup(service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
 
-        _processor = new CustomsDeclarationProcessor(_logger.Object, _pollingService.Object);
+        _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(true);
+
+        _processor = new CustomsDeclarationProcessor(_logger.Object, _pollingService.Object, _stringValidators.Object);
+    }
+
+    [Fact]
+    public async Task ProcessAsync_WhenTheMrnIsInvalid_SkipsProcessing()
+    {
+        var customsDeclaration = CustomsDeclarationFixtures.CustomsDeclarationFixture().Create();
+
+        var resourceEvent = CustomsDeclarationFixtures
+            .CustomsDeclarationResourceEventFixture(customsDeclaration)
+            .Create();
+
+        _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(false);
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        _pollingService.Verify(
+            service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()),
+            Times.Never
+        );
     }
 
     [Fact]
