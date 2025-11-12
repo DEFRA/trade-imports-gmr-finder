@@ -1,10 +1,8 @@
-using System.Security.AccessControl;
 using AutoFixture;
-using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
-using Defra.TradeImportsDataApi.Domain.Events;
 using FluentAssertions;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
+using GmrFinder.Utils.Validators;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TestFixtures;
@@ -15,6 +13,7 @@ public class CustomsDeclarationProcessorTests
 {
     private readonly Mock<ILogger<CustomsDeclarationProcessor>> _logger = new();
     private readonly Mock<IPollingService> _pollingService = new();
+    private readonly Mock<IStringValidators> _stringValidators = new();
     private readonly CustomsDeclarationProcessor _processor;
 
     public CustomsDeclarationProcessorTests()
@@ -23,7 +22,28 @@ public class CustomsDeclarationProcessorTests
             .Setup(service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
 
-        _processor = new CustomsDeclarationProcessor(_logger.Object, _pollingService.Object);
+        _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(true);
+
+        _processor = new CustomsDeclarationProcessor(_logger.Object, _pollingService.Object, _stringValidators.Object);
+    }
+
+    [Fact]
+    public async Task ProcessAsync_WhenTheMrnIsInvalid_SkipsProcessing()
+    {
+        var customsDeclaration = CustomsDeclarationFixtures.CustomsDeclarationFixture().Create();
+
+        var resourceEvent = CustomsDeclarationFixtures
+            .CustomsDeclarationResourceEventFixture(customsDeclaration)
+            .Create();
+
+        _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(false);
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        _pollingService.Verify(
+            service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()),
+            Times.Never
+        );
     }
 
     [Fact]
@@ -73,46 +93,6 @@ public class CustomsDeclarationProcessorTests
     }
 
     [Fact]
-    public async Task ProcessAsync_WhenThereAreDuplicateCHEDReferences_ItDeduplicatesThem_AndInvokesPolling()
-    {
-        var chedReferences = new List<string>
-        {
-            "CHEDPP.GB.2025.1053368",
-            "CHEDPP.GB.2025.1053368",
-            "CHEDA.GB.2025.1251361",
-        };
-        var expectedChedReferences = new List<string> { "CHEDPP.GB.2025.1053368", "CHEDA.GB.2025.1251361" };
-
-        var customsDeclaration = CustomsDeclarationFixtures
-            .CustomsDeclarationFixture()
-            .With(
-                x => x.ClearanceDecision,
-                CustomsDeclarationFixtures.ClearanceDecisionFixture(chedReferences).Create()
-            )
-            .Create();
-
-        chedReferences.Should().NotBeEmpty();
-
-        var resourceEvent = CustomsDeclarationFixtures
-            .CustomsDeclarationResourceEventFixture(customsDeclaration)
-            .Create();
-
-        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
-
-        _pollingService.Verify(
-            service =>
-                service.Process(
-                    It.Is<PollingRequest>(request =>
-                        request.Mrn == resourceEvent.ResourceId
-                        && request.ChedReferences.SetEquals(expectedChedReferences)
-                    ),
-                    It.IsAny<CancellationToken>()
-                ),
-            Times.Once
-        );
-    }
-
-    [Fact]
     public async Task ProcessAsync_WhenAllFieldsProvided_InvokesPolling()
     {
         var customsDeclaration = CustomsDeclarationFixtures.CustomsDeclarationFixture().Create();
@@ -131,9 +111,7 @@ public class CustomsDeclarationProcessorTests
         _pollingService.Verify(
             service =>
                 service.Process(
-                    It.Is<PollingRequest>(request =>
-                        request.Mrn == resourceEvent.ResourceId && request.ChedReferences.SetEquals(chedReferences)
-                    ),
+                    It.Is<PollingRequest>(request => request.Mrn == resourceEvent.ResourceId),
                     It.IsAny<CancellationToken>()
                 ),
             Times.Once

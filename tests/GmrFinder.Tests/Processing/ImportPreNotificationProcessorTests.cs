@@ -1,6 +1,7 @@
 using AutoFixture;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
+using GmrFinder.Utils.Validators;
 using Microsoft.Extensions.Logging;
 using Moq;
 using TestFixtures;
@@ -11,6 +12,7 @@ public class ImportPreNotificationProcessorTests
 {
     private readonly Mock<ILogger<ImportPreNotificationProcessor>> _logger = new();
     private readonly Mock<IPollingService> _pollingService = new();
+    private readonly Mock<IStringValidators> _stringValidators = new();
     private readonly ImportPreNotificationProcessor _processor;
 
     public ImportPreNotificationProcessorTests()
@@ -19,11 +21,17 @@ public class ImportPreNotificationProcessorTests
             .Setup(service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
 
-        _processor = new ImportPreNotificationProcessor(_logger.Object, _pollingService.Object);
+        _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(true);
+
+        _processor = new ImportPreNotificationProcessor(
+            _logger.Object,
+            _pollingService.Object,
+            _stringValidators.Object
+        );
     }
 
     [Fact]
-    public async Task ProcessAsync_WhenImportPreNotificationIsNotTransit_SkipsPolling()
+    public async Task ProcessAsync_WhenImportPreNotificationIsNotTransit_SkipsProcessing()
     {
         var importPreNotification = ImportPreNotificationFixtures.ImportPreNotificationFixture().Create();
         var resourceEvent = ImportPreNotificationFixtures
@@ -39,10 +47,28 @@ public class ImportPreNotificationProcessorTests
     }
 
     [Fact]
+    public async Task ProcessAsync_WhenNctsMrnIsInvalid_SkipsProcessing()
+    {
+        var importPreNotification = ImportPreNotificationFixtures.ImportPreNotificationFixture("mrn123").Create();
+        var resourceEvent = ImportPreNotificationFixtures
+            .ImportPreNotificationResourceEventFixture(importPreNotification)
+            .Create();
+
+        _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(false);
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        _pollingService.Verify(
+            service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()),
+            Times.Never
+        );
+    }
+
+    [Fact]
     public async Task ProcessAsync_WhenImportPreNotificationHasNctsReference_InvokesPolling()
     {
         const string chedReference = "CHEDPP.GB.2025.1053368";
-        const string mrn = "mrn123";
+        const string mrn = "25GB6RLA6C8OV8GAR2";
 
         var importPreNotification = ImportPreNotificationFixtures.ImportPreNotificationFixture(mrn).Create();
         var resourceEvent = ImportPreNotificationFixtures
@@ -54,12 +80,7 @@ public class ImportPreNotificationProcessorTests
 
         _pollingService.Verify(
             service =>
-                service.Process(
-                    It.Is<PollingRequest>(request =>
-                        request.Mrn == mrn && request.ChedReferences.SetEquals(new[] { chedReference })
-                    ),
-                    It.IsAny<CancellationToken>()
-                ),
+                service.Process(It.Is<PollingRequest>(request => request.Mrn == mrn), It.IsAny<CancellationToken>()),
             Times.Once
         );
     }

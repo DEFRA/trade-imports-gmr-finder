@@ -10,6 +10,8 @@ using GmrFinder.Processing;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
+using GmrFinder.Utils.Validators;
+using GmrFinder.Utils.Time;
 using MongoDB.Driver;
 using MongoDB.Driver.Authentication.AWS;
 using Serilog;
@@ -71,15 +73,22 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IMongoContext, MongoContext>();
     builder.Services.AddSingleton<MongoDbInitializer>();
 
+    builder.Services.AddSingleton<IStringValidators, StringValidators>();
+
+    builder.Services.AddGvmsApiClient();
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddSqsClient(builder.Configuration);
-    builder.Services.AddSingleton<IPollingService, PollingService>();
+
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
+    builder.Services.AddSingleton<IGmrFinderClock, GmrFinderClock>();
+
+    builder.Services.AddValidateOptions<PollingServiceOptions>(PollingServiceOptions.SectionName);
+    builder.Services.AddSingleton<IPollingService, PollingService>();
     builder.Services.AddHostedService<DataEventsQueueConsumer>();
 
     builder.Services.AddTransient<IScheduleTokenProvider, MongoDbScheduleTokenProvider>();
-    builder.Services.AddHostedService<PollingCronHostedService>();
+    builder.Services.AddHostedService<PollGvmsByMrn>();
 
     builder.Services.AddHealthChecks();
 

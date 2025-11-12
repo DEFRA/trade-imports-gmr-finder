@@ -13,6 +13,10 @@ namespace GmrFinder.IntegrationTests;
 [Collection("Integration Tests")]
 public abstract class IntegrationTestBase
 {
+    protected readonly IConfiguration Configuration;
+    protected readonly ServiceProvider ServiceProvider;
+    protected readonly IMongoContext Mongo;
+
     private readonly Dictionary<string, string> _environmentVariables = new()
     {
         { "AWS_ACCESS_KEY_ID", "test" },
@@ -20,9 +24,6 @@ public abstract class IntegrationTestBase
         { "AWS_REGION", "eu-west-2" },
         { "SQS_ENDPOINT", "http://localhost:4566" },
     };
-
-    public readonly IConfiguration Configuration;
-    public readonly ServiceProvider ServiceProvider;
 
     protected IntegrationTestBase()
     {
@@ -32,7 +33,7 @@ public abstract class IntegrationTestBase
         Configuration = new ConfigurationBuilder()
             .SetBasePath(projectRoot)
             .AddJsonFile("appsettings.json", false)
-            .AddJsonFile("appsettings.Development.json", true)
+            .AddJsonFile("appsettings.Development.json", false)
             .AddEnvironmentVariables()
             .Build();
 
@@ -43,19 +44,21 @@ public abstract class IntegrationTestBase
         sc.AddSqsClient(Configuration);
 
         sc.AddLogging(c => c.AddConsole());
+        sc.Configure<MongoConfig>(Configuration.GetSection("Mongo"));
         sc.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
         sc.AddSingleton<IMongoContext, MongoContext>();
         sc.AddSingleton<MongoDbInitializer>();
 
         ServiceProvider = sc.BuildServiceProvider();
 
+        Mongo = ServiceProvider.GetRequiredService<IMongoContext>();
         var initializer = ServiceProvider.GetRequiredService<MongoDbInitializer>();
         initializer.Init().Wait();
     }
 
     protected IMongoContext MongoContext => ServiceProvider.GetRequiredService<IMongoContext>();
 
-    protected void SetEnvironmentVariables()
+    private void SetEnvironmentVariables()
     {
         foreach (var (key, value) in _environmentVariables)
         {
