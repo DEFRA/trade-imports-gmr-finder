@@ -1,11 +1,15 @@
 using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using GmrFinder.Polling;
+using GmrFinder.Utils.Validators;
 
 namespace GmrFinder.Processing;
 
-public class CustomsDeclarationProcessor(ILogger<CustomsDeclarationProcessor> logger, IPollingService pollingService)
-    : ICustomsDeclarationProcessor
+public class CustomsDeclarationProcessor(
+    ILogger<CustomsDeclarationProcessor> logger,
+    IPollingService pollingService,
+    IStringValidators stringValidators
+) : ICustomsDeclarationProcessor
 {
     public async Task ProcessAsync(
         ResourceEvent<CustomsDeclaration> customsDeclaration,
@@ -13,6 +17,13 @@ public class CustomsDeclarationProcessor(ILogger<CustomsDeclarationProcessor> lo
     )
     {
         var mrn = customsDeclaration.ResourceId;
+
+        if (!stringValidators.IsValidMrn(mrn))
+        {
+            logger.LogInformation("Received invalid MRN: {Mrn}, skipping", mrn);
+            return;
+        }
+
         var chedReferences =
             customsDeclaration
                 .Resource?.ClearanceDecision?.Results?.Select(result => result.ImportPreNotification)

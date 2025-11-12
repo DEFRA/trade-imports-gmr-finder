@@ -10,6 +10,7 @@ using GmrFinder.Processing;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
+using GmrFinder.Utils.Validators;
 using GmrFinder.Utils.Time;
 using MongoDB.Driver;
 using MongoDB.Driver.Authentication.AWS;
@@ -71,6 +72,8 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
     builder.Services.AddSingleton<IMongoContext, MongoContext>();
     builder.Services.AddSingleton<MongoDbInitializer>();
+
+    builder.Services.AddSingleton<IStringValidators, StringValidators>();
 
     builder.Services.AddGvmsApiClient();
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
