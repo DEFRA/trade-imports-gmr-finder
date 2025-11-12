@@ -4,13 +4,12 @@ using FluentAssertions;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
 using GmrFinder.Polling;
-using GmrFinder.Utils.Time;
 using GvmsClient.Client;
 using GvmsClient.Contract;
 using GvmsClient.Contract.Requests;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using MongoDB.Bson;
+using Microsoft.Extensions.Time.Testing;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Moq;
@@ -21,13 +20,9 @@ public class PollingServiceTests
 {
     private readonly IOptions<PollingServiceOptions> _options = Options.Create(new PollingServiceOptions());
     private readonly Mock<IGvmsApiClient> _mockGvmsApiClient = new();
-    private readonly Mock<IGmrFinderClock> _systemClock = new();
-    private readonly DateTime _utcNow = new(2025, 11, 7, 11, 10, 15, DateTimeKind.Utc);
-
-    public PollingServiceTests()
-    {
-        _systemClock.SetupGet(x => x.UtcNow).Returns(() => _utcNow);
-    }
+    private readonly TimeProvider _mockTimeProvider = new FakeTimeProvider(
+        new DateTimeOffset(2025, 11, 7, 11, 10, 15, TimeSpan.Zero)
+    );
 
     [Fact]
     public async Task Process_PollingItemAlreadyExists_DoesNotInsert()
@@ -47,8 +42,8 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
-            _systemClock.Object,
-            _options
+            _options,
+            _mockTimeProvider
         );
         var request = new PollingRequest { Mrn = existing.Id };
 
@@ -76,8 +71,8 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
-            _systemClock.Object,
-            _options
+            _options,
+            _mockTimeProvider
         );
         var request = new PollingRequest { Mrn = expectedMrn };
 
@@ -127,8 +122,8 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
-            _systemClock.Object,
-            _options
+            _options,
+            _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
 
@@ -163,8 +158,8 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
-            _systemClock.Object,
-            _options
+            _options,
+            _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
 
@@ -211,8 +206,8 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
-            _systemClock.Object,
-            _options
+            _options,
+            _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
 
@@ -240,7 +235,7 @@ public class PollingServiceTests
             var setDoc = updateDoc["$set"].AsBsonDocument;
 
             setDoc.Contains("LastPolled").Should().BeTrue();
-            setDoc["LastPolled"].ToUniversalTime().Should().Be(_utcNow);
+            setDoc["LastPolled"].ToUniversalTime().Should().Be(_mockTimeProvider.GetUtcNow().UtcDateTime);
         }
     }
 
@@ -336,8 +331,8 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
-            _systemClock.Object,
-            _options
+            _options,
+            _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
 
@@ -360,7 +355,7 @@ public class PollingServiceTests
             var setDoc = updateDoc["$set"].AsBsonDocument;
 
             setDoc.Contains("LastPolled").Should().BeTrue();
-            setDoc["LastPolled"].ToUniversalTime().Should().Be(_utcNow);
+            setDoc["LastPolled"].ToUniversalTime().Should().Be(_mockTimeProvider.GetUtcNow().UtcDateTime);
 
             if (expectedGmrs is null)
             {

@@ -1,7 +1,6 @@
 using System.Text.Json;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
-using GmrFinder.Utils.Time;
 using GvmsClient.Client;
 using GvmsClient.Contract.Requests;
 using Microsoft.Extensions.Options;
@@ -13,12 +12,12 @@ public class PollingService(
     ILogger<PollingService> logger,
     IMongoContext mongo,
     IGvmsApiClient gvmsApiClient,
-    IGmrFinderClock clock,
-    IOptions<PollingServiceOptions> options
+    IOptions<PollingServiceOptions> options,
+    TimeProvider? timeProvider = null
 ) : IPollingService
 {
     private readonly PollingServiceOptions _options = options.Value;
-    private readonly IGmrFinderClock _clock = clock;
+    private readonly TimeProvider _timeProvider = timeProvider ?? TimeProvider.System;
 
     public async Task Process(PollingRequest request, CancellationToken cancellationToken)
     {
@@ -31,14 +30,14 @@ public class PollingService(
         }
 
         logger.LogInformation("Inserting new polling item for {Mrn}", request.Mrn);
-        var pollingItem = new PollingItem { Id = request.Mrn, Created = _clock.UtcNow };
+        var pollingItem = new PollingItem { Id = request.Mrn, Created = _timeProvider.GetUtcNow().UtcDateTime };
 
         await mongo.PollingItems.Insert(pollingItem, cancellationToken);
     }
 
     public async Task PollItems(CancellationToken cancellationToken)
     {
-        var now = _clock.UtcNow;
+        var now = _timeProvider.GetUtcNow().UtcDateTime;
 
         var pollItems = await mongo.PollingItems.FindMany(
             where: p => !p.Complete,
