@@ -11,7 +11,6 @@ using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
 using GmrFinder.Utils.Validators;
-using GmrFinder.Utils.Time;
 using MongoDB.Driver;
 using MongoDB.Driver.Authentication.AWS;
 using Serilog;
@@ -81,7 +80,6 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
-    builder.Services.AddSingleton<IGmrFinderClock, GmrFinderClock>();
 
     builder.Services.AddValidateOptions<PollingServiceOptions>(PollingServiceOptions.SectionName);
     builder.Services.AddSingleton<IPollingService, PollingService>();

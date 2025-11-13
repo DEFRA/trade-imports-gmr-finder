@@ -1,3 +1,4 @@
+using System.Threading;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using GmrFinder.Consumers;
@@ -13,6 +14,8 @@ public class SqsConsumerTests
     private readonly Mock<IAmazonSQS> _mockSqsClient = new();
     private const string QueueName = "queue_name";
     private const string QueueUrl = "http://queue-url";
+    private static readonly TimeSpan s_testTimeout = TimeSpan.FromSeconds(3);
+    private static readonly TimeSpan s_cancellationTokenCancelAfter = TimeSpan.FromSeconds(1);
 
     private readonly Message _message = new()
     {
@@ -39,39 +42,55 @@ public class SqsConsumerTests
     [Fact]
     public async Task ExecuteAsync_CallsReceiveMessagesWithTheCorrectRequest()
     {
-        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-        var receiveRequestTcs = new TaskCompletionSource<ReceiveMessageRequest>(
-            TaskCreationOptions.RunContinuationsAsynchronously
-        );
+        using var cts = new CancellationTokenSource();
+        ReceiveMessageRequest? receiveMessageRequest = null;
 
         _mockSqsClient
             .Setup(s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()))
-            .Callback<ReceiveMessageRequest, CancellationToken>((req, _) => receiveRequestTcs.TrySetResult(req))
+            .Callback<ReceiveMessageRequest, CancellationToken>((req, _) => receiveMessageRequest = req)
             .ReturnsAsync(new ReceiveMessageResponse { Messages = [_message] });
 
         _consumer = new TestConsumer(_logger, _mockSqsClient.Object, QueueName);
 
         var runTask = _consumer.RunAsync(cts.Token);
-        var request = await receiveRequestTcs.Task.WaitAsync(
-            TimeSpan.FromSeconds(1),
-            TestContext.Current.CancellationToken
+        cts.CancelAfter(s_cancellationTokenCancelAfter);
+        await runTask.WaitAsync(s_testTimeout, TestContext.Current.CancellationToken);
+
+        Assert.Equal(1, receiveMessageRequest!.MaxNumberOfMessages);
+        Assert.Equal("All", receiveMessageRequest!.MessageAttributeNames[0]);
+        Assert.Equal("All", receiveMessageRequest!.MessageSystemAttributeNames[0]);
+        Assert.Equal(QueueUrl, receiveMessageRequest!.QueueUrl);
+        Assert.Equal(60, receiveMessageRequest!.VisibilityTimeout);
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenNoMessagesReceived_ItTriesAgain()
+    {
+        using var cts = new CancellationTokenSource();
+
+        _mockSqsClient
+            .Setup(s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(new ReceiveMessageResponse { Messages = [] });
+
+        var processMessage = new Mock<Func<Message, CancellationToken, Task>>();
+
+        _consumer = new TestConsumer(_logger, _mockSqsClient.Object, QueueName, processMessage.Object);
+
+        var runTask = _consumer.RunAsync(cts.Token);
+        cts.CancelAfter(s_cancellationTokenCancelAfter);
+        await runTask.WaitAsync(s_testTimeout, TestContext.Current.CancellationToken);
+
+        _mockSqsClient.Verify(
+            s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()),
+            Times.AtLeast(2)
         );
-
-        Assert.Equal(1, request.MaxNumberOfMessages);
-        Assert.Equal("All", request.MessageAttributeNames[0]);
-        Assert.Equal("All", request.MessageSystemAttributeNames[0]);
-        Assert.Equal(QueueUrl, request.QueueUrl);
-        Assert.Equal(60, request.VisibilityTimeout);
-
-        await cts.CancelAsync();
-        await runTask.WaitAsync(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
     }
 
     [Fact]
     public async Task ExecuteAsync_WhenMessageReceived_ProcessesAndDeletesMessage()
     {
-        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-        var tcs = new TaskCompletionSource<Message>(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var cts = new CancellationTokenSource();
+        Message? message = null;
 
         _mockSqsClient
             .Setup(s => s.DeleteMessageAsync(QueueUrl, _message.ReceiptHandle, It.IsAny<CancellationToken>()))
@@ -84,17 +103,17 @@ public class SqsConsumerTests
             QueueName,
             (msg, _) =>
             {
-                tcs.TrySetResult(msg);
+                message = msg;
                 return Task.CompletedTask;
             }
         );
 
         var runTask = _consumer.RunAsync(cts.Token);
+        cts.CancelAfter(s_cancellationTokenCancelAfter);
+        await runTask.WaitAsync(s_testTimeout, TestContext.Current.CancellationToken);
 
-        var processedMessage = await tcs.Task.WaitAsync(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
-        await runTask.WaitAsync(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
+        Assert.Equal(_message.Body, message!.Body);
 
-        Assert.Equal(_message.Body, processedMessage.Body);
         _mockSqsClient.Verify(
             s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()),
             Times.Once
@@ -108,29 +127,22 @@ public class SqsConsumerTests
     [Fact]
     public async Task ExecuteAsync_WhenMessageReceived_AndIsFailedToBeProcessed_ItDoesNotDeleteTheMessage()
     {
-        using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(3));
-        var receiveCallTcs = new TaskCompletionSource<bool>(TaskCreationOptions.RunContinuationsAsynchronously);
+        using var cts = new CancellationTokenSource();
 
         _mockSqsClient
             .Setup(s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()))
-            .Callback(() => receiveCallTcs.TrySetResult(true))
             .ReturnsAsync(new ReceiveMessageResponse { Messages = [_message] });
 
         _consumer = new TestConsumer(
             _logger,
             _mockSqsClient.Object,
             QueueName,
-            (msg, _) =>
-            {
-                throw new Exception("Failed to process message");
-            }
+            (_, _) => throw new Exception("Failed to process message")
         );
 
         var runTask = _consumer.RunAsync(cts.Token);
-
-        await receiveCallTcs.Task.WaitAsync(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
-        await cts.CancelAsync();
-        await runTask.WaitAsync(TimeSpan.FromSeconds(1), TestContext.Current.CancellationToken);
+        cts.CancelAfter(s_cancellationTokenCancelAfter);
+        await runTask.WaitAsync(s_testTimeout, TestContext.Current.CancellationToken);
 
         _mockSqsClient.Verify(
             s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()),
@@ -140,6 +152,33 @@ public class SqsConsumerTests
             s => s.DeleteMessageAsync(QueueUrl, _message.ReceiptHandle, It.IsAny<CancellationToken>()),
             Times.Never
         );
+    }
+
+    [Fact]
+    public async Task ExecuteAsync_WhenFailedToReceiveMessages_ItHandlesTheException_AndDoesNothing()
+    {
+        using var cts = new CancellationTokenSource();
+
+        _mockSqsClient
+            .Setup(s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()))
+            .Returns(
+                (ReceiveMessageRequest _, CancellationToken _) =>
+                    throw new RequestThrottledException("Request throttled")
+            );
+
+        var processMessage = new Mock<Func<Message, CancellationToken, Task>>();
+
+        _consumer = new TestConsumer(_logger, _mockSqsClient.Object, QueueName, processMessage.Object);
+
+        var runTask = _consumer.RunAsync(cts.Token);
+        cts.CancelAfter(s_cancellationTokenCancelAfter);
+        await runTask.WaitAsync(s_testTimeout, TestContext.Current.CancellationToken);
+
+        _mockSqsClient.Verify(
+            s => s.ReceiveMessageAsync(It.IsAny<ReceiveMessageRequest>(), It.IsAny<CancellationToken>()),
+            Times.AtLeastOnce
+        );
+        processMessage.Verify(s => s.Invoke(It.IsAny<Message>(), It.IsAny<CancellationToken>()), Times.Never);
     }
 
     private sealed class TestConsumer(
@@ -152,7 +191,7 @@ public class SqsConsumerTests
         private readonly Func<Message, CancellationToken, Task> _onProcessMessage =
             onProcessMessage ?? ((_, _) => Task.CompletedTask);
 
-        protected override TimeSpan PollDelay => TimeSpan.Zero;
+        protected override TimeSpan PollDelay => TimeSpan.FromMilliseconds(1);
 
         protected override Task ProcessMessageAsync(Message message, CancellationToken stoppingToken)
         {

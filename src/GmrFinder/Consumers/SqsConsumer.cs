@@ -16,14 +16,8 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
         while (!stoppingToken.IsCancellationRequested)
         {
             var result = await ReceiveMessages(queueUrl, stoppingToken);
-
-            if (result?.Messages is null || result.Messages.Count == 0)
-            {
-                await Task.Delay(PollDelay, stoppingToken);
-                continue;
-            }
-
-            foreach (var message in result.Messages)
+            
+            foreach (var message in result?.Messages ?? [])
             {
                 try
                 {
@@ -44,6 +38,15 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
                     );
                 }
             }
+
+            try
+            {
+                await Task.Delay(PollDelay, stoppingToken);
+            }
+            catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+            {
+                return;
+            }
         }
     }
 
@@ -61,14 +64,9 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
             };
             return await sqsClient.ReceiveMessageAsync(request, stoppingToken);
         }
-        catch (OperationCanceledException)
-        {
-            return null;
-        }
         catch (Exception ex)
         {
             logger.LogError(ex, "Failed to receive messages from {QueueName}", queueName);
-            await Task.Delay(PollDelay, stoppingToken);
             return null;
         }
     }
