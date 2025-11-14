@@ -19,6 +19,7 @@ COPY .csharpierrc .csharpierrc
 RUN dotnet tool restore
 RUN dotnet csharpier check .
 
+COPY src/Domain/Domain.csproj src/Domain/Domain.csproj
 COPY src/GvmsClient/GvmsClient.csproj src/GvmsClient/GvmsClient.csproj
 COPY src/GmrFinder/GmrFinder.csproj src/GmrFinder/GmrFinder.csproj
 COPY tests/GvmsClient.Tests/GvmsClient.Tests.csproj tests/GvmsClient.Tests/GvmsClient.Tests.csproj
@@ -31,6 +32,7 @@ COPY NuGet.config NuGet.config
 
 RUN dotnet restore
 
+COPY src/Domain src/Domain
 COPY src/GvmsClient src/GvmsClient
 COPY src/GmrFinder src/GmrFinder
 COPY tests/GvmsClient.Tests tests/GvmsClient.Tests
@@ -38,11 +40,11 @@ COPY tests/GmrFinder.Tests tests/GmrFinder.Tests
 COPY tests/GmrFinder.IntegrationTests tests/GmrFinder.IntegrationTests
 COPY tests/TestFixtures tests/TestFixtures
 
-RUN dotnet test --no-restore --filter "Category!=IntegrationTests"
+RUN dotnet test --no-restore --warnaserror --filter "Category!=IntegrationTests"
 
 FROM build AS publish
 
-RUN dotnet publish src/GmrFinder -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish src/GmrFinder -c Release -warnaserror -o /app/publish /p:UseAppHost=false
 
 ENV ASPNETCORE_FORWARDEDHEADERS_ENABLED=true
 

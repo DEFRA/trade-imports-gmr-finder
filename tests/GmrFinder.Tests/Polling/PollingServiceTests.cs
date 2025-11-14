@@ -1,9 +1,11 @@
 using System.Linq.Expressions;
 using System.Text.Json;
+using Domain.Events;
 using FluentAssertions;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
 using GmrFinder.Polling;
+using GmrFinder.Producers;
 using GvmsClient.Client;
 using GvmsClient.Contract;
 using GvmsClient.Contract.Requests;
@@ -20,6 +22,7 @@ public class PollingServiceTests
 {
     private readonly IOptions<PollingServiceOptions> _options = Options.Create(new PollingServiceOptions());
     private readonly Mock<IGvmsApiClient> _mockGvmsApiClient = new();
+    private readonly Mock<IMatchedGmrsProducer> _mockMatchedGmrsProducer = new();
     private readonly TimeProvider _mockTimeProvider = new FakeTimeProvider(
         new DateTimeOffset(2025, 11, 7, 11, 10, 15, TimeSpan.Zero)
     );
@@ -42,6 +45,7 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
             _options,
             _mockTimeProvider
         );
@@ -71,6 +75,7 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
             _options,
             _mockTimeProvider
         );
@@ -122,6 +127,7 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
             _options,
             _mockTimeProvider
         );
@@ -158,6 +164,7 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
             _options,
             _mockTimeProvider
         );
@@ -206,6 +213,7 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
             _options,
             _mockTimeProvider
         );
@@ -331,6 +339,7 @@ public class PollingServiceTests
             Mock.Of<ILogger<PollingService>>(),
             contextMock.Object,
             _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
             _options,
             _mockTimeProvider
         );
@@ -368,5 +377,105 @@ public class PollingServiceTests
             );
             deserialisedGmrs.Should().BeEquivalentTo(expectedGmrs);
         }
+    }
+
+    [Fact]
+    public async Task PollItems_WithMatchedGmrs_PublishesTheResults()
+    {
+        var gmrForMrn123 = new Gmr
+        {
+            GmrId = "gmr123",
+            HaulierEori = "GB123",
+            State = "Submitted",
+            InspectionRequired = true,
+            UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+            Direction = "Inbound",
+        };
+
+        var gmrForMrn456 = new Gmr
+        {
+            GmrId = "gmr456",
+            HaulierEori = "GB456",
+            State = "Embarked",
+            InspectionRequired = false,
+            UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+            Direction = "Outbound",
+        };
+
+        var gmrForMrn456_2 = new Gmr
+        {
+            GmrId = "gmr456_2",
+            HaulierEori = "GB456",
+            State = "Embarked",
+            InspectionRequired = false,
+            UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+            Direction = "Outbound",
+        };
+
+        var pollingItems = new List<PollingItem>
+        {
+            new() { Id = "mrn123" },
+            new() { Id = "mrn456" },
+            new() { Id = "mrn789" }, // No results returned for this
+            new() { Id = "mrnNoChanges", Gmrs = { { gmrForMrn123.GmrId, JsonSerializer.Serialize(gmrForMrn123) } } },
+        };
+
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync(pollingItems);
+
+        var expectedMatchedGmrs = new List<MatchedGmr>
+        {
+            new() { Mrn = "mrn123", Gmr = gmrForMrn123 },
+            new() { Mrn = "mrn456", Gmr = gmrForMrn456 },
+            new() { Mrn = "mrn456", Gmr = gmrForMrn456_2 },
+        };
+
+        _mockGvmsApiClient
+            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                new HttpResponseContent<GvmsResponse>(
+                    new GvmsResponse
+                    {
+                        GmrByDeclarationId =
+                        [
+                            new GmrDeclaration { dec = "mrn123", gmrs = ["gmr123"] },
+                            new GmrDeclaration { dec = "mrn456", gmrs = ["gmr456", "gmr456_2"] },
+                            new GmrDeclaration { dec = "mrnNoChanges", gmrs = ["gmr123"] },
+                        ],
+                        Gmrs = [gmrForMrn123, gmrForMrn456, gmrForMrn456_2],
+                    },
+                    "{}"
+                )
+            );
+
+        List<MatchedGmr>? matchedGmrs = null;
+        _mockMatchedGmrsProducer
+            .Setup(x => x.PublishMatchedGmrs(It.IsAny<List<MatchedGmr>>(), It.IsAny<CancellationToken>()))
+            .Callback<List<MatchedGmr>, CancellationToken>((records, _) => matchedGmrs = records);
+
+        var service = new PollingService(
+            Mock.Of<ILogger<PollingService>>(),
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _options,
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        matchedGmrs!.Should().BeEquivalentTo(expectedMatchedGmrs);
+        matchedGmrs!.Should().NotContain(p => p.Mrn == "mrnNoChanges");
     }
 }
