@@ -48,33 +48,32 @@ public class CustomsDeclarationTests : IntegrationTestBase
         var messageConsumed = await AsyncWaiter.WaitForAsync(
             async () =>
             {
-                var numberMessagesOnQueue = await sqsClient.GetQueueAttributesAsync(
+                var result = await sqsClient.GetQueueAttributesAsync(
                     queueUrl,
                     ["ApproximateNumberOfMessages", "ApproximateNumberOfMessagesNotVisible"]
                 );
 
-                return numberMessagesOnQueue.ApproximateNumberOfMessages
-                        + numberMessagesOnQueue.ApproximateNumberOfMessages
-                    == 0;
+                var numberMessagesOnQueue =
+                    result.ApproximateNumberOfMessages + result.ApproximateNumberOfMessagesNotVisible;
+
+                return numberMessagesOnQueue == 0 ? (int?)numberMessagesOnQueue : null;
             },
             TestContext.Current.CancellationToken
         );
 
-        messageConsumed.Should().BeTrue();
+        messageConsumed.Should().NotBeNull();
 
         var pollingItemCreated = await AsyncWaiter.WaitForAsync(
             async () =>
             {
-                return (
-                        await Mongo.PollingItems.FindOne(
-                            p => p.Id == expectedMrn,
-                            TestContext.Current.CancellationToken
-                        )
-                    ) != null;
+                return await Mongo.PollingItems.FindOne(
+                    p => p.Id == expectedMrn,
+                    TestContext.Current.CancellationToken
+                );
             },
             TestContext.Current.CancellationToken
         );
 
-        pollingItemCreated.Should().BeTrue();
+        pollingItemCreated.Should().NotBeNull();
     }
 }

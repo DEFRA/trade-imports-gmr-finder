@@ -1,5 +1,7 @@
+using System.Diagnostics.CodeAnalysis;
 using Amazon;
 using Amazon.Runtime;
+using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using GmrFinder.Configuration;
 using GvmsClient.Client;
@@ -8,6 +10,7 @@ using Polly;
 
 namespace GmrFinder.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSqsClient(this IServiceCollection services, IConfiguration configuration)
@@ -35,6 +38,34 @@ public static class ServiceCollectionExtensions
         }
 
         services.AddSingleton<IAmazonSQS>(sp => new AmazonSQSClient());
+        return services;
+    }
+
+    public static IServiceCollection AddSnsClient(this IServiceCollection services, IConfiguration configuration)
+    {
+        var clientId = configuration.GetValue<string>("AWS_ACCESS_KEY_ID");
+        var clientSecret = configuration.GetValue<string>("AWS_SECRET_ACCESS_KEY");
+
+        if (!string.IsNullOrEmpty(clientSecret) && !string.IsNullOrEmpty(clientId))
+        {
+            var region = configuration.GetValue<string>("AWS_REGION") ?? RegionEndpoint.EUWest2.ToString();
+            var regionEndpoint = RegionEndpoint.GetBySystemName(region);
+
+            services.AddSingleton<IAmazonSimpleNotificationService>(sp => new AmazonSimpleNotificationServiceClient(
+                new BasicAWSCredentials(clientId, clientSecret),
+                new AmazonSimpleNotificationServiceConfig
+                {
+                    // https://github.com/aws/aws-sdk-net/issues/1781
+                    AuthenticationRegion = region,
+                    RegionEndpoint = regionEndpoint,
+                    ServiceURL = configuration.GetValue<string>("SNS_ENDPOINT"),
+                }
+            ));
+
+            return services;
+        }
+
+        services.AddSingleton<IAmazonSimpleNotificationService>(sp => new AmazonSimpleNotificationServiceClient());
         return services;
     }
 

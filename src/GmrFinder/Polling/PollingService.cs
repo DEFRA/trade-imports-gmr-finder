@@ -1,7 +1,10 @@
 using System.Text.Json;
+using Domain.Events;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
+using GmrFinder.Producers;
 using GvmsClient.Client;
+using GvmsClient.Contract;
 using GvmsClient.Contract.Requests;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -12,6 +15,7 @@ public class PollingService(
     ILogger<PollingService> logger,
     IMongoContext mongo,
     IGvmsApiClient gvmsApiClient,
+    IMatchedGmrsProducer matchedGmrsProducer,
     IOptions<PollingServiceOptions> options,
     TimeProvider? timeProvider = null
 ) : IPollingService
@@ -72,31 +76,65 @@ public class PollingService(
             logger.LogInformation("Received GMRs for MRNs");
         }
 
-        var gmrsByDeclarationId = results.GmrByDeclarationId.ToDictionary(p => p.dec, p => p.gmrs);
         var gmrs = results.Gmrs.ToDictionary(p => p.GmrId, p => p);
+        var gmrsByDeclarationId = results.GmrByDeclarationId.ToDictionary(
+            p => p.dec,
+            p => p.gmrs.Where(gmrId => gmrs.ContainsKey(gmrId)).Select(gmrId => gmrs[gmrId]).ToList()
+        );
 
+        await UpdatePollingItemRecords(pollItems, gmrsByDeclarationId, now, cancellationToken);
+        await PublishMatchedGmrRecords(pollItems, gmrsByDeclarationId, cancellationToken);
+    }
+
+    private async Task UpdatePollingItemRecords(
+        List<PollingItem> pollItems,
+        Dictionary<string, List<Gmr>> gmrsByDeclarationId,
+        DateTime now,
+        CancellationToken cancellationToken
+    )
+    {
         var recordsToUpdate = pollItems
             .Select(p =>
             {
                 var filter = Builders<PollingItem>.Filter.Eq(f => f.Id, p.Id);
                 var update = Builders<PollingItem>.Update.Set(u => u.LastPolled, now);
 
-                if (!gmrsByDeclarationId.TryGetValue(p.Id, out var gmrIds))
+                if (!gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs))
                 {
                     return new UpdateOneModel<PollingItem>(filter, update);
                 }
 
-                update = update.Set(
-                    u => u.Gmrs,
-                    gmrIds
-                        .Where(gmrId => gmrs.ContainsKey(gmrId))
-                        .ToDictionary(gmrId => gmrId, gmrId => JsonSerializer.Serialize(gmrs[gmrId]))
-                );
+                update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
 
                 return new UpdateOneModel<PollingItem>(filter, update);
             })
             .ToList();
 
         await mongo.PollingItems.BulkWrite([.. recordsToUpdate], cancellationToken);
+    }
+
+    private async Task PublishMatchedGmrRecords(
+        List<PollingItem> pollItems,
+        Dictionary<string, List<Gmr>> gmrsByDeclarationId,
+        CancellationToken cancellationToken
+    )
+    {
+        var changedRecords = pollItems
+            .Where(p => gmrsByDeclarationId.ContainsKey(p.Id))
+            .Select(p =>
+            {
+                var existingGmrs = p.Gmrs.ToDictionary(g => g.Key, g => JsonSerializer.Deserialize<Gmr>(g.Value));
+                var updatedGmrs = gmrsByDeclarationId[p.Id];
+
+                var changedGmrs = updatedGmrs.Where(g =>
+                    !existingGmrs.ContainsKey(g.GmrId) || existingGmrs[g.GmrId]!.UpdatedDateTime != g.UpdatedDateTime
+                );
+
+                return changedGmrs.Select(g => new MatchedGmr { Mrn = p.Id, Gmr = g }).ToList();
+            })
+            .SelectMany(x => x)
+            .ToList();
+
+        await matchedGmrsProducer.PublishMatchedGmrs(changedRecords, cancellationToken);
     }
 }
