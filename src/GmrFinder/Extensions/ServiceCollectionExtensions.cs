@@ -1,13 +1,17 @@
+using System.Diagnostics.CodeAnalysis;
 using Amazon;
 using Amazon.Runtime;
+using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using GmrFinder.Configuration;
+using GmrFinder.Resilience;
 using GvmsClient.Client;
 using Microsoft.Extensions.Options;
 using Polly;
 
 namespace GmrFinder.Extensions;
 
+[ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddSqsClient(this IServiceCollection services, IConfiguration configuration)
@@ -34,7 +38,41 @@ public static class ServiceCollectionExtensions
             return services;
         }
 
-        services.AddSingleton<IAmazonSQS>(sp => new AmazonSQSClient());
+        services.AddSingleton<IAmazonSQS>(_ => new AmazonSQSClient());
+        return services;
+    }
+
+    public static IServiceCollection AddSnsClient(this IServiceCollection services, IConfiguration configuration)
+    {
+        var clientId = configuration.GetValue<string>("AWS_ACCESS_KEY_ID");
+        var clientSecret = configuration.GetValue<string>("AWS_SECRET_ACCESS_KEY");
+
+        if (!string.IsNullOrEmpty(clientSecret) && !string.IsNullOrEmpty(clientId))
+        {
+            var region = configuration.GetValue<string>("AWS_REGION") ?? RegionEndpoint.EUWest2.ToString();
+            var regionEndpoint = RegionEndpoint.GetBySystemName(region);
+
+            services.AddSingleton<IAmazonSimpleNotificationService>(sp =>
+            {
+                var logger = sp.GetRequiredService<ILogger<ResilientSnsClient>>();
+                return new ResilientSnsClient(
+                    logger,
+                    new BasicAWSCredentials(clientId, clientSecret),
+                    new AmazonSimpleNotificationServiceConfig
+                    {
+                        // https://github.com/aws/aws-sdk-net/issues/1781
+                        AuthenticationRegion = region,
+                        RegionEndpoint = regionEndpoint,
+                        ServiceURL = configuration.GetValue<string>("SNS_ENDPOINT"),
+                    }
+                );
+            });
+
+            return services;
+        }
+
+        services.AddSingleton<IAmazonSimpleNotificationService, ResilientSnsClient>();
+
         return services;
     }
 

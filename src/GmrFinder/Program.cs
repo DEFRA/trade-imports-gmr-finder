@@ -7,6 +7,7 @@ using GmrFinder.Extensions;
 using GmrFinder.Jobs;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
+using GmrFinder.Producers;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
@@ -76,8 +77,11 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddGvmsApiClient();
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
+    builder.Services.AddValidateOptions<MatchedGmrsProducerOptions>(MatchedGmrsProducerOptions.SectionName);
     builder.Services.AddSqsClient(builder.Configuration);
+    builder.Services.AddSnsClient(builder.Configuration);
 
+    builder.Services.AddSingleton<IMatchedGmrsProducer, MatchedGmrsProducer>();
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
 

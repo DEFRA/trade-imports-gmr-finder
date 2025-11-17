@@ -16,7 +16,7 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
         while (!stoppingToken.IsCancellationRequested)
         {
             var result = await ReceiveMessages(queueUrl, stoppingToken);
-            
+
             foreach (var message in result?.Messages ?? [])
             {
                 try

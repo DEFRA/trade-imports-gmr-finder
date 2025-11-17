@@ -6,6 +6,8 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Polly" Version="8.4.0" />
+    <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.502.8" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.502.4" />
     <PackageReference Include="Cronos" Version="0.11.1" />
     <PackageReference Include="Defra.TradeImportsDataApi.Api.Client" Version="0.33.0" />
@@ -25,5 +27,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../GvmsClient/GvmsClient.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 </Project>
