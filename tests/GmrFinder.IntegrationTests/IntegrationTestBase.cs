@@ -23,6 +23,7 @@ public abstract class IntegrationTestBase
         { "AWS_ACCESS_KEY_ID", "test" },
         { "AWS_SECRET_ACCESS_KEY", "test" },
         { "AWS_REGION", "eu-west-2" },
+        { "SNS_ENDPOINT", "http://localhost:4566" },
         { "SQS_ENDPOINT", "http://localhost:4566" },
     };
 
@@ -42,9 +43,10 @@ public abstract class IntegrationTestBase
 
         var sc = new ServiceCollection();
         sc.AddSingleton(Configuration);
+        sc.AddOptions<LocalStackOptions>().Bind(Configuration);
         sc.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
         sc.AddValidateOptions<MongoConfig>(MongoConfig.SectionName);
-        sc.AddSqsClient(Configuration);
+        sc.AddSqsClient();
 
         sc.AddLogging(c => c.AddConsole());
         sc.Configure<MongoConfig>(Configuration.GetSection("Mongo"));
