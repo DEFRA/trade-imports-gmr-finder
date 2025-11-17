@@ -12,6 +12,7 @@ public class MongoDbInitializer(IMongoDbClientFactory database, ILogger<MongoDbI
     public async Task Init(CancellationToken cancellationToken = default)
     {
         logger.LogInformation("Updating Mongo indexes");
+        await InitPollingServiceCollection(cancellationToken);
         await InitScheduleTokenCollection(cancellationToken);
     }
 
@@ -26,6 +27,17 @@ public class MongoDbInitializer(IMongoDbClientFactory database, ILogger<MongoDbI
                     Background = false,
                     Unique = true,
                 }
+            ),
+            cancellationToken
+        );
+    }
+
+    private async Task InitPollingServiceCollection(CancellationToken cancellationToken)
+    {
+        await CreateIndex(
+            new CreateIndexModel<PollingItem>(
+                Builders<PollingItem>.IndexKeys.Ascending(x => x.Complete).Ascending(x => x.LastPolled),
+                new CreateIndexOptions { Name = "PollingItemsBatchQuery" }
             ),
             cancellationToken
         );

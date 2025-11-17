@@ -2,11 +2,11 @@ namespace GmrFinder.IntegrationTests;
 
 public static class AsyncWaiter
 {
-    private static readonly TimeSpan s_pollInterval = TimeSpan.FromSeconds(2);
+    private static readonly TimeSpan s_pollInterval = TimeSpan.FromMilliseconds(100);
     private static readonly TimeSpan s_timeout = TimeSpan.FromSeconds(30);
 
-    public static async Task<bool> WaitForAsync(
-        Func<Task<bool>> condition,
+    public static async Task<T?> WaitForAsync<T>(
+        Func<Task<T?>> condition,
         CancellationToken cancellationToken = default
     )
     {
@@ -14,9 +14,10 @@ public static class AsyncWaiter
 
         while (!cancellationToken.IsCancellationRequested)
         {
-            if (await condition().ConfigureAwait(false))
+            var result = await condition().ConfigureAwait(false);
+            if (result is not null)
             {
-                return true;
+                return result;
             }
 
             var remaining = deadline - DateTime.UtcNow;
@@ -29,6 +30,6 @@ public static class AsyncWaiter
                 .ConfigureAwait(false);
         }
 
-        return false;
+        return default;
     }
 }

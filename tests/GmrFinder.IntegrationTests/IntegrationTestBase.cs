@@ -5,6 +5,7 @@ using GmrFinder.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Environment = System.Environment;
 
 namespace GmrFinder.IntegrationTests;
@@ -24,6 +25,8 @@ public abstract class IntegrationTestBase
         { "AWS_REGION", "eu-west-2" },
         { "SQS_ENDPOINT", "http://localhost:4566" },
     };
+
+    public const string PublishMessageQueueName = "trade_imports_matched_gmrs_processor";
 
     protected IntegrationTestBase()
     {

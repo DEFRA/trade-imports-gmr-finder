@@ -21,8 +21,7 @@ public static class MessageDeserializer
         var compressedBytes = Convert.FromBase64String(message);
         using var compressedStream = new MemoryStream(compressedBytes);
         using var gzipStream = new GZipStream(compressedStream, CompressionMode.Decompress);
-        using var reader = new StreamReader(gzipStream, Encoding.UTF8);
 
-        return JsonSerializer.Deserialize<T>(reader.ReadToEnd());
+        return JsonSerializer.Deserialize<T>(gzipStream);
     }
 }

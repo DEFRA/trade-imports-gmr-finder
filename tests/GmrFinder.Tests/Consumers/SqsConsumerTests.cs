@@ -1,6 +1,7 @@
 using System.Threading;
 using Amazon.SQS;
 using Amazon.SQS.Model;
+using FluentAssertions;
 using GmrFinder.Consumers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -56,11 +57,11 @@ public class SqsConsumerTests
         cts.CancelAfter(s_cancellationTokenCancelAfter);
         await runTask.WaitAsync(s_testTimeout, TestContext.Current.CancellationToken);
 
-        Assert.Equal(1, receiveMessageRequest!.MaxNumberOfMessages);
-        Assert.Equal("All", receiveMessageRequest!.MessageAttributeNames[0]);
-        Assert.Equal("All", receiveMessageRequest!.MessageSystemAttributeNames[0]);
-        Assert.Equal(QueueUrl, receiveMessageRequest!.QueueUrl);
-        Assert.Equal(60, receiveMessageRequest!.VisibilityTimeout);
+        receiveMessageRequest!.MaxNumberOfMessages.Should().Be(1);
+        receiveMessageRequest!.MessageAttributeNames[0].Should().Be("All");
+        receiveMessageRequest!.MessageSystemAttributeNames[0].Should().Be("All");
+        receiveMessageRequest!.QueueUrl.Should().Be(QueueUrl);
+        receiveMessageRequest!.VisibilityTimeout.Should().Be(60);
     }
 
     [Fact]

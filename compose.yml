@@ -46,6 +46,7 @@ services:
       GvmsApi__ClientSecret: ${GVMS_API_CLIENT_SECRET}
       Mongo__DatabaseUri: mongodb://mongodb:27017/
       PORT: 8080
+      SNS_ENDPOINT: http://localstack:4566
       SQS_ENDPOINT: http://localstack:4566
 
 volumes:
