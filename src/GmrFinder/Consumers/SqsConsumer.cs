@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 
@@ -7,7 +8,8 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
     : BackgroundService
     where TConsumer : class
 {
-    protected virtual TimeSpan PollDelay { get; } = TimeSpan.FromSeconds(2);
+    [ExcludeFromCodeCoverage]
+    protected virtual int WaitTimeSeconds => 20;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -17,31 +19,14 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
         {
             var result = await ReceiveMessages(queueUrl, stoppingToken);
 
-            foreach (var message in result?.Messages ?? [])
-            {
-                try
-                {
-                    await ProcessMessageAsync(message, stoppingToken);
-                    await sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle, stoppingToken);
-                }
-                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
-                {
-                    return;
-                }
-                catch (Exception ex)
-                {
-                    logger.LogError(
-                        ex,
-                        "Failed to process message {MessageId} from {QueueName}",
-                        message.MessageId,
-                        queueName
-                    );
-                }
-            }
+            var tasks = result?.Messages?.Select(message => HandleMessage(queueUrl, message, stoppingToken)).ToArray();
+
+            if (tasks is not { Length: > 0 })
+                continue;
 
             try
             {
-                await Task.Delay(PollDelay, stoppingToken);
+                await Task.WhenAll(tasks);
             }
             catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
             {
@@ -56,11 +41,12 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
         {
             var request = new ReceiveMessageRequest
             {
-                MaxNumberOfMessages = 1,
+                MaxNumberOfMessages = 10,
                 MessageAttributeNames = ["All"],
                 MessageSystemAttributeNames = ["All"],
                 QueueUrl = queueUrl,
                 VisibilityTimeout = 60,
+                WaitTimeSeconds = WaitTimeSeconds,
             };
             return await sqsClient.ReceiveMessageAsync(request, stoppingToken);
         }
@@ -68,6 +54,23 @@ public abstract class SqsConsumer<TConsumer>(ILogger<TConsumer> logger, IAmazonS
         {
             logger.LogError(ex, "Failed to receive messages from {QueueName}", queueName);
             return null;
+        }
+    }
+
+    private async Task HandleMessage(string queueUrl, Message message, CancellationToken cancellationToken)
+    {
+        try
+        {
+            await ProcessMessageAsync(message, cancellationToken);
+            await sqsClient.DeleteMessageAsync(queueUrl, message.ReceiptHandle, cancellationToken);
+        }
+        catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+        {
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to process message {MessageId} from {QueueName}", message.MessageId, queueName);
         }
     }
 

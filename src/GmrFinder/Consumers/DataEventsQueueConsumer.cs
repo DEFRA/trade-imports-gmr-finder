@@ -22,6 +22,8 @@ public sealed class DataEventsQueueConsumer(
 {
     private readonly ILogger<DataEventsQueueConsumer> _logger = logger;
 
+    protected override int WaitTimeSeconds { get; } = options.Value.WaitTimeSeconds;
+
     protected override async Task ProcessMessageAsync(Message message, CancellationToken stoppingToken)
     {
         var json = MessageDeserializer.Deserialize<JsonElement>(message.Body, message.GetContentEncoding());

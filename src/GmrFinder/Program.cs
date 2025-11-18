@@ -76,10 +76,11 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IStringValidators, StringValidators>();
 
     builder.Services.AddGvmsApiClient();
+    builder.Services.AddOptions<LocalStackOptions>().Bind(builder.Configuration);
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddValidateOptions<MatchedGmrsProducerOptions>(MatchedGmrsProducerOptions.SectionName);
-    builder.Services.AddSqsClient(builder.Configuration);
-    builder.Services.AddSnsClient(builder.Configuration);
+    builder.Services.AddSqsClient();
+    builder.Services.AddSnsClient();
 
     builder.Services.AddSingleton<IMatchedGmrsProducer, MatchedGmrsProducer>();
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
