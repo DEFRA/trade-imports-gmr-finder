@@ -12,6 +12,7 @@ using GvmsClient.Contract.Requests;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Time.Testing;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using Moq;
@@ -28,48 +29,21 @@ public class PollingServiceTests
     );
 
     [Fact]
-    public async Task Process_PollingItemAlreadyExists_DoesNotInsert()
+    public async Task Process_PollingItem_ShouldBeUpserted()
     {
-        var existing = new PollingItem { Id = "mrn123", Created = DateTime.UtcNow };
-        Expression<Func<PollingItem, bool>>? queryExpression = null;
+        const string expectedMrn = "mrn123";
 
         var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
         var contextMock = new Mock<IMongoContext>();
         contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
-        mockPollingItemCollection
-            .Setup(x => x.FindOne(It.IsAny<Expression<Func<PollingItem, bool>>>(), It.IsAny<CancellationToken>()))
-            .Callback<Expression<Func<PollingItem, bool>>, CancellationToken>((expr, _) => queryExpression = expr)
-            .ReturnsAsync(existing);
-
-        var service = new PollingService(
-            Mock.Of<ILogger<PollingService>>(),
-            contextMock.Object,
-            _mockGvmsApiClient.Object,
-            _mockMatchedGmrsProducer.Object,
-            _options,
-            _mockTimeProvider
+        mockPollingItemCollection.Setup(x =>
+            x.FindOneAndUpdate(
+                It.IsAny<FilterDefinition<PollingItem>>(),
+                It.IsAny<UpdateDefinition<PollingItem>>(),
+                It.IsAny<FindOneAndUpdateOptions<PollingItem>>(),
+                It.IsAny<CancellationToken>()
+            )
         );
-        var request = new PollingRequest { Mrn = existing.Id };
-
-        await service.Process(request, CancellationToken.None);
-
-        mockPollingItemCollection.Verify(
-            x => x.Insert(It.IsAny<PollingItem>(), It.IsAny<CancellationToken>()),
-            Times.Never
-        );
-
-        queryExpression!.Compile().Invoke(new PollingItem { Id = existing.Id }).Should().BeTrue();
-    }
-
-    [Fact]
-    public async Task Process_PollingItemDoesNotExist_IsInserted()
-    {
-        var expectedMrn = "mrn123";
-
-        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
-        var contextMock = new Mock<IMongoContext>();
-        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
-        mockPollingItemCollection.Setup(x => x.Insert(It.IsAny<PollingItem>(), It.IsAny<CancellationToken>()));
 
         var service = new PollingService(
             Mock.Of<ILogger<PollingService>>(),
@@ -81,12 +55,49 @@ public class PollingServiceTests
         );
         var request = new PollingRequest { Mrn = expectedMrn };
 
+        var renderArgs = new RenderArgs<PollingItem>(
+            BsonSerializer.SerializerRegistry.GetSerializer<PollingItem>(),
+            BsonSerializer.SerializerRegistry
+        );
+
+        BsonValue? filter = null;
+        BsonValue? update = null;
+        FindOneAndUpdateOptions<PollingItem>? options = null;
+
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindOneAndUpdate(
+                    It.IsAny<FilterDefinition<PollingItem>>(),
+                    It.IsAny<UpdateDefinition<PollingItem>>(),
+                    It.IsAny<FindOneAndUpdateOptions<PollingItem>>(),
+                    It.IsAny<CancellationToken>()
+                )
+            )
+            .Callback(
+                (
+                    FilterDefinition<PollingItem> f,
+                    UpdateDefinition<PollingItem> u,
+                    FindOneAndUpdateOptions<PollingItem> o,
+                    CancellationToken _
+                ) =>
+                {
+                    filter = f.Render(renderArgs);
+                    update = u.Render(renderArgs);
+                    options = o;
+                }
+            );
+
         await service.Process(request, CancellationToken.None);
 
-        mockPollingItemCollection.Verify(
-            x => x.Insert(It.Is<PollingItem>(p => p.Id == expectedMrn), It.IsAny<CancellationToken>()),
-            Times.Once
-        );
+        filter!["_id"].Should().Be(expectedMrn);
+
+        var updateDoc = update!["$setOnInsert"].AsBsonDocument;
+        updateDoc["Created"].ToUniversalTime().Should().Be(_mockTimeProvider.GetUtcNow().UtcDateTime);
+        updateDoc["Complete"].AsBoolean.Should().BeFalse();
+        updateDoc["Gmrs"].AsBsonDocument.ElementCount.Should().Be(0);
+        updateDoc["LastPolled"].Should().Be(BsonNull.Value);
+
+        options!.IsUpsert.Should().BeTrue();
     }
 
     [Fact]
