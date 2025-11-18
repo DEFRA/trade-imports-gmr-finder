@@ -26,7 +26,24 @@ public class PollingService(
 
     public async Task Process(PollingRequest request, CancellationToken cancellationToken)
     {
-        var existingPollingItem = await mongo.PollingItems.FindOne(p => p.Id == request.Mrn, cancellationToken);
+        var filter = Builders<PollingItem>.Filter.Where(f => f.Id == request.Mrn);
+        var update = Builders<PollingItem>.Update.Combine(
+            Builders<PollingItem>.Update.SetOnInsert(u => u.Created, _timeProvider.GetUtcNow().UtcDateTime),
+            Builders<PollingItem>.Update.SetOnInsert(
+                u => u.ExpiryDate,
+                _timeProvider.GetUtcNow().UtcDateTime.Add(_options.ExpiryTimeSpan)
+            ),
+            Builders<PollingItem>.Update.SetOnInsert(u => u.Complete, false),
+            Builders<PollingItem>.Update.SetOnInsert(u => u.Gmrs, new Dictionary<string, string>()),
+            Builders<PollingItem>.Update.SetOnInsert(u => u.LastPolled, null)
+        );
+
+        var existingPollingItem = await mongo.PollingItems.FindOneAndUpdate(
+            filter,
+            update,
+            new FindOneAndUpdateOptions<PollingItem> { IsUpsert = true },
+            cancellationToken
+        );
 
         if (existingPollingItem is not null)
         {
@@ -34,16 +51,7 @@ public class PollingService(
             return;
         }
 
-        logger.LogInformation("Inserting new polling item for {Mrn}", request.Mrn);
-        var created = _timeProvider.GetUtcNow().UtcDateTime;
-        var pollingItem = new PollingItem
-        {
-            Id = request.Mrn,
-            Created = created,
-            ExpiryDate = created.Add(_options.ExpiryTimeSpan)
-        };
-
-        await mongo.PollingItems.Insert(pollingItem, cancellationToken);
+        logger.LogInformation("Inserted new polling item for {Mrn}", request.Mrn);
     }
 
     public async Task PollItems(CancellationToken cancellationToken)
@@ -51,7 +59,7 @@ public class PollingService(
         var now = _timeProvider.GetUtcNow().UtcDateTime;
 
         var pollItems = await mongo.PollingItems.FindMany(
-            where: p => !p.Complete,
+            p => !p.Complete,
             orderBy: p => p.LastPolled ?? DateTime.MinValue,
             limit: _options.MaxPollSize,
             cancellationToken: cancellationToken
@@ -75,13 +83,9 @@ public class PollingService(
         ).Result;
 
         if (results.GmrByDeclarationId.Count == 0)
-        {
             logger.LogInformation("No poll results found for MRNs");
-        }
         else
-        {
             logger.LogInformation("Received GMRs for MRNs");
-        }
 
         var gmrs = results.Gmrs.ToDictionary(p => p.GmrId, p => p);
         var gmrsByDeclarationId = results.GmrByDeclarationId.ToDictionary(
@@ -107,20 +111,14 @@ public class PollingService(
                 var update = Builders<PollingItem>.Update.Set(u => u.LastPolled, now);
 
                 if (!gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs))
-                {
                     gmrs = [];
-                }
                 else
-                {
                     update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
-                }
 
                 // Check if polling item should be marked complete
                 var result = pollingItemCompletionService.DetermineCompletion(p, gmrs);
                 if (result.ShouldComplete)
-                {
                     update = update.Set(u => u.Complete, true);
-                }
 
                 return new UpdateOneModel<PollingItem>(filter, update);
             })
