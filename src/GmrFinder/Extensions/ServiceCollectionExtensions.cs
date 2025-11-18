@@ -19,7 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddSingleton<IAmazonSQS>(sp =>
         {
             var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
-            if (string.IsNullOrEmpty(localStackOptions.SqsEndpoint))
+            if (localStackOptions.UseLocalStack == false)
             {
                 return new AmazonSQSClient();
             }
@@ -48,7 +48,7 @@ public static class ServiceCollectionExtensions
             var logger = sp.GetRequiredService<ILogger<ResilientSnsClient>>();
 
             var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
-            if (string.IsNullOrEmpty(localStackOptions.SnsEndpoint))
+            if (localStackOptions.UseLocalStack == false)
             {
                 return new ResilientSnsClient(logger);
             }

@@ -19,4 +19,7 @@ public class LocalStackOptions
 
     [ConfigurationKeyName("SQS_ENDPOINT")]
     public string? SqsEndpoint { get; init; }
+
+    [ConfigurationKeyName("USE_LOCALSTACK")]
+    public bool? UseLocalStack { get; init; } = false;
 }
