@@ -16,6 +16,7 @@ public class PollingService(
     IMongoContext mongo,
     IGvmsApiClient gvmsApiClient,
     IMatchedGmrsProducer matchedGmrsProducer,
+    IPollingItemCompletionService pollingItemCompletionService,
     IOptions<PollingServiceOptions> options,
     TimeProvider? timeProvider = null
 ) : IPollingService
@@ -34,7 +35,13 @@ public class PollingService(
         }
 
         logger.LogInformation("Inserting new polling item for {Mrn}", request.Mrn);
-        var pollingItem = new PollingItem { Id = request.Mrn, Created = _timeProvider.GetUtcNow().UtcDateTime };
+        var created = _timeProvider.GetUtcNow().UtcDateTime;
+        var pollingItem = new PollingItem
+        {
+            Id = request.Mrn,
+            Created = created,
+            ExpiryDate = created.Add(_options.ExpiryTimeSpan)
+        };
 
         await mongo.PollingItems.Insert(pollingItem, cancellationToken);
     }
@@ -101,10 +108,19 @@ public class PollingService(
 
                 if (!gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs))
                 {
-                    return new UpdateOneModel<PollingItem>(filter, update);
+                    gmrs = [];
+                }
+                else
+                {
+                    update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
                 }
 
-                update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
+                // Check if polling item should be marked complete
+                var result = pollingItemCompletionService.DetermineCompletion(p, gmrs);
+                if (result.ShouldComplete)
+                {
+                    update = update.Set(u => u.Complete, true);
+                }
 
                 return new UpdateOneModel<PollingItem>(filter, update);
             })

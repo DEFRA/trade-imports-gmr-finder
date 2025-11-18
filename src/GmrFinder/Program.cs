@@ -86,6 +86,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
 
     builder.Services.AddValidateOptions<PollingServiceOptions>(PollingServiceOptions.SectionName);
+    builder.Services.AddSingleton<IPollingItemCompletionService, PollingItemCompletionService>();
     builder.Services.AddSingleton<IPollingService, PollingService>();
     builder.Services.AddHostedService<DataEventsQueueConsumer>();
 
