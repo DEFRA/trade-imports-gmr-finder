@@ -11,6 +11,7 @@ public class StringValidatorsTests
     [Theory]
     [InlineData("25GB6RLA6C8OV8GAR2")]
     [InlineData("12FRABCDEFGH123456")]
+    [InlineData("25GBabcdefgh123456")]
     public void IsValidMrn_WithValidValue_ReturnsTrue(string mrn)
     {
         _stringValidators.IsValidMrn(mrn).Should().BeTrue();
