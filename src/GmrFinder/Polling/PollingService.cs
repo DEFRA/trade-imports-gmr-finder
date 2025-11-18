@@ -25,7 +25,20 @@ public class PollingService(
 
     public async Task Process(PollingRequest request, CancellationToken cancellationToken)
     {
-        var existingPollingItem = await mongo.PollingItems.FindOne(p => p.Id == request.Mrn, cancellationToken);
+        var filter = Builders<PollingItem>.Filter.Where(f => f.Id == request.Mrn);
+        var update = Builders<PollingItem>.Update.Combine(
+            Builders<PollingItem>.Update.SetOnInsert(u => u.Created, _timeProvider.GetUtcNow().UtcDateTime),
+            Builders<PollingItem>.Update.SetOnInsert(u => u.Complete, false),
+            Builders<PollingItem>.Update.SetOnInsert(u => u.Gmrs, new Dictionary<string, string>()),
+            Builders<PollingItem>.Update.SetOnInsert(u => u.LastPolled, null)
+        );
+
+        var existingPollingItem = await mongo.PollingItems.FindOneAndUpdate(
+            filter,
+            update,
+            new FindOneAndUpdateOptions<PollingItem> { IsUpsert = true },
+            cancellationToken
+        );
 
         if (existingPollingItem is not null)
         {
@@ -33,10 +46,7 @@ public class PollingService(
             return;
         }
 
-        logger.LogInformation("Inserting new polling item for {Mrn}", request.Mrn);
-        var pollingItem = new PollingItem { Id = request.Mrn, Created = _timeProvider.GetUtcNow().UtcDateTime };
-
-        await mongo.PollingItems.Insert(pollingItem, cancellationToken);
+        logger.LogInformation("Inserted new polling item for {Mrn}", request.Mrn);
     }
 
     public async Task PollItems(CancellationToken cancellationToken)

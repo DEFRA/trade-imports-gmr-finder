@@ -10,7 +10,7 @@ source "$AWS_ENV_FILE"
 set +a
 
 ENDPOINT_URL="http://localhost:4566"
-QUEUE_NAME="trade_imports_data_upserted_gmr_finder_queue"
+QUEUE_NAME="trade_imports_data_upserted_gmr_finder"
 
 if [[ $# -lt 1 ]]; then
     echo "Missing file parameter"

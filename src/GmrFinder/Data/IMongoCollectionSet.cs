@@ -10,6 +10,13 @@ public interface IMongoCollectionSet<T>
 
     Task BulkWrite(List<WriteModel<T>> operations, CancellationToken cancellationToken);
 
+    Task<T?> FindOneAndUpdate(
+        FilterDefinition<T> filter,
+        UpdateDefinition<T> update,
+        FindOneAndUpdateOptions<T> options,
+        CancellationToken cancellationToken
+    );
+
     Task<T?> FindOne(Expression<Func<T, bool>> expression, CancellationToken cancellationToken);
 
     Task<List<T>> FindMany<TKey>(

@@ -1,9 +1,11 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 
 namespace GmrFinder.Data;
 
+[ExcludeFromCodeCoverage]
 public class MongoCollectionSet<T>(IMongoDbClientFactory database) : IMongoCollectionSet<T>
     where T : class, IDataEntity
 {
@@ -40,5 +42,15 @@ public class MongoCollectionSet<T>(IMongoDbClientFactory database) : IMongoColle
     public async Task Insert(T item, CancellationToken cancellationToken)
     {
         await Collection.InsertOneAsync(item, null, cancellationToken);
+    }
+
+    public async Task<T?> FindOneAndUpdate(
+        FilterDefinition<T> filter,
+        UpdateDefinition<T> update,
+        FindOneAndUpdateOptions<T> options,
+        CancellationToken cancellationToken
+    )
+    {
+        return await Collection.FindOneAndUpdateAsync(filter, update, options, cancellationToken);
     }
 }
