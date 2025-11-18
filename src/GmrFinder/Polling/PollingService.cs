@@ -16,6 +16,7 @@ public class PollingService(
     IMongoContext mongo,
     IGvmsApiClient gvmsApiClient,
     IMatchedGmrsProducer matchedGmrsProducer,
+    IPollingItemCompletionService pollingItemCompletionService,
     IOptions<PollingServiceOptions> options,
     TimeProvider? timeProvider = null
 ) : IPollingService
@@ -28,6 +29,10 @@ public class PollingService(
         var filter = Builders<PollingItem>.Filter.Where(f => f.Id == request.Mrn);
         var update = Builders<PollingItem>.Update.Combine(
             Builders<PollingItem>.Update.SetOnInsert(u => u.Created, _timeProvider.GetUtcNow().UtcDateTime),
+            Builders<PollingItem>.Update.SetOnInsert(
+                u => u.ExpiryDate,
+                _timeProvider.GetUtcNow().UtcDateTime.Add(_options.ExpiryTimeSpan)
+            ),
             Builders<PollingItem>.Update.SetOnInsert(u => u.Complete, false),
             Builders<PollingItem>.Update.SetOnInsert(u => u.Gmrs, new Dictionary<string, string>()),
             Builders<PollingItem>.Update.SetOnInsert(u => u.LastPolled, null)
@@ -54,7 +59,7 @@ public class PollingService(
         var now = _timeProvider.GetUtcNow().UtcDateTime;
 
         var pollItems = await mongo.PollingItems.FindMany(
-            where: p => !p.Complete,
+            p => !p.Complete,
             orderBy: p => p.LastPolled ?? DateTime.MinValue,
             limit: _options.MaxPollSize,
             cancellationToken: cancellationToken
@@ -78,13 +83,9 @@ public class PollingService(
         ).Result;
 
         if (results.GmrByDeclarationId.Count == 0)
-        {
             logger.LogInformation("No poll results found for MRNs");
-        }
         else
-        {
             logger.LogInformation("Received GMRs for MRNs");
-        }
 
         var gmrs = results.Gmrs.ToDictionary(p => p.GmrId, p => p);
         var gmrsByDeclarationId = results.GmrByDeclarationId.ToDictionary(
@@ -110,11 +111,14 @@ public class PollingService(
                 var update = Builders<PollingItem>.Update.Set(u => u.LastPolled, now);
 
                 if (!gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs))
-                {
-                    return new UpdateOneModel<PollingItem>(filter, update);
-                }
+                    gmrs = [];
+                else
+                    update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
 
-                update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
+                // Check if polling item should be marked complete
+                var result = pollingItemCompletionService.DetermineCompletion(p, gmrs);
+                if (result.ShouldComplete)
+                    update = update.Set(u => u.Complete, true);
 
                 return new UpdateOneModel<PollingItem>(filter, update);
             })
