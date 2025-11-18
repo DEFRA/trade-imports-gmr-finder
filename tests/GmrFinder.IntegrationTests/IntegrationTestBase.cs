@@ -25,6 +25,7 @@ public abstract class IntegrationTestBase
         { "AWS_REGION", "eu-west-2" },
         { "SNS_ENDPOINT", "http://localhost:4566" },
         { "SQS_ENDPOINT", "http://localhost:4566" },
+        { "USE_LOCALSTACK", "true" },
     };
 
     public const string PublishMessageQueueName = "trade_imports_matched_gmrs_processor";
