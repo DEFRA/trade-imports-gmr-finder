@@ -7,7 +7,7 @@ public partial class StringValidators : IStringValidators
     [GeneratedRegex(
         pattern: "^\\d{2}[A-Z]{2}[A-Z0-9]{14}$",
         matchTimeoutMilliseconds: 2000,
-        options: RegexOptions.Compiled | RegexOptions.CultureInvariant
+        options: RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase
     )]
     private partial Regex MrnRegex();
 

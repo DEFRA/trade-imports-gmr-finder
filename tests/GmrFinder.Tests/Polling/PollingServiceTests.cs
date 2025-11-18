@@ -93,7 +93,7 @@ public class PollingServiceTests
 
         await service.Process(request, CancellationToken.None);
 
-        filter!["_id"].Should().Be(expectedMrn);
+        filter!["_id"].Should().Be("MRN123");
 
         var updateDoc = update!["$setOnInsert"].AsBsonDocument;
         updateDoc["Created"].ToUniversalTime().Should().Be(_mockTimeProvider.GetUtcNow().UtcDateTime);
