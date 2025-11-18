@@ -39,12 +39,12 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("gmr123");
+        result.Reason.Should().Contain("All GMRs");
         result.Reason.Should().Contain("COMPLETED");
     }
 
     [Fact]
-    public void DetermineCompletion_WithMultipleGmrsOneCompleted_ShouldMarkComplete()
+    public void DetermineCompletion_WithMultipleGmrsOneCompleted_ShouldNotMarkComplete()
     {
         var service = new PollingItemCompletionService(_mockLogger.Object, _timeProvider);
         var pollingItem = new PollingItem
@@ -84,9 +84,8 @@ public class PollingItemCompletionServiceTests
 
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
-        result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("gmr456");
-        result.Reason.Should().Contain("COMPLETED");
+        result.ShouldComplete.Should().BeFalse();
+        result.Reason.Should().BeNull();
     }
 
     [Fact]
@@ -220,9 +219,77 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("gmr123");
+        result.Reason.Should().Contain("All GMRs");
         result.Reason.Should().Contain("COMPLETED");
         result.Reason.Should().NotContain("expired");
+    }
+
+    [Fact]
+    public void DetermineCompletion_WithMultipleGmrsAllCompleted_ShouldMarkComplete()
+    {
+        var service = new PollingItemCompletionService(_mockLogger.Object, _timeProvider);
+        var pollingItem = new PollingItem
+        {
+            Id = "mrn123",
+            Created = _timeProvider.GetUtcNow().UtcDateTime.AddDays(-5),
+            ExpiryDate = _timeProvider.GetUtcNow().UtcDateTime.AddDays(25),
+        };
+
+        var gmrs = new List<Gmr>
+        {
+            new()
+            {
+                GmrId = "gmr123",
+                HaulierEori = "GB123",
+                State = "COMPLETED",
+                UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+                Direction = "Inbound",
+            },
+            new()
+            {
+                GmrId = "gmr456",
+                HaulierEori = "GB456",
+                State = "COMPLETED",
+                UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+                Direction = "Inbound",
+            },
+        };
+
+        var result = service.DetermineCompletion(pollingItem, gmrs);
+
+        result.ShouldComplete.Should().BeTrue();
+        result.Reason.Should().Contain("All GMRs");
+        result.Reason.Should().Contain("COMPLETED");
+    }
+
+    [Fact]
+    public void DetermineCompletion_WithCompletedStateCaseInsensitive_ShouldMarkComplete()
+    {
+        var service = new PollingItemCompletionService(_mockLogger.Object, _timeProvider);
+        var pollingItem = new PollingItem
+        {
+            Id = "mrn123",
+            Created = _timeProvider.GetUtcNow().UtcDateTime.AddDays(-5),
+            ExpiryDate = _timeProvider.GetUtcNow().UtcDateTime.AddDays(25),
+        };
+
+        var gmrs = new List<Gmr>
+        {
+            new()
+            {
+                GmrId = "gmr123",
+                HaulierEori = "GB123",
+                State = "completed", // lowercase
+                UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+                Direction = "Inbound",
+            },
+        };
+
+        var result = service.DetermineCompletion(pollingItem, gmrs);
+
+        result.ShouldComplete.Should().BeTrue();
+        result.Reason.Should().Contain("All GMRs");
+        result.Reason.Should().Contain("COMPLETED");
     }
 
     [Fact]

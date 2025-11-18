@@ -12,10 +12,9 @@ public class PollingItemCompletionService(
 
     public CompletionResult DetermineCompletion(PollingItem pollingItem, List<Gmr> gmrs)
     {
-        var completedGmr = gmrs.FirstOrDefault(g => string.Equals(g.State, "COMPLETED", StringComparison.OrdinalIgnoreCase));
-        if (completedGmr is not null)
+        if (gmrs.Count > 0 && gmrs.All(g => string.Equals(g.State, "COMPLETED", StringComparison.OrdinalIgnoreCase)))
         {
-            var reason = $"GMR {completedGmr.GmrId} is in COMPLETED state";
+            var reason = "All GMRs are in COMPLETED state";
             logger.LogInformation("Marking polling item {Mrn} as complete: {Reason}", pollingItem.Id, reason);
             return CompletionResult.Complete(reason);
         }
