@@ -8,9 +8,9 @@ namespace GmrFinder.Utils.Logging;
 public static class CdpLogging
 {
     [ExcludeFromCodeCoverage]
-    public static void Configuration(HostBuilderContext ctx, LoggerConfiguration config)
+    public static void Configuration(HostBuilderContext ctx, IServiceProvider services, LoggerConfiguration config)
     {
-        var httpAccessor = ctx.Configuration.Get<HttpContextAccessor>();
+        var httpAccessor = services.GetService<IHttpContextAccessor>();
         var traceIdHeader = ctx.Configuration.GetValue<string>("TraceHeader");
         var serviceVersion = Environment.GetEnvironmentVariable("SERVICE_VERSION") ?? "";
 
