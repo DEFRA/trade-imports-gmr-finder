@@ -9,7 +9,7 @@ permissions:
   id-token: write
   contents: write
   pull-requests: write
-  packages: read
+  packages: write
 
 env:
   AWS_REGION: eu-west-2
@@ -20,6 +20,8 @@ jobs:
     if: github.run_number != 1
     name: CDP-build-workflow
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - name: Check out code
         uses: actions/checkout@v5
@@ -31,7 +33,7 @@ jobs:
       - name: Update NuGet.config
         run: |
           dotnet nuget remove source defra
-          dotnet nuget add source --username USERNAME --password "${{ secrets.GITHUB_TOKEN }}" --store-password-in-clear-text --name defra "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --configfile NuGet.config
+          dotnet nuget add source --username USERNAME --password "$GITHUB_TOKEN" --store-password-in-clear-text --name defra "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --configfile NuGet.config
       - name: Run unit tests
         run: |
           dotnet test --filter "Category!=IntegrationTests"
@@ -46,6 +48,16 @@ jobs:
         uses: DEFRA/cdp-build-action/build@main
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pack NuGets
+        run: |
+          echo "Building a stable release package"
+          dotnet pack --configuration Release -o ./nupkg
+      - name: Publish NuGets
+        run: |
+          dotnet nuget push ./nupkg/*.nupkg \
+            --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --api-key "$GITHUB_TOKEN" \
+            --skip-duplicate
   sonarcloud-scan:
     name: CDP SonarCloud Scan
     uses: ./.github/workflows/sonarcloud.yml
