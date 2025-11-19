@@ -30,6 +30,14 @@ public class MongoDbInitializer(IMongoDbClientFactory database, ILogger<MongoDbI
             ),
             cancellationToken
         );
+
+        await CreateIndex(
+            new CreateIndexModel<ScheduleToken>(
+                Builders<ScheduleToken>.IndexKeys.Ascending(x => x.scheduleExecutionTime),
+                new CreateIndexOptions { Name = "ScheduleExecutionTimeTtl", ExpireAfter = TimeSpan.FromDays(1) }
+            ),
+            cancellationToken
+        );
     }
 
     private async Task InitPollingServiceCollection(CancellationToken cancellationToken)
