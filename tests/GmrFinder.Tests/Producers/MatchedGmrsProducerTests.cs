@@ -59,5 +59,4 @@ public class MatchedGmrsProducerTests
         var expectedId = matchedGmrs[0].Mrn + "-" + matchedGmrs[0].Gmr.GmrId;
         entry.Id.Should().BeEquivalentTo(expectedId);
     }
-
 }

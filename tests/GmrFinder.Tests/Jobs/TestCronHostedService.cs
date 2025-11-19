@@ -164,10 +164,7 @@ public class CronHostedServiceTests
         await cts.CancelAsync();
         await service.StopAsync(CancellationToken.None);
 
-        Assert.True(
-            service.ExecutionCount >= 2,
-            "Service should continue executing after TaskCanceledException"
-        );
+        Assert.True(service.ExecutionCount >= 2, "Service should continue executing after TaskCanceledException");
     }
 
     [Fact]
