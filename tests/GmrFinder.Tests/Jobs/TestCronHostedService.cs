@@ -136,6 +136,41 @@ public class CronHostedServiceTests
     }
 
     [Fact]
+    public async Task ExecuteAsync_ShouldContinueAfterTaskCanceledExceptionFromWork()
+    {
+        var fakeTimeProvider = new FakeTimeProvider(new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));
+        var service = new TestCronHostedService(
+            _logger,
+            Every1StSecondCronExpression,
+            fakeTimeProvider,
+            null,
+            executionCount =>
+            {
+                if (executionCount == 1)
+                    throw new TaskCanceledException("Simulated timeout");
+            }
+        );
+
+        using var cts = new CancellationTokenSource();
+
+        await service.StartAsync(cts.Token);
+
+        fakeTimeProvider.Advance(TimeSpan.FromSeconds(1));
+        await Task.Delay(100, cts.Token);
+
+        fakeTimeProvider.Advance(TimeSpan.FromSeconds(1));
+        await Task.Delay(100, cts.Token);
+
+        await cts.CancelAsync();
+        await service.StopAsync(CancellationToken.None);
+
+        Assert.True(
+            service.ExecutionCount >= 2,
+            "Service should continue executing after TaskCanceledException"
+        );
+    }
+
+    [Fact]
     public async Task ExecuteAsync_ShouldStopWhenCancellationRequested()
     {
         var fakeTimeProvider = new FakeTimeProvider(new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));

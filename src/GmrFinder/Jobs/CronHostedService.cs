@@ -86,17 +86,21 @@ public abstract class CronHostedService(
                     nextOccurrence.Value,
                     _timeProvider.GetUtcNow().DateTime
                 );
+
                 if (token)
                 {
                     logger.LogInformation("Execution token acquired - Executing.");
                     await DoWork(cancellationToken);
+                    continue;
                 }
-                else
-                {
-                    logger.LogInformation("Execution token not acquired - Continuing.");
-                }
+
+                logger.LogInformation("Execution token not acquired - Continuing.");
             }
-            catch (Exception ex) when (ex is not OperationCanceledException)
+            catch (OperationCanceledException ex) when (!cancellationToken.IsCancellationRequested)
+            {
+                logger.LogWarning(ex, "Job execution was cancelled, skipping until next scheduled run");
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred executing the schedule");
             }
