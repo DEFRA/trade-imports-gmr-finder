@@ -18,13 +18,11 @@ public static class WireMockGvmsExtensions
                     .WithPath("/oauth/token")
                     .WithHeader("Content-Type", "application/x-www-form-urlencoded")
                     .WithBody(
-                        new FormUrlEncodedMatcher(
-                            [
-                                "client_secret=test-client-secret",
-                                "client_id=test-client-id",
-                                "grant_type=client_credentials",
-                            ]
-                        )
+                        new FormUrlEncodedMatcher([
+                            "client_secret=test-client-secret",
+                            "client_id=test-client-id",
+                            "grant_type=client_credentials",
+                        ])
                     )
                     .UsingPost()
             )

@@ -9,7 +9,6 @@ using GmrFinder.IntegrationTests.TestExtensions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using TestFixtures;
-using Xunit.Sdk;
 
 namespace GmrFinder.IntegrationTests.Polling;
 

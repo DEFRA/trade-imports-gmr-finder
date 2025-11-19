@@ -23,23 +23,21 @@ public class ResilientSnsClientTests
         var request = new PublishBatchRequest { TopicArn = "topicArn", PublishBatchRequestEntries = entries };
 
         var publishCalls = new List<IReadOnlyCollection<PublishBatchRequestEntry>>();
-        var responses = new Queue<PublishBatchResponse>(
-            [
-                new PublishBatchResponse
-                {
-                    Failed =
-                    [
-                        new BatchResultErrorEntry
-                        {
-                            Id = entries[0].Id,
-                            SenderFault = false,
-                            Code = "Throttled",
-                        },
-                    ],
-                },
-                new PublishBatchResponse(),
-            ]
-        );
+        var responses = new Queue<PublishBatchResponse>([
+            new PublishBatchResponse
+            {
+                Failed =
+                [
+                    new BatchResultErrorEntry
+                    {
+                        Id = entries[0].Id,
+                        SenderFault = false,
+                        Code = "Throttled",
+                    },
+                ],
+            },
+            new PublishBatchResponse(),
+        ]);
 
         await _handler.PublishWithRetryAsync(
             (req, _) =>
