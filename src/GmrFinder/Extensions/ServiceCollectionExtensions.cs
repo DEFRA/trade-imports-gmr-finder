@@ -5,6 +5,7 @@ using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using GmrFinder.Configuration;
 using GmrFinder.Resilience;
+using GmrFinder.Utils.Http;
 using GvmsClient.Client;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -88,13 +89,15 @@ public static class ServiceCollectionExtensions
 
         services
             .AddMemoryCache()
-            .AddHttpClient<IGvmsApiClient, GvmsApiClient>(
+            .AddHttpClient<IGvmsApiClient, GvmsApiClient>()
+            .ConfigureHttpClient(
                 (sp, c) =>
                 {
                     var settings = sp.GetRequiredService<IOptions<GmrFinderGvmsApiOptions>>().Value;
                     c.BaseAddress = new Uri(settings.BaseUri);
                 }
             )
+            .ConfigurePrimaryHttpMessageHandler<ProxyHttpMessageHandler>()
             .AddResilienceHandler(
                 "GvmsApi",
                 (pipelineBuilder, context) =>
