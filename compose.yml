@@ -29,7 +29,10 @@ services:
     restart: unless-stopped
 
   gmr-finder:
-    build: ./
+    build:
+      args:
+        DEFRA_NUGET_PAT: ${DEFRA_NUGET_PAT}
+      context: ./
     ports:
       - '8080:8080'
     depends_on:
