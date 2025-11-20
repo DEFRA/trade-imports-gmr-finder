@@ -1,4 +1,4 @@
-namespace GvmsClient.Contract;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 
 public class GmrDeclaration
 {

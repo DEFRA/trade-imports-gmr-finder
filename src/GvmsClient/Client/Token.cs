@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace GvmsClient.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
 public class Token
 {

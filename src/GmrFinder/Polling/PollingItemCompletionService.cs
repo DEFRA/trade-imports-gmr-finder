@@ -1,5 +1,5 @@
 using GmrFinder.Data;
-using GvmsClient.Contract;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 
 namespace GmrFinder.Polling;
 

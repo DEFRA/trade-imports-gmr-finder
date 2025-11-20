@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
-using GvmsClient.Contract;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 
-namespace Domain.Events;
+namespace Defra.TradeImportsGmrFinder.Domain.Events;
 
 [ExcludeFromCodeCoverage]
 public record MatchedGmr

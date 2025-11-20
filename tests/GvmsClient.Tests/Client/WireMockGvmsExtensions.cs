@@ -1,12 +1,12 @@
 using System.Net;
 using System.Text.Json;
-using GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using WireMock.Matchers;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 
-namespace GvmsClient.Tests.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Tests.Client;
 
 public static class WireMockGvmsExtensions
 {

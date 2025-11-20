@@ -1,4 +1,4 @@
-using GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using Microsoft.Extensions.Http.Resilience;
 
 namespace GmrFinder.Configuration;

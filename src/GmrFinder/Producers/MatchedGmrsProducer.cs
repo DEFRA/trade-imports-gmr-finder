@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
-using Domain.Events;
+using Defra.TradeImportsGmrFinder.Domain.Events;
 using GmrFinder.Configuration;
 using Microsoft.Extensions.Options;
 

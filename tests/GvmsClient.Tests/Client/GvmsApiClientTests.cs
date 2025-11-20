@@ -1,13 +1,13 @@
 using System.Net;
-using GvmsClient.Client;
-using GvmsClient.Contract.Requests;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Options;
 using WireMock.RequestBuilders;
 using WireMock.ResponseBuilders;
 using WireMock.Server;
 
-namespace GvmsClient.Tests.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Tests.Client;
 
 public sealed class GvmsApiClientTests : IDisposable
 {

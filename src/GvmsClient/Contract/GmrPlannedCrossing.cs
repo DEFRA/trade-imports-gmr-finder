@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace GvmsClient.Contract;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 
 public class GmrPlannedCrossing : GmrCrossing
 {

@@ -1,11 +1,11 @@
 using System.Text.Json;
-using Domain.Events;
+using Defra.TradeImportsGmrFinder.Domain.Events;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
 using GmrFinder.Producers;
-using GvmsClient.Client;
-using GvmsClient.Contract;
-using GvmsClient.Contract.Requests;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 

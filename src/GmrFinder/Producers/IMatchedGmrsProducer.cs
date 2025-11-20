@@ -1,4 +1,4 @@
-using Domain.Events;
+using Defra.TradeImportsGmrFinder.Domain.Events;
 
 namespace GmrFinder.Producers;
 
