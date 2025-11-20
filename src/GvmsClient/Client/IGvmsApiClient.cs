@@ -1,8 +1,8 @@
-using GvmsClient.Contract;
-using GvmsClient.Contract.Requests;
-using GvmsClient.Contract.Responses;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Responses;
 
-namespace GvmsClient.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
 public interface IGvmsApiClient
 {

@@ -1,6 +1,6 @@
-using GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
-namespace GvmsClient.Tests.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Tests.Client;
 
 public static class AccessTokenHelper
 {

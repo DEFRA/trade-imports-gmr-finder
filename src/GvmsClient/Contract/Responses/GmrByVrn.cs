@@ -1,4 +1,4 @@
-namespace GvmsClient.Contract.Responses;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Contract.Responses;
 
 public class GmrByVrn
 {

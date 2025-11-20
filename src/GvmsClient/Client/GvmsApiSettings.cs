@@ -1,4 +1,4 @@
-namespace GvmsClient.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
 public class GvmsApiOptions
 {

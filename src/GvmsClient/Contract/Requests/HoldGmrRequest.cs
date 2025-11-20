@@ -1,7 +1,7 @@
 using System.Text.Json.Serialization;
-using GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
-namespace GvmsClient.Contract.Requests;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
 
 public class HoldGmrRequest(bool hold) : IHttpRequestContent
 {

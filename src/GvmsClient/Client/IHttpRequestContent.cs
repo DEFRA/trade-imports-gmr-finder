@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using System.Net.Mime;
 using System.Text.Json;
 
-namespace GvmsClient.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
 internal interface IHttpRequestContent;
 

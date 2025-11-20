@@ -2,7 +2,7 @@ using System.Text.Json;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using AutoFixture;
-using Domain.Events;
+using Defra.TradeImportsGmrFinder.Domain.Events;
 using FluentAssertions;
 using GmrFinder.Configuration;
 using GmrFinder.Producers;

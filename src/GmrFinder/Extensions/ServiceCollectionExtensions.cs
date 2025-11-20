@@ -6,7 +6,7 @@ using Amazon.SQS;
 using GmrFinder.Configuration;
 using GmrFinder.Resilience;
 using GmrFinder.Utils.Http;
-using GvmsClient.Client;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using Microsoft.Extensions.Options;
 using Polly;
 

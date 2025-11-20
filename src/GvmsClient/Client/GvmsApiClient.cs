@@ -1,14 +1,14 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
-using GvmsClient.Contract;
-using GvmsClient.Contract.Requests;
-using GvmsClient.Contract.Responses;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Responses;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace GvmsClient.Client;
+namespace Defra.TradeImportsGmrFinder.GvmsClient.Client;
 
 public class GvmsApiClient(HttpClient httpClient, IOptions<GvmsApiOptions> gvmsApiSettings, IMemoryCache memoryCache)
     : IGvmsApiClient
