@@ -19,6 +19,7 @@ ENV DEFRA_NUGET_PAT=${DEFRA_NUGET_PAT}
 COPY .config/dotnet-tools.json .config/dotnet-tools.json
 COPY .csharpierrc .csharpierrc
 COPY .csharpierignore .csharpierignore
+COPY .editorconfig .editorconfig
 
 RUN dotnet tool restore
 
