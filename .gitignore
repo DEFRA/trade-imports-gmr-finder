@@ -269,3 +269,4 @@ library.db
 .envrc
 
 .venv
+.env

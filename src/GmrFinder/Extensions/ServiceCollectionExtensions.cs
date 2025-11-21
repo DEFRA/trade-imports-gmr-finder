@@ -3,10 +3,10 @@ using Amazon;
 using Amazon.Runtime;
 using Amazon.SimpleNotificationService;
 using Amazon.SQS;
+using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using GmrFinder.Configuration;
 using GmrFinder.Resilience;
 using GmrFinder.Utils.Http;
-using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using Microsoft.Extensions.Options;
 using Polly;
 
