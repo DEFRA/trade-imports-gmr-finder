@@ -1,99 +1,34 @@
-# trade-imports-gmr-finder
+# Trade Imports GMR Finder
 
-Core delivery C# ASP.NET backend template.
+The GMR Finder consumes events from BTMS, polls GVMS for valid records and emits the matched GMRs for further processing.
 
-* [Install MongoDB](#install-mongodb)
-* [Inspect MongoDB](#inspect-mongodb)
-* [Testing](#testing)
-* [Running](#running)
-* [Dependabot](#dependabot)
+The solution includes:
+- `src/GmrFinder` – The GMR Finder
+- `src/GvmsClient` – A packaged reusable GVMS HTTP Client.
+- `src/Domain` – A packaged shared contract for use in consumers.
 
+## Quick Start
 
-### Docker Compose
+1. Install the [.NET 10 SDK](https://dotnet.microsoft.com/) and Docker.
+2. Copy `.env.example` to `.env` and fill in the secrets.
+3. Run via Docker:
+   ```bash
+   docker compose up --build
+   ```
+4. Run the tests:
+   ```bash
+   dotnet test
+   ```
 
-A Docker Compose template is in [compose.yml](compose.yml).
+### Linting & Formatting
 
-A local environment with:
-
-- Localstack for AWS services (S3, SQS)
-- Redis
-- MongoDB
-- This service.
-- A commented out frontend example.
-
-```bash
-docker compose up --build -d
-```
-
-A more extensive setup is available in [github.com/DEFRA/cdp-local-environment](https://github.com/DEFRA/cdp-local-environment)
-
-### MongoDB
-
-#### MongoDB via Docker
-
-See above.
-
-```
-docker compose up -d mongodb
-```
-
-#### MongoDB locally
-
-Alternatively install MongoDB locally:
-
-- Install [MongoDB](https://www.mongodb.com/docs/manual/tutorial/#installation) on your local machine
-- Start MongoDB:
-```bash
-sudo mongod --dbpath ~/mongodb-cdp
-```
-
-#### MongoDB in CDP environments
-
-In CDP environments a MongoDB instance is already set up
-and the credentials exposed as enviromment variables.
-
-
-### Inspect MongoDB
-
-To inspect the Database and Collections locally:
-```bash
-mongosh
-```
-
-You can use the CDP Terminal to access the environments' MongoDB.
-
-### Testing
-
-Run the tests with:
-
-Tests run by running a full `WebApplication` backed by [Ephemeral MongoDB](https://github.com/asimmon/ephemeral-mongo).
-Tests do not use mocking of any sort and read and write from the in-memory database.
+We use CSharpier for linting and formatting. To run:
 
 ```bash
-dotnet test
-````
-
-### Running
-
-Run CDP-Deployments application:
-```bash
-dotnet run --project TradeImportsGmrFinder --launch-profile Development
+dotnet tool restore
+dotnet csharpier format .
 ```
 
-### SonarCloud
+## Licence
 
-Example SonarCloud configuration are available in the GitHub Action workflows.
-
-### Dependabot
-
-We have added an example dependabot configuration file to the repository. You can enable it by renaming
-the [.github/example.dependabot.yml](.github/example.dependabot.yml) to `.github/dependabot.yml`
-
-
-### About the licence
-
-The Open Government Licence (OGL) was developed by the Controller of Her Majesty's Stationery Office (HMSO) to enable
-information providers in the public sector to license the use and re-use of their information under a common open
-licence.
-
-It is designed to encourage use and re-use of information freely and flexibly, with only a few conditions.
+The Open Government Licence (OGL) permits reuse of public-sector information with minimal conditions. See `LICENCE` for the full text.

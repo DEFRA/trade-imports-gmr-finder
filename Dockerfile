@@ -18,9 +18,9 @@ ENV DEFRA_NUGET_PAT=${DEFRA_NUGET_PAT}
 
 COPY .config/dotnet-tools.json .config/dotnet-tools.json
 COPY .csharpierrc .csharpierrc
+COPY .csharpierignore .csharpierignore
 
 RUN dotnet tool restore
-RUN dotnet csharpier check .
 
 COPY src/Domain/Domain.csproj src/Domain/Domain.csproj
 COPY src/GvmsClient/GvmsClient.csproj src/GvmsClient/GvmsClient.csproj
@@ -42,6 +42,8 @@ COPY tests/GvmsClient.Tests tests/GvmsClient.Tests
 COPY tests/GmrFinder.Tests tests/GmrFinder.Tests
 COPY tests/GmrFinder.IntegrationTests tests/GmrFinder.IntegrationTests
 COPY tests/TestFixtures tests/TestFixtures
+
+RUN dotnet csharpier check .
 
 RUN dotnet test --no-restore --warnaserror --filter "Category!=IntegrationTests"
 

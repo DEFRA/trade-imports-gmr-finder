@@ -5,7 +5,9 @@
     <Project Path="tests/GvmsClient.Tests/GvmsClient.Tests.csproj" />
     <Project Path="tests/TestFixtures/TestFixtures.csproj" />
   </Folder>
-  <Folder Name="/Solution items/" />
+  <Folder Name="/Solution items/">
+    <File Path="README.md" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/Domain/Domain.csproj" />
     <Project Path="src/GmrFinder/GmrFinder.csproj" />

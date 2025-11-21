@@ -41,6 +41,13 @@ public sealed class DataEventsQueueConsumer(
                 var importPreNotification = json.Deserialize<ResourceEvent<ImportPreNotification>>()!;
                 await importPreNotificationProcessor.ProcessAsync(importPreNotification, stoppingToken);
                 break;
+
+            default:
+                _logger.LogDebug(
+                    "Received unhandled message with resource type: {ResourceType}, skipping",
+                    message.GetResourceType()
+                );
+                return;
         }
     }
 }

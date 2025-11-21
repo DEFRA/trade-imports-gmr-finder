@@ -1,7 +1,7 @@
+using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 using FluentAssertions;
 using GmrFinder.Data;
 using GmrFinder.Polling;
-using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Time.Testing;
 using Moq;
