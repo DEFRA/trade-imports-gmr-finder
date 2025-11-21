@@ -6,7 +6,7 @@ namespace GmrFinder.Tests.Utils.Validators;
 
 public class StringValidatorsTests
 {
-    private readonly IStringValidators _stringValidators = new StringValidators();
+    private readonly StringValidators _stringValidators = new();
 
     [Theory]
     [InlineData("25GB6RLA6C8OV8GAR2")]
