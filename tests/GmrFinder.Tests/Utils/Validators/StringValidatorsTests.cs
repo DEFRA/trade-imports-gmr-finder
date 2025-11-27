@@ -1,4 +1,3 @@
-using FluentAssertions;
 using GmrFinder.Utils.Validators;
 using Xunit;
 

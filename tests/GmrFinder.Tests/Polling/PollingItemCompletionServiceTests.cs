@@ -1,5 +1,4 @@
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
-using FluentAssertions;
 using GmrFinder.Data;
 using GmrFinder.Polling;
 using Microsoft.Extensions.Logging;

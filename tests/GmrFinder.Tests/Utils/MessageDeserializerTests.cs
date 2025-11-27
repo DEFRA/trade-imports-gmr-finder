@@ -1,7 +1,6 @@
 using System.IO.Compression;
 using System.Text;
 using System.Text.Json;
-using FluentAssertions;
 using GmrFinder.Utils;
 
 namespace GmrFinder.Tests.Utils;

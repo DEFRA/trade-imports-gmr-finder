@@ -3,7 +3,6 @@ using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
 using AutoFixture;
 using Defra.TradeImportsGmrFinder.Domain.Events;
-using FluentAssertions;
 using GmrFinder.Configuration;
 using GmrFinder.Producers;
 using Microsoft.Extensions.Logging;

@@ -1,7 +1,6 @@
 using Amazon.Runtime;
 using Amazon.SimpleNotificationService;
 using Amazon.SimpleNotificationService.Model;
-using FluentAssertions;
 using GmrFinder.Resilience;
 using Microsoft.Extensions.Logging;
 using Moq;

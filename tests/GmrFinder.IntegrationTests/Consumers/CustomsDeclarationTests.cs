@@ -2,7 +2,6 @@ using System.Text.Json;
 using Amazon.SQS.Model;
 using AutoFixture;
 using Defra.TradeImportsDataApi.Domain.Events;
-using FluentAssertions;
 using GmrFinder.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;

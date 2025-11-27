@@ -1,5 +1,4 @@
 using AutoFixture;
-using FluentAssertions;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
 using GmrFinder.Utils.Validators;

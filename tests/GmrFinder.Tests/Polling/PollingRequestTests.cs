@@ -1,4 +1,3 @@
-using FluentAssertions;
 using GmrFinder.Polling;
 
 namespace GmrFinder.Tests.Polling;
