@@ -4,7 +4,6 @@ using Defra.TradeImportsGmrFinder.Domain.Events;
 using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
-using FluentAssertions;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
 using GmrFinder.Polling;

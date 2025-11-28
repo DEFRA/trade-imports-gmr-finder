@@ -1,5 +1,3 @@
-using FluentAssertions;
-
 namespace GmrFinder.IntegrationTests;
 
 public class Empty

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Amazon.SQS.Model;
 using Defra.TradeImportsDataApi.Domain.Events;
-using FluentAssertions;
 using GmrFinder.Extensions;
 using Xunit;
 
