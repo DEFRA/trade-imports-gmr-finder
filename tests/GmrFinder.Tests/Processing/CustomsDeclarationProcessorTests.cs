@@ -1,4 +1,6 @@
+using System.Diagnostics.Metrics;
 using AutoFixture;
+using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
 using GmrFinder.Utils.Validators;
@@ -12,8 +14,9 @@ public class CustomsDeclarationProcessorTests
 {
     private readonly Mock<ILogger<CustomsDeclarationProcessor>> _logger = new();
     private readonly Mock<IPollingService> _pollingService = new();
-    private readonly Mock<IStringValidators> _stringValidators = new();
     private readonly CustomsDeclarationProcessor _processor;
+    private readonly Mock<IStringValidators> _stringValidators = new();
+    private readonly Mock<IMeterFactory> _meterFactory = new();
 
     public CustomsDeclarationProcessorTests()
     {
@@ -23,7 +26,14 @@ public class CustomsDeclarationProcessorTests
 
         _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(true);
 
-        _processor = new CustomsDeclarationProcessor(_logger.Object, _pollingService.Object, _stringValidators.Object);
+        _meterFactory.Setup(x => x.Create(It.IsAny<MeterOptions>())).Returns(new Meter("test"));
+
+        _processor = new CustomsDeclarationProcessor(
+            _logger.Object,
+            _pollingService.Object,
+            _stringValidators.Object,
+            new PollingMetrics(_meterFactory.Object)
+        );
     }
 
     [Fact]

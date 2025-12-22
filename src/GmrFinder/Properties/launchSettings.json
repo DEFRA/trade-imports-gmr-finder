@@ -7,13 +7,17 @@
       "applicationUrl": "http://localhost:8080",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development",
+        "ENVIRONMENT": "Local",
+        "AWS_EMF_ENVIRONMENT": "Local",
         "AWS_REGION": "eu-west-2",
         "AWS_DEFAULT_REGION": "eu-west-2",
         "AWS_ACCESS_KEY_ID": "test",
         "AWS_SECRET_ACCESS_KEY": "test",
         "SNS_ENDPOINT": "http://localhost:4566",
         "SQS_ENDPOINT": "http://localhost:4566",
-        "USE_LOCALSTACK": "true"
+        "USE_LOCALSTACK": "true",
+        "GvmsApi__ClientId": "pNloYOs7TdeqBM3jVTFAjeaq7Nyf",
+        "GvmsApi__ClientSecret": "c7e7d262-1b86-44c8-a4b7-71a41d745d16"
       }
     }
   }
