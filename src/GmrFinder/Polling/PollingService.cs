@@ -5,6 +5,7 @@ using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
+using GmrFinder.Metrics;
 using GmrFinder.Producers;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
@@ -18,6 +19,7 @@ public class PollingService(
     IMatchedGmrsProducer matchedGmrsProducer,
     IPollingItemCompletionService pollingItemCompletionService,
     IOptions<PollingServiceOptions> options,
+    PollingMetrics pollingMetrics,
     TimeProvider? timeProvider = null
 ) : IPollingService
 {
@@ -118,7 +120,10 @@ public class PollingService(
                 // Check if polling item should be marked complete
                 var result = pollingItemCompletionService.DetermineCompletion(p, gmrs);
                 if (result.ShouldComplete)
+                {
                     update = update.Set(u => u.Complete, true);
+                    pollingMetrics.RecordItemLeave(PollingMetrics.MrnQueueName, result);
+                }
 
                 return new UpdateOneModel<PollingItem>(filter, update);
             })

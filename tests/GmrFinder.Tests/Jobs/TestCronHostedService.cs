@@ -1,7 +1,10 @@
+using System.Diagnostics.Metrics;
 using Cronos;
 using GmrFinder.Jobs;
+using GmrFinder.Metrics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Time.Testing;
+using Moq;
 using NSubstitute;
 
 namespace GmrFinder.Tests.Jobs;
@@ -13,13 +16,24 @@ public class CronHostedServiceTests
     private const string Every5ThSecondCronExpression = "*/5 * * * * *";
 
     private readonly ILogger<CronHostedService> _logger = Substitute.For<ILogger<CronHostedService>>();
+    private readonly Mock<IMeterFactory> _meterFactory = new();
+
+    public CronHostedServiceTests()
+    {
+        _meterFactory.Setup(x => x.Create(It.IsAny<MeterOptions>())).Returns(new Meter("test"));
+    }
 
     [Fact]
     public async Task ExecuteAsync_ShouldExecuteWorkOnSchedule()
     {
         var fakeTimeProvider = new FakeTimeProvider(new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));
 
-        var service = new TestCronHostedService(_logger, Every2NdSecondCronExpression, fakeTimeProvider);
+        var service = new TestCronHostedService(
+            _logger,
+            Every2NdSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object),
+            fakeTimeProvider
+        );
 
         using var cts = new CancellationTokenSource();
 
@@ -56,6 +70,7 @@ public class CronHostedServiceTests
         var service = new TestCronHostedService(
             _logger,
             Every2NdSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object),
             fakeTimeProvider,
             scheduleTokenProvider
         );
@@ -86,6 +101,7 @@ public class CronHostedServiceTests
         var service = new TestCronHostedService(
             _logger,
             Every1StSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object),
             fakeTimeProvider,
             null,
             _ => throw new InvalidOperationException("Test exception")
@@ -110,6 +126,7 @@ public class CronHostedServiceTests
         var service = new TestCronHostedService(
             _logger,
             Every1StSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object),
             fakeTimeProvider,
             null,
             executionCount =>
@@ -142,6 +159,7 @@ public class CronHostedServiceTests
         var service = new TestCronHostedService(
             _logger,
             Every1StSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object),
             fakeTimeProvider,
             null,
             executionCount =>
@@ -171,7 +189,12 @@ public class CronHostedServiceTests
     public async Task ExecuteAsync_ShouldStopWhenCancellationRequested()
     {
         var fakeTimeProvider = new FakeTimeProvider(new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero));
-        var service = new TestCronHostedService(_logger, Every1StSecondCronExpression, fakeTimeProvider);
+        var service = new TestCronHostedService(
+            _logger,
+            Every1StSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object),
+            fakeTimeProvider
+        );
 
         using var cts = new CancellationTokenSource();
 
@@ -186,7 +209,11 @@ public class CronHostedServiceTests
     [Fact]
     public async Task Constructor_WithNullTimeProvider_ShouldUseSystemTimeProvider()
     {
-        var service = new TestCronHostedService(_logger, Every5ThSecondCronExpression);
+        var service = new TestCronHostedService(
+            _logger,
+            Every5ThSecondCronExpression,
+            new ScheduledJobMetrics(_meterFactory.Object)
+        );
 
         using var cts = new CancellationTokenSource(TimeSpan.FromMilliseconds(100));
 
@@ -199,7 +226,9 @@ public class CronHostedServiceTests
     [Fact]
     public void Constructor_WithInvalidCronExpression_ShouldThrowException()
     {
-        Assert.Throws<CronFormatException>(() => new TestCronHostedService(_logger, "invalid cron"));
+        Assert.Throws<CronFormatException>(() =>
+            new TestCronHostedService(_logger, "invalid cron", new ScheduledJobMetrics(_meterFactory.Object))
+        );
     }
 
     private class TestScheduleTokenProvider : IScheduleTokenProvider
@@ -217,6 +246,7 @@ public class CronHostedServiceTests
     private class TestCronHostedService(
         ILogger<CronHostedService> logger,
         string cronExpression,
+        ScheduledJobMetrics scheduledJobMetrics,
         TimeProvider? timeProvider = null,
         IScheduleTokenProvider? scheduleTokenProvider = null,
         Action<int>? action = null
@@ -226,6 +256,7 @@ public class CronHostedServiceTests
             scheduleTokenProvider ?? new TestScheduleTokenProvider(),
             cronExpression,
             "test_schedule",
+            scheduledJobMetrics,
             timeProvider
         )
     {

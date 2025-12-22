@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using Cronos;
+using GmrFinder.Metrics;
 
 namespace GmrFinder.Jobs;
 
@@ -7,6 +9,7 @@ public abstract class CronHostedService(
     IScheduleTokenProvider scheduleTokenProvider,
     string cronExpression,
     string scheduleName,
+    ScheduledJobMetrics scheduledJobMetrics,
     TimeProvider? timeProvider = null
 ) : IHostedService
 {
@@ -90,7 +93,25 @@ public abstract class CronHostedService(
                 if (token)
                 {
                     logger.LogInformation("Execution token acquired - Executing.");
-                    await DoWork(cancellationToken);
+
+                    var stopwatch = Stopwatch.StartNew();
+                    var success = false;
+
+                    try
+                    {
+                        await DoWork(cancellationToken);
+                        success = true;
+                    }
+                    finally
+                    {
+                        stopwatch.Stop();
+                        scheduledJobMetrics.RecordExecutionDuration(
+                            scheduleName,
+                            success,
+                            stopwatch.Elapsed.TotalMilliseconds
+                        );
+                    }
+
                     continue;
                 }
 

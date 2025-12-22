@@ -1,5 +1,6 @@
 using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
+using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Utils.Validators;
 
@@ -8,7 +9,8 @@ namespace GmrFinder.Processing;
 public class CustomsDeclarationProcessor(
     ILogger<CustomsDeclarationProcessor> logger,
     IPollingService pollingService,
-    IStringValidators stringValidators
+    IStringValidators stringValidators,
+    PollingMetrics pollingMetrics
 ) : ICustomsDeclarationProcessor
 {
     public async Task ProcessAsync(
@@ -56,6 +58,12 @@ public class CustomsDeclarationProcessor(
         }
 
         logger.LogInformation("Processing MRN {Mrn}", mrn);
+
+        pollingMetrics.RecordItemJoined(
+            PollingMetrics.MrnQueueName,
+            PollingMetrics.ItemSource.CustomsDeclaration,
+            new KeyValuePair<string, object?>("PortOfArrival", portOfArrival)
+        );
 
         await pollingService.Process(new PollingRequest { Mrn = mrn }, cancellationToken);
     }

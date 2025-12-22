@@ -1,4 +1,6 @@
+using System.Diagnostics.Metrics;
 using AutoFixture;
+using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
 using GmrFinder.Utils.Validators;
@@ -11,9 +13,10 @@ namespace GmrFinder.Tests.Processing;
 public class ImportPreNotificationProcessorTests
 {
     private readonly Mock<ILogger<ImportPreNotificationProcessor>> _logger = new();
+    private readonly Mock<IMeterFactory> _meterFactory = new();
     private readonly Mock<IPollingService> _pollingService = new();
-    private readonly Mock<IStringValidators> _stringValidators = new();
     private readonly ImportPreNotificationProcessor _processor;
+    private readonly Mock<IStringValidators> _stringValidators = new();
 
     public ImportPreNotificationProcessorTests()
     {
@@ -23,10 +26,13 @@ public class ImportPreNotificationProcessorTests
 
         _stringValidators.Setup(x => x.IsValidMrn(It.IsAny<string>())).Returns(true);
 
+        _meterFactory.Setup(x => x.Create(It.IsAny<MeterOptions>())).Returns(new Meter("test"));
+
         _processor = new ImportPreNotificationProcessor(
             _logger.Object,
             _pollingService.Object,
-            _stringValidators.Object
+            _stringValidators.Object,
+            new PollingMetrics(_meterFactory.Object)
         );
     }
 

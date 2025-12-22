@@ -5,6 +5,7 @@ using GmrFinder.Consumers;
 using GmrFinder.Data;
 using GmrFinder.Extensions;
 using GmrFinder.Jobs;
+using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
 using GmrFinder.Producers;
@@ -35,6 +36,7 @@ static WebApplication CreateWebApplication(string[] args)
     ConfigureBuilder(builder);
 
     var app = builder.Build();
+
     return SetupApplication(app);
 }
 
@@ -96,6 +98,9 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddHealthChecks();
 
+    builder.Services.AddSingleton<PollingMetrics>();
+    builder.Services.AddSingleton<ScheduledJobMetrics>();
+
     builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 }
 
@@ -105,6 +110,7 @@ static WebApplication SetupApplication(WebApplication app)
     app.UseHeaderPropagation();
     app.UseRouting();
     app.MapHealthChecks("/health");
+    app.UseEmfExporter(app.Environment.ApplicationName);
 
     return app;
 }

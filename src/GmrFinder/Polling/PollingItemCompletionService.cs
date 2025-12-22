@@ -12,19 +12,20 @@ public class PollingItemCompletionService(
 
     public CompletionResult DetermineCompletion(PollingItem pollingItem, List<Gmr> gmrs)
     {
+        var now = _timeProvider.GetUtcNow().UtcDateTime;
+        var duration = now - pollingItem.Created;
         if (gmrs.Count > 0 && gmrs.All(g => string.Equals(g.State, "COMPLETED", StringComparison.OrdinalIgnoreCase)))
         {
-            var reason = "All GMRs are in COMPLETED state";
+            const string reason = "All GMRs are in COMPLETED state";
             logger.LogInformation("Marking polling item {Mrn} as complete: {Reason}", pollingItem.Id, reason);
-            return CompletionResult.Complete(reason);
+            return CompletionResult.Complete(CompletionReason.Complete, duration);
         }
 
-        var now = _timeProvider.GetUtcNow().UtcDateTime;
         if (now > pollingItem.ExpiryDate)
         {
             var reason = $"Polling item expired on {pollingItem.ExpiryDate:yyyy-MM-dd}";
             logger.LogInformation("Marking polling item {Mrn} as complete: {Reason}", pollingItem.Id, reason);
-            return CompletionResult.Complete(reason);
+            return CompletionResult.Complete(CompletionReason.Expired, duration);
         }
 
         return CompletionResult.Incomplete();

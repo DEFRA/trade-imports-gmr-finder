@@ -1,5 +1,6 @@
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
+using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Utils.Validators;
 
@@ -8,7 +9,8 @@ namespace GmrFinder.Processing;
 public class ImportPreNotificationProcessor(
     ILogger<ImportPreNotificationProcessor> logger,
     IPollingService pollingService,
-    IStringValidators stringValidators
+    IStringValidators stringValidators,
+    PollingMetrics pollingMetrics
 ) : IImportPreNotificationProcessor
 {
     public async Task ProcessAsync(
@@ -38,6 +40,7 @@ public class ImportPreNotificationProcessor(
         }
 
         logger.LogInformation("Processing CHED {ChedReference} with MRN {NctsMrn}", chedReference, nctsMrn);
+        pollingMetrics.RecordItemJoined(PollingMetrics.MrnQueueName, PollingMetrics.ItemSource.ImportNotification);
 
         await pollingService.Process(new PollingRequest { Mrn = nctsMrn }, cancellationToken);
     }
