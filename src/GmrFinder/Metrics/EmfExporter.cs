@@ -26,10 +26,7 @@ public static class EmfExporter
                 instrument.Meter.Name is MetricsConstants.MetricNames.MeterName
                 || (instrument.Meter.Name is "System.Net.Http" && instrument.Name is "http.client.request.duration")
             )
-            {
-                s_logger.LogInformation(instrument.Name);
                 listener.EnableMeasurementEvents(instrument);
-            }
         };
         s_meterListener.SetMeasurementEventCallback<int>(OnMeasurementRecorded);
         s_meterListener.SetMeasurementEventCallback<long>(OnMeasurementRecorded);
