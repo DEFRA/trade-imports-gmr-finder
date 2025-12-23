@@ -41,29 +41,34 @@ public static class EmfExporter
         object? state
     )
     {
-        try
+        var tagArray = tags.ToArray();
+
+        _ = Task.Run(() =>
         {
-            using var metricsLogger = new MetricsLogger(s_loggerFactory);
-
-            metricsLogger.SetNamespace(s_awsNamespace);
-            var dimensionSet = new DimensionSet();
-
-            foreach (var tag in tags)
+            try
             {
-                if (string.IsNullOrWhiteSpace(tag.Value?.ToString()))
-                    continue;
+                using var metricsLogger = new MetricsLogger(s_loggerFactory);
 
-                dimensionSet.AddDimension(tag.Key, tag.Value!.ToString());
+                metricsLogger.SetNamespace(s_awsNamespace);
+                var dimensionSet = new DimensionSet();
+
+                foreach (var tag in tagArray)
+                {
+                    if (string.IsNullOrWhiteSpace(tag.Value?.ToString()))
+                        continue;
+
+                    dimensionSet.AddDimension(tag.Key, tag.Value!.ToString());
+                }
+
+                metricsLogger.SetDimensions(dimensionSet);
+                metricsLogger.PutMetric(instrument.Name, Convert.ToDouble(measurement), GetEmfUnit(instrument.Unit));
+                metricsLogger.Flush();
             }
-
-            metricsLogger.SetDimensions(dimensionSet);
-            metricsLogger.PutMetric(instrument.Name, Convert.ToDouble(measurement), GetEmfUnit(instrument.Unit));
-            metricsLogger.Flush();
-        }
-        catch (Exception ex)
-        {
-            s_logger.LogWarning(ex, "Failed to push EMF metric");
-        }
+            catch (Exception ex)
+            {
+                s_logger.LogWarning(ex, "Failed to push EMF metric");
+            }
+        });
     }
 
     private static Unit GetEmfUnit(string? unit)
