@@ -4,24 +4,24 @@ using Amazon.CloudWatch.EMF.Model;
 
 namespace GmrFinder.Metrics;
 
-public class ScheduledJobMetrics
+public class ConsumerMetrics
 {
     private readonly Histogram<double> _jobExecutionDuration;
 
-    public ScheduledJobMetrics(IMeterFactory meterFactory)
+    public ConsumerMetrics(IMeterFactory meterFactory)
     {
         var meter = meterFactory.Create(MetricsConstants.MetricNames.MeterName);
 
         _jobExecutionDuration = meter.CreateHistogram<double>(
-            "jobs.execution.duration",
+            "queue.process.message.duration",
             nameof(Unit.MILLISECONDS),
-            "Duration of the job execution time"
+            "Duration of processing a message from a queue"
         );
     }
 
-    public void RecordExecutionDuration(string jobName, bool success, TimeSpan duration)
+    public void RecordProcessDuration(string queueName, bool success, TimeSpan duration)
     {
-        var tagList = new TagList { { "jobName", jobName }, { "success", success } };
+        var tagList = new TagList { { "queueName", queueName }, { "success", success } };
         _jobExecutionDuration.Record(duration.TotalMilliseconds, tagList);
     }
 }

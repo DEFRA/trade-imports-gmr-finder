@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Defra.TradeImportsGmrFinder.Domain.Events;
 using Defra.TradeImportsGmrFinder.GvmsClient.Client;
@@ -12,6 +13,11 @@ using MongoDB.Driver;
 
 namespace GmrFinder.Polling;
 
+[SuppressMessage(
+    "Design",
+    "S107:Methods should not have too many parameters",
+    Justification = "All parameters are necessary dependencies"
+)]
 public class PollingService(
     ILogger<PollingService> logger,
     IMongoContext mongo,

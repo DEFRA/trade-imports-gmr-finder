@@ -9,7 +9,9 @@ using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Configuration;
 using GmrFinder.Consumers;
 using GmrFinder.Extensions;
+using GmrFinder.Metrics;
 using GmrFinder.Processing;
+using GmrFinder.Tests.Metrics;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -19,14 +21,16 @@ namespace GmrFinder.Tests.Consumers;
 
 public class DataEventsQueueConsumerTests
 {
+    private readonly DataEventsQueueConsumer _consumer;
     private readonly Mock<ICustomsDeclarationProcessor> _customsDeclarationProcessor = new();
     private readonly Mock<IImportPreNotificationProcessor> _importPreNotificationProcessor = new();
-    private readonly DataEventsQueueConsumer _consumer;
+    private readonly MockMeterFactory _meterFactory = new();
 
     public DataEventsQueueConsumerTests()
     {
         _consumer = new DataEventsQueueConsumer(
             NullLogger<DataEventsQueueConsumer>.Instance,
+            new ConsumerMetrics(_meterFactory.CreateMeter()),
             new Mock<IAmazonSQS>().Object,
             Options.Create(
                 new DataEventsQueueConsumerOptions

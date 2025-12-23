@@ -105,11 +105,7 @@ public abstract class CronHostedService(
                     finally
                     {
                         stopwatch.Stop();
-                        scheduledJobMetrics.RecordExecutionDuration(
-                            scheduleName,
-                            success,
-                            stopwatch.Elapsed.TotalMilliseconds
-                        );
+                        scheduledJobMetrics.RecordExecutionDuration(scheduleName, success, stopwatch.Elapsed);
                     }
 
                     continue;

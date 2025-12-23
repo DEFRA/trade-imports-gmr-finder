@@ -4,23 +4,23 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace GmrFinder.Tests.Metrics;
 
-public class ScheduledJobMetricsTests
+public class ConsumerMetricsTests
 {
-    private readonly ScheduledJobMetrics _scheduledJobMetrics;
+    private readonly ConsumerMetrics _consumerMetrics;
 
-    public ScheduledJobMetricsTests()
+    public ConsumerMetricsTests()
     {
         var services = new ServiceCollection();
         services.AddMetrics();
         var serviceProvider = services.BuildServiceProvider();
         var meterFactory = serviceProvider.GetRequiredService<IMeterFactory>();
-        _scheduledJobMetrics = new ScheduledJobMetrics(meterFactory);
+        _consumerMetrics = new ConsumerMetrics(meterFactory);
     }
 
     [Fact]
     public void RecordExecutionDuration_ShouldRecordHistogram()
     {
-        const string expectedJobName = "test-job";
+        const string expectedQueueName = "test-queue";
         const bool expectedSuccess = true;
         var expectedDuration = TimeSpan.FromMilliseconds(12345);
         var measurements = new List<CollectedMeasurement<double>>();
@@ -30,7 +30,7 @@ public class ScheduledJobMetricsTests
         {
             if (
                 instrument.Meter.Name == MetricsConstants.MetricNames.MeterName
-                && instrument.Name == "jobs.execution.duration"
+                && instrument.Name == "queue.process.message.duration"
             )
                 listener.EnableMeasurementEvents(instrument);
         };
@@ -44,12 +44,12 @@ public class ScheduledJobMetricsTests
 
         meterListener.Start();
 
-        _scheduledJobMetrics.RecordExecutionDuration(expectedJobName, expectedSuccess, expectedDuration);
+        _consumerMetrics.RecordProcessDuration(expectedQueueName, expectedSuccess, expectedDuration);
 
         measurements.Should().HaveCount(1);
         var measurement = measurements[0];
-        measurement.Value.Should().Be(expectedDuration.TotalMilliseconds);
-        measurement.Tags.Should().Contain(new KeyValuePair<string, object?>("jobName", expectedJobName));
+        measurement.Value.Should().Be(12345);
+        measurement.Tags.Should().Contain(new KeyValuePair<string, object?>("queueName", expectedQueueName));
         measurement.Tags.Should().Contain(new KeyValuePair<string, object?>("success", expectedSuccess));
     }
 

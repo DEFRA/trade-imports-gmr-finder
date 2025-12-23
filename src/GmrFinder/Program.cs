@@ -100,6 +100,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddSingleton<PollingMetrics>();
     builder.Services.AddSingleton<ScheduledJobMetrics>();
+    builder.Services.AddSingleton<ConsumerMetrics>();
 
     builder.Services.AddValidatorsFromAssemblyContaining<Program>();
 }
