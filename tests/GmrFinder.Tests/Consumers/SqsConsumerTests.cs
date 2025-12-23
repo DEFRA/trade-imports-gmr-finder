@@ -1,6 +1,8 @@
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using GmrFinder.Consumers;
+using GmrFinder.Metrics;
+using GmrFinder.Tests.Metrics;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Moq;
@@ -9,12 +11,11 @@ namespace GmrFinder.Tests.Consumers;
 
 public class SqsConsumerTests
 {
-    private readonly ILogger<TestConsumer> _logger = NullLogger<TestConsumer>.Instance;
-    private readonly Mock<IAmazonSQS> _mockSqsClient = new();
     private const string QueueName = "queue_name";
     private const string QueueUrl = "http://queue-url";
     private static readonly TimeSpan s_testTimeout = TimeSpan.FromSeconds(3);
     private static readonly TimeSpan s_cancellationTokenCancelAfter = TimeSpan.FromSeconds(1);
+    private readonly ILogger<TestConsumer> _logger = NullLogger<TestConsumer>.Instance;
 
     private readonly Message _message = new()
     {
@@ -22,6 +23,8 @@ public class SqsConsumerTests
         ReceiptHandle = Guid.NewGuid().ToString(),
         Body = "payload",
     };
+
+    private readonly Mock<IAmazonSQS> _mockSqsClient = new();
 
     private TestConsumer _consumer;
 
@@ -233,7 +236,13 @@ public class SqsConsumerTests
         IAmazonSQS sqsClient,
         string queueName,
         Func<Message, CancellationToken, Task>? onProcessMessage = null
-    ) : SqsConsumer<TestConsumer>(logger, sqsClient, queueName)
+    )
+        : SqsConsumer<TestConsumer>(
+            logger,
+            new ConsumerMetrics(new MockMeterFactory().CreateMeter()),
+            sqsClient,
+            queueName
+        )
     {
         private readonly Func<Message, CancellationToken, Task> _onProcessMessage =
             onProcessMessage ?? ((_, _) => Task.CompletedTask);
@@ -245,6 +254,9 @@ public class SqsConsumerTests
             return _onProcessMessage(message, stoppingToken);
         }
 
-        public Task RunAsync(CancellationToken cancellationToken) => ExecuteAsync(cancellationToken);
+        public Task RunAsync(CancellationToken cancellationToken)
+        {
+            return ExecuteAsync(cancellationToken);
+        }
     }
 }

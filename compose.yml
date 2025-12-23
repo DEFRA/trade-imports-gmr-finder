@@ -45,9 +45,11 @@ services:
       - '.env'
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      AWS_EMF_ENVIRONMENT: Local
       LOCALSTACK_ENDPOINT: http://localstack:4566
       GvmsApi__ClientId: ${GVMS_API_CLIENT_ID}
       GvmsApi__ClientSecret: ${GVMS_API_CLIENT_SECRET}
+      AWS_EMF_NAMESPACE: GmrFinder
       Mongo__DatabaseUri: mongodb://mongodb:27017/
       PORT: 8080
       SNS_ENDPOINT: http://localstack:4566

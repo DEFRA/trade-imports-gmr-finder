@@ -38,8 +38,7 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("All GMRs");
-        result.Reason.Should().Contain("COMPLETED");
+        result.Reason.Should().Be(CompletionReason.Complete);
     }
 
     [Fact]
@@ -150,8 +149,8 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("expired");
-        result.Reason.Should().Contain(pollingItem.ExpiryDate.ToString("yyyy-MM-dd"));
+        result.Reason.Should().Be(CompletionReason.Expired);
+        result.Duration.Should().Be(TimeSpan.FromDays(35));
     }
 
     [Fact]
@@ -170,7 +169,7 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("expired");
+        result.Reason.Should().Be(CompletionReason.Expired);
     }
 
     [Fact]
@@ -218,9 +217,7 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("All GMRs");
-        result.Reason.Should().Contain("COMPLETED");
-        result.Reason.Should().NotContain("expired");
+        result.Reason.Should().Be(CompletionReason.Complete);
     }
 
     [Fact]
@@ -257,8 +254,7 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("All GMRs");
-        result.Reason.Should().Contain("COMPLETED");
+        result.Reason.Should().Be(CompletionReason.Complete);
     }
 
     [Fact]
@@ -287,8 +283,7 @@ public class PollingItemCompletionServiceTests
         var result = service.DetermineCompletion(pollingItem, gmrs);
 
         result.ShouldComplete.Should().BeTrue();
-        result.Reason.Should().Contain("All GMRs");
-        result.Reason.Should().Contain("COMPLETED");
+        result.Reason.Should().Be(CompletionReason.Complete);
     }
 
     [Fact]

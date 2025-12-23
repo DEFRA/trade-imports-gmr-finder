@@ -1,3 +1,4 @@
+using System.Diagnostics.Metrics;
 using System.Linq.Expressions;
 using System.Text.Json;
 using Defra.TradeImportsGmrFinder.Domain.Events;
@@ -6,6 +7,7 @@ using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
+using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Producers;
 using Microsoft.Extensions.Logging;
@@ -20,6 +22,7 @@ namespace GmrFinder.Tests.Polling;
 
 public class PollingServiceTests
 {
+    private readonly Mock<IMeterFactory> _meterFactory = new();
     private readonly Mock<IPollingItemCompletionService> _mockCompletionService = new();
     private readonly Mock<IGvmsApiClient> _mockGvmsApiClient = new();
     private readonly Mock<IMatchedGmrsProducer> _mockMatchedGmrsProducer = new();
@@ -29,6 +32,11 @@ public class PollingServiceTests
     );
 
     private readonly IOptions<PollingServiceOptions> _options = Options.Create(new PollingServiceOptions());
+
+    public PollingServiceTests()
+    {
+        _meterFactory.Setup(x => x.Create(It.IsAny<MeterOptions>())).Returns(new Meter("test"));
+    }
 
     [Fact]
     public async Task Process_PollingItem_ShouldBeUpserted()
@@ -54,6 +62,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
         var request = new PollingRequest { Mrn = expectedMrn };
@@ -145,6 +154,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -183,6 +193,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -237,6 +248,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -368,6 +380,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -502,6 +515,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
 
@@ -559,7 +573,7 @@ public class PollingServiceTests
         // Mock completion service to return true for mrn123, false for mrn456
         _mockCompletionService
             .Setup(x => x.DetermineCompletion(It.Is<PollingItem>(p => p.Id == "mrn123"), It.IsAny<List<Gmr>>()))
-            .Returns(CompletionResult.Complete("GMR gmr123 is in COMPLETED state"));
+            .Returns(CompletionResult.Complete(CompletionReason.Complete, new TimeSpan(1, 0, 0)));
 
         _mockCompletionService
             .Setup(x => x.DetermineCompletion(It.Is<PollingItem>(p => p.Id == "mrn456"), It.IsAny<List<Gmr>>()))
@@ -578,6 +592,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
 
@@ -668,6 +683,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
 
@@ -719,6 +735,7 @@ public class PollingServiceTests
             _mockMatchedGmrsProducer.Object,
             _mockCompletionService.Object,
             _options,
+            new PollingMetrics(_meterFactory.Object),
             _mockTimeProvider
         );
 

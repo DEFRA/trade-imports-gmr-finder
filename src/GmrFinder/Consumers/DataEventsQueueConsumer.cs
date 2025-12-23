@@ -6,6 +6,7 @@ using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Configuration;
 using GmrFinder.Extensions;
+using GmrFinder.Metrics;
 using GmrFinder.Processing;
 using GmrFinder.Utils;
 using Microsoft.Extensions.Options;
@@ -14,11 +15,12 @@ namespace GmrFinder.Consumers;
 
 public sealed class DataEventsQueueConsumer(
     ILogger<DataEventsQueueConsumer> logger,
+    ConsumerMetrics consumerMetrics,
     IAmazonSQS sqsClient,
     IOptions<DataEventsQueueConsumerOptions> options,
     ICustomsDeclarationProcessor customsDeclarationProcessor,
     IImportPreNotificationProcessor importPreNotificationProcessor
-) : SqsConsumer<DataEventsQueueConsumer>(logger, sqsClient, options.Value.QueueName)
+) : SqsConsumer<DataEventsQueueConsumer>(logger, consumerMetrics, sqsClient, options.Value.QueueName)
 {
     private readonly ILogger<DataEventsQueueConsumer> _logger = logger;
 
