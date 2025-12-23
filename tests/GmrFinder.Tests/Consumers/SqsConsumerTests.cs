@@ -24,7 +24,6 @@ public class SqsConsumerTests
         Body = "payload",
     };
 
-    private readonly MockMeterFactory _meterFactory = new();
     private readonly Mock<IAmazonSQS> _mockSqsClient = new();
 
     private TestConsumer _consumer;
