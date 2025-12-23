@@ -10,13 +10,13 @@ namespace GmrFinder.Metrics;
 public static class EmfExporter
 {
     private static readonly MeterListener s_meterListener = new();
-    private static ILogger s_logger = null!;
+    private static ILogger _logger = null!;
     private static ILoggerFactory s_loggerFactory = NullLoggerFactory.Instance;
     private static string? s_awsNamespace;
 
     public static void Init(ILoggerFactory loggerFactory, string? awsNamespace)
     {
-        s_logger = loggerFactory.CreateLogger(nameof(EmfExporter));
+        _logger = loggerFactory.CreateLogger(nameof(EmfExporter));
         s_loggerFactory = loggerFactory;
         s_awsNamespace = awsNamespace;
 
@@ -66,7 +66,7 @@ public static class EmfExporter
             }
             catch (Exception ex)
             {
-                s_logger.LogWarning(ex, "Failed to push EMF metric");
+                _logger.LogWarning(ex, "Failed to push EMF metric");
             }
         });
     }

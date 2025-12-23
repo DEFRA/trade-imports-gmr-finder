@@ -45,8 +45,7 @@ services:
       - '.env'
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ENVIRONMENT": 'Local'
-      AWS_EMF_ENVIRONMENT: 'Local'
+      AWS_EMF_ENVIRONMENT: Local
       LOCALSTACK_ENDPOINT: http://localstack:4566
       GvmsApi__ClientId: ${GVMS_API_CLIENT_ID}
       GvmsApi__ClientSecret: ${GVMS_API_CLIENT_SECRET}
