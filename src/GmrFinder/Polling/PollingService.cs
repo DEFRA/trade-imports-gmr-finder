@@ -123,7 +123,7 @@ public class PollingService(
                 else
                     update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
 
-                // Check if polling item should be marked complete
+                // Check if the polling item should be marked complete
                 var result = pollingItemCompletionService.DetermineCompletion(p, gmrs);
                 if (result.ShouldComplete)
                 {

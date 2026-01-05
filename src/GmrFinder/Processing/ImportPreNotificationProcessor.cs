@@ -35,7 +35,11 @@ public class ImportPreNotificationProcessor(
 
         if (!stringValidators.IsValidMrn(nctsMrn))
         {
-            logger.LogInformation("Received invalid NCTS MRN: {Mrn}, skipping", nctsMrn);
+            logger.LogInformation(
+                "Skipping Ipaffs record {ChedReference} due to invalid NCTS MRN: {Mrn}",
+                chedReference,
+                nctsMrn
+            );
             return;
         }
 

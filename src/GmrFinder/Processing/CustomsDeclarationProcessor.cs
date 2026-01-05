@@ -22,7 +22,7 @@ public class CustomsDeclarationProcessor(
 
         if (!stringValidators.IsValidMrn(mrn))
         {
-            logger.LogInformation("Received invalid MRN: {Mrn}, skipping", mrn);
+            logger.LogInformation("Skipping MRN {Mrn} because it has an invalid format", mrn);
             return;
         }
 
