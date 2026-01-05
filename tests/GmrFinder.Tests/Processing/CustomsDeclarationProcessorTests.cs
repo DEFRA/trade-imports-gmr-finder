@@ -53,6 +53,18 @@ public class CustomsDeclarationProcessorTests
             service => service.Process(It.IsAny<PollingRequest>(), It.IsAny<CancellationToken>()),
             Times.Never
         );
+        var expectedMessage = $"Skipping MRN {resourceEvent.ResourceId} because it has an invalid format";
+        _logger.Verify(
+            logger =>
+                logger.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, _) => state.ToString()!.Equals(expectedMessage)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+            Times.Once
+        );
     }
 
     [Fact]
