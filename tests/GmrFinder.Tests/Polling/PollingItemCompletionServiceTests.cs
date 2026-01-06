@@ -325,4 +325,84 @@ public class PollingItemCompletionServiceTests
             Times.Once
         );
     }
+
+    [Fact]
+    public void DetermineCompletion_WithCompletedGmrs_LogsExpectedCompletionMessage()
+    {
+        var service = new PollingItemCompletionService(_mockLogger.Object, _timeProvider);
+        var pollingItem = new PollingItem
+        {
+            Id = "mrn123",
+            Created = _timeProvider.GetUtcNow().UtcDateTime.AddDays(-5),
+            ExpiryDate = _timeProvider.GetUtcNow().UtcDateTime.AddDays(25),
+        };
+
+        var gmrs = new List<Gmr>
+        {
+            new()
+            {
+                GmrId = "gmr123",
+                HaulierEori = "GB123",
+                State = "COMPLETED",
+                UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+                Direction = "Inbound",
+            },
+        };
+
+        service.DetermineCompletion(pollingItem, gmrs);
+
+        const string reason = "All GMRs are in COMPLETED state";
+        var expectedMessage = $"Marking polling item {pollingItem.Id} as complete: {reason}";
+        _mockLogger.Verify(
+            x =>
+                x.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, _) => state.ToString()!.Equals(expectedMessage)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+            Times.Once
+        );
+    }
+
+    [Fact]
+    public void DetermineCompletion_WithExpiredPollingItem_LogsExpectedCompletionMessage()
+    {
+        var service = new PollingItemCompletionService(_mockLogger.Object, _timeProvider);
+        var pollingItem = new PollingItem
+        {
+            Id = "mrn123",
+            Created = _timeProvider.GetUtcNow().UtcDateTime.AddDays(-35),
+            ExpiryDate = _timeProvider.GetUtcNow().UtcDateTime.AddDays(-5),
+        };
+
+        var gmrs = new List<Gmr>
+        {
+            new()
+            {
+                GmrId = "gmr123",
+                HaulierEori = "GB123",
+                State = "Submitted",
+                UpdatedDateTime = DateTime.UtcNow.ToString("O"),
+                Direction = "Inbound",
+            },
+        };
+
+        service.DetermineCompletion(pollingItem, gmrs);
+
+        var expectedMessage =
+            $"Marking polling item {pollingItem.Id} as complete: Polling item expired on {pollingItem.ExpiryDate:yyyy-MM-dd}";
+        _mockLogger.Verify(
+            x =>
+                x.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, _) => state.ToString()!.Equals(expectedMessage)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+            Times.Once
+        );
+    }
 }
