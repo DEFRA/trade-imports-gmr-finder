@@ -114,6 +114,82 @@ public class PollingServiceTests
     }
 
     [Fact]
+    public async Task Process_WithExistingPollingItem_LogsSkippingMessage()
+    {
+        var logger = new CollectingLogger<PollingService>();
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindOneAndUpdate(
+                    It.IsAny<FilterDefinition<PollingItem>>(),
+                    It.IsAny<UpdateDefinition<PollingItem>>(),
+                    It.IsAny<FindOneAndUpdateOptions<PollingItem>>(),
+                    It.IsAny<CancellationToken>()
+                )
+            )
+            .ReturnsAsync(new PollingItem { Id = "MRN123" });
+
+        var service = new PollingService(
+            logger,
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.Process(new PollingRequest { Mrn = "mrn123" }, CancellationToken.None);
+
+        logger.Entries.Should().ContainSingle();
+        var entry = logger.Entries.Single();
+        entry.LogMessage.Should().Be("Polling item for MRN {Mrn} already exists, skipping");
+        entry.Level.Should().Be(LogLevel.Information);
+        entry.GetStateValue("Mrn").Should().Be("MRN123");
+    }
+
+    [Fact]
+    public async Task Process_WithNewPollingItem_LogsInsertedMessage()
+    {
+        var logger = new CollectingLogger<PollingService>();
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindOneAndUpdate(
+                    It.IsAny<FilterDefinition<PollingItem>>(),
+                    It.IsAny<UpdateDefinition<PollingItem>>(),
+                    It.IsAny<FindOneAndUpdateOptions<PollingItem>>(),
+                    It.IsAny<CancellationToken>()
+                )
+            )
+            .ReturnsAsync((PollingItem?)null);
+
+        var service = new PollingService(
+            logger,
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.Process(new PollingRequest { Mrn = "mrn123" }, CancellationToken.None);
+
+        logger.Entries.Should().ContainSingle();
+        var entry = logger.Entries.Single();
+        entry.LogMessage.Should().Be("Inserted new polling item for {Mrn}");
+        entry.Level.Should().Be(LogLevel.Information);
+        entry.GetStateValue("Mrn").Should().Be("MRN123");
+    }
+
+    [Fact]
     public async Task PollItems_QueriesIncompleteItems_ByOldestFirst()
     {
         Expression<Func<PollingItem, bool>>? where = null;
@@ -209,6 +285,43 @@ public class PollingServiceTests
     }
 
     [Fact]
+    public async Task PollItems_WithNoMRNsToPoll_LogsExpectedMessage()
+    {
+        var logger = new CollectingLogger<PollingService>();
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync([]);
+
+        var service = new PollingService(
+            logger,
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        logger.Entries.Should().ContainSingle();
+        var entry = logger.Entries.Single();
+        entry.LogMessage.Should().Be("No MRNs to poll for");
+        entry.Level.Should().Be(LogLevel.Information);
+    }
+
+    [Fact]
     public async Task PollItems_WithNoResultsFromGVMS_OnlyUpdatesTheLastPolledTime()
     {
         var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
@@ -282,6 +395,84 @@ public class PollingServiceTests
     }
 
     [Fact]
+    public async Task PollItems_WithNoResultsFromGvms_ClearsExistingGmrs()
+    {
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync([
+                new PollingItem
+                {
+                    Id = "mrn123",
+                    Gmrs = new Dictionary<string, string>
+                    {
+                        ["gmr123"] = JsonSerializer.Serialize(
+                            new Gmr
+                            {
+                                GmrId = "gmr123",
+                                HaulierEori = "GB123",
+                                State = "Submitted",
+                                InspectionRequired = true,
+                                UpdatedDateTime = "2025-01-01T00:00:00.0000000Z",
+                                Direction = "Inbound",
+                            }
+                        ),
+                    },
+                },
+            ]);
+
+        _mockGvmsApiClient
+            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                new HttpResponseContent<GvmsResponse>(new GvmsResponse { GmrByDeclarationId = [], Gmrs = [] }, "{}")
+            );
+
+        List<WriteModel<PollingItem>>? writeOperations = null;
+        mockPollingItemCollection
+            .Setup(x => x.BulkWrite(It.IsAny<List<WriteModel<PollingItem>>>(), It.IsAny<CancellationToken>()))
+            .Callback<List<WriteModel<PollingItem>>, CancellationToken>((operations, _) => writeOperations = operations)
+            .Returns(Task.CompletedTask);
+
+        _mockCompletionService
+            .Setup(x => x.DetermineCompletion(It.IsAny<PollingItem>(), It.IsAny<List<Gmr>>()))
+            .Returns(CompletionResult.Incomplete());
+
+        var service = new PollingService(
+            Mock.Of<ILogger<PollingService>>(),
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        var renderArgs = new RenderArgs<PollingItem>(
+            BsonSerializer.SerializerRegistry.GetSerializer<PollingItem>(),
+            BsonSerializer.SerializerRegistry
+        );
+
+        var updateModel = writeOperations!.OfType<UpdateOneModel<PollingItem>>().Single();
+        var updateDoc = updateModel.Update.Render(renderArgs);
+        var setDoc = updateDoc["$set"].AsBsonDocument;
+
+        setDoc.Contains("Gmrs").Should().BeTrue();
+        setDoc["Gmrs"].AsBsonDocument.ElementCount.Should().Be(0);
+    }
+
+    [Fact]
     public async Task PollItems_WithResultsFromGVMS_UpdatesTheRecordsInTheDatabase()
     {
         var pollingItems = new List<PollingItem>
@@ -343,7 +534,7 @@ public class PollingServiceTests
                 { gmrForMrn456.GmrId, JsonSerializer.Serialize(gmrForMrn456) },
                 { gmrForMrn456_2.GmrId, JsonSerializer.Serialize(gmrForMrn456_2) },
             },
-            ["mrn789"] = null,
+            ["mrn789"] = new(),
         };
 
         _mockGvmsApiClient
@@ -406,17 +597,220 @@ public class PollingServiceTests
             setDoc.Contains("LastPolled").Should().BeTrue();
             setDoc["LastPolled"].ToUniversalTime().Should().Be(_mockTimeProvider.GetUtcNow().UtcDateTime);
 
-            if (expectedGmrs is null)
-            {
-                setDoc.Contains("Gmrs").Should().BeFalse();
-                continue;
-            }
-
+            setDoc.Contains("Gmrs").Should().BeTrue();
             var deserialisedGmrs = BsonSerializer.Deserialize<Dictionary<string, string>>(
                 setDoc["Gmrs"].AsBsonDocument
             );
             deserialisedGmrs.Should().BeEquivalentTo(expectedGmrs);
         }
+    }
+
+    [Fact]
+    public async Task PollItems_WithResultsFromGvms_LogsExpectedMessages_WhenNoGmrsChanged()
+    {
+        var logger = new CollectingLogger<PollingService>();
+
+        var updatedDateTime = "2025-01-01T00:00:00.0000000Z";
+        var gmrForMrn123 = new Gmr
+        {
+            GmrId = "gmr123",
+            HaulierEori = "GB123",
+            State = "Submitted",
+            InspectionRequired = true,
+            UpdatedDateTime = updatedDateTime,
+            Direction = "Inbound",
+        };
+        var gmrForMrn456 = new Gmr
+        {
+            GmrId = "gmr456",
+            HaulierEori = "GB456",
+            State = "Embarked",
+            InspectionRequired = false,
+            UpdatedDateTime = updatedDateTime,
+            Direction = "Outbound",
+        };
+
+        var pollingItems = new List<PollingItem>
+        {
+            new()
+            {
+                Id = "mrn123",
+                Gmrs = new Dictionary<string, string> { [gmrForMrn123.GmrId] = JsonSerializer.Serialize(gmrForMrn123) },
+            },
+            new()
+            {
+                Id = "mrn456",
+                Gmrs = new Dictionary<string, string> { [gmrForMrn456.GmrId] = JsonSerializer.Serialize(gmrForMrn456) },
+            },
+        };
+
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync(pollingItems);
+
+        _mockGvmsApiClient
+            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                new HttpResponseContent<GvmsResponse>(
+                    new GvmsResponse
+                    {
+                        GmrByDeclarationId =
+                        [
+                            new GmrDeclaration { dec = "mrn123", gmrs = ["gmr123"] },
+                            new GmrDeclaration { dec = "mrn456", gmrs = ["gmr456"] },
+                        ],
+                        Gmrs = [gmrForMrn123, gmrForMrn456],
+                    },
+                    "{}"
+                )
+            );
+
+        mockPollingItemCollection
+            .Setup(x => x.BulkWrite(It.IsAny<List<WriteModel<PollingItem>>>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
+
+        _mockCompletionService
+            .Setup(x => x.DetermineCompletion(It.IsAny<PollingItem>(), It.IsAny<List<Gmr>>()))
+            .Returns(CompletionResult.Incomplete());
+
+        var service = new PollingService(
+            logger,
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        logger
+            .Entries.Select(entry => entry.LogMessage)
+            .Should()
+            .Equal(
+                "Polling GVMS for {MrnCount} MRNs: {Mrns}",
+                "GVMS poll completed in {ElapsedMs} ms",
+                "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
+                "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
+                "No changed GMRs to publish for polled MRNs"
+            );
+
+        var pollEntry = logger.Entries[0];
+        pollEntry.GetStateValue("MrnCount").Should().Be(2);
+        pollEntry.GetStateValue("Mrns").Should().Be("mrn123,mrn456");
+
+        var responseEntry = logger.Entries[2];
+        responseEntry.GetStateValue("MatchedMrnCount").Should().Be(2);
+        responseEntry.GetStateValue("UnmatchedMrnCount").Should().Be(0);
+        responseEntry.GetStateValue("GmrCount").Should().Be(2);
+
+        var updatedEntry = logger.Entries[3];
+        updatedEntry.GetStateValue("UpdatedCount").Should().Be(2);
+        updatedEntry.GetStateValue("ItemsWithGmrs").Should().Be(2);
+        updatedEntry.GetStateValue("CompletedCount").Should().Be(0);
+        updatedEntry.GetStateValue("UpdatesMade").Should().Be(2);
+    }
+
+    [Fact]
+    public async Task PollItems_WithResultsFromGvms_LogsExpectedMessages_WhenPublishingChanges()
+    {
+        var logger = new CollectingLogger<PollingService>();
+        var pollingItems = new List<PollingItem> { new() { Id = "mrn123" } };
+
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync(pollingItems);
+
+        var gmrForMrn123 = new Gmr
+        {
+            GmrId = "gmr123",
+            HaulierEori = "GB123",
+            State = "Submitted",
+            InspectionRequired = true,
+            UpdatedDateTime = "2025-01-01T00:00:00.0000000Z",
+            Direction = "Inbound",
+        };
+
+        _mockGvmsApiClient
+            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                new HttpResponseContent<GvmsResponse>(
+                    new GvmsResponse
+                    {
+                        GmrByDeclarationId = [new GmrDeclaration { dec = "mrn123", gmrs = ["gmr123"] }],
+                        Gmrs = [gmrForMrn123],
+                    },
+                    "{}"
+                )
+            );
+
+        mockPollingItemCollection
+            .Setup(x => x.BulkWrite(It.IsAny<List<WriteModel<PollingItem>>>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
+
+        _mockCompletionService
+            .Setup(x => x.DetermineCompletion(It.IsAny<PollingItem>(), It.IsAny<List<Gmr>>()))
+            .Returns(CompletionResult.Incomplete());
+
+        var service = new PollingService(
+            logger,
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        logger
+            .Entries.Select(entry => entry.LogMessage)
+            .Should()
+            .Equal(
+                "Polling GVMS for {MrnCount} MRNs: {Mrns}",
+                "GVMS poll completed in {ElapsedMs} ms",
+                "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
+                "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
+                "Published {MatchedCount} changed GMRs"
+            );
+
+        var responseEntry = logger.Entries[2];
+        responseEntry.GetStateValue("MatchedMrnCount").Should().Be(1);
+        responseEntry.GetStateValue("UnmatchedMrnCount").Should().Be(0);
+        responseEntry.GetStateValue("GmrCount").Should().Be(1);
+
+        var updatedEntry = logger.Entries[3];
+        updatedEntry.GetStateValue("UpdatedCount").Should().Be(1);
+        updatedEntry.GetStateValue("ItemsWithGmrs").Should().Be(1);
+        updatedEntry.GetStateValue("CompletedCount").Should().Be(0);
+        updatedEntry.GetStateValue("UpdatesMade").Should().Be(1);
+
+        var publishedEntry = logger.Entries[4];
+        publishedEntry.GetStateValue("MatchedCount").Should().Be(1);
     }
 
     [Fact]
@@ -749,5 +1143,47 @@ public class PollingServiceTests
                 ),
             Times.Once
         );
+    }
+
+    private sealed class CollectingLogger<T> : ILogger<T>
+    {
+        public List<LogEntry> Entries { get; } = [];
+
+        public IDisposable BeginScope<TState>(TState state)
+            where TState : notnull => NullScope.Instance;
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter
+        )
+        {
+            var stateValues = state as IReadOnlyList<KeyValuePair<string, object?>> ?? [];
+            var logMessage = stateValues.FirstOrDefault(kv => kv.Key == "{OriginalFormat}").Value?.ToString();
+            Entries.Add(new LogEntry(logLevel, logMessage, stateValues));
+        }
+    }
+
+    private sealed record LogEntry(
+        LogLevel Level,
+        string? LogMessage,
+        IReadOnlyList<KeyValuePair<string, object?>> State
+    )
+    {
+        public object? GetStateValue(string key)
+        {
+            return State.FirstOrDefault(kv => kv.Key == key).Value;
+        }
+    }
+
+    private sealed class NullScope : IDisposable
+    {
+        public static NullScope Instance { get; } = new();
+
+        public void Dispose() { }
     }
 }
