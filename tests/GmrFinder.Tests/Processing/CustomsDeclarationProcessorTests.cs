@@ -219,6 +219,46 @@ public class CustomsDeclarationProcessorTests
     }
 
     [Fact]
+    public async Task ProcessAsync_WhenAllFieldsProvided_LogsSendingToPollingMessage()
+    {
+        var chedReferences = new List<string> { "CHEDPP.GB.2025.1111111", "CHEDA.GB.2025.2222222" };
+        var portOfArrival = "POOPOOGVM";
+
+        var customsDeclaration = CustomsDeclarationFixtures
+            .CustomsDeclarationFixture()
+            .With(
+                x => x.ClearanceDecision,
+                CustomsDeclarationFixtures.ClearanceDecisionFixture(chedReferences).Create()
+            )
+            .With(
+                x => x.ClearanceRequest,
+                CustomsDeclarationFixtures
+                    .ClearanceRequestFixture()
+                    .With(x => x.GoodsLocationCode, portOfArrival)
+                    .Create()
+            )
+            .Create();
+        var resourceEvent = CustomsDeclarationFixtures
+            .CustomsDeclarationResourceEventFixture(customsDeclaration)
+            .Create();
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        var expectedMessage = $"Sending new/updated MRN {resourceEvent.ResourceId} to the polling service";
+        _logger.Verify(
+            logger =>
+                logger.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, _) => state.ToString()!.Equals(expectedMessage)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+            Times.Once
+        );
+    }
+
+    [Fact]
     public async Task ProcessAsync_WhenAllFieldsProvided_InvokesPolling()
     {
         var customsDeclaration = CustomsDeclarationFixtures.CustomsDeclarationFixture().Create();

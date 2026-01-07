@@ -77,6 +77,34 @@ public class ImportPreNotificationProcessorTests
     }
 
     [Fact]
+    public async Task ProcessAsync_LogsReceivedImportPreNotificationMessage()
+    {
+        const string chedReference = "CHEDPP.GB.2025.1053368";
+        const string mrn = "25GB6RLA6C8OV8GAR2";
+
+        var importPreNotification = ImportPreNotificationFixtures.ImportPreNotificationFixture(mrn).Create();
+        var resourceEvent = ImportPreNotificationFixtures
+            .ImportPreNotificationResourceEventFixture(importPreNotification)
+            .With(r => r.ResourceId, chedReference)
+            .Create();
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        var expectedMessage = $"Received import pre notification, CHED reference: '{chedReference}', MRN: '{mrn}'";
+        _logger.Verify(
+            logger =>
+                logger.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, _) => state.ToString()!.Equals(expectedMessage)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+            Times.Once
+        );
+    }
+
+    [Fact]
     public async Task ProcessAsync_WhenNctsMrnIsInvalid_SkipsProcessing()
     {
         var importPreNotification = ImportPreNotificationFixtures.ImportPreNotificationFixture("mrn123").Create();
@@ -108,6 +136,34 @@ public class ImportPreNotificationProcessorTests
         await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
 
         var expectedMessage = $"Skipping Ipaffs record {resourceEvent.ResourceId} due to invalid NCTS MRN: {mrn}";
+        _logger.Verify(
+            logger =>
+                logger.Log(
+                    LogLevel.Information,
+                    It.IsAny<EventId>(),
+                    It.Is<It.IsAnyType>((state, _) => state.ToString()!.Equals(expectedMessage)),
+                    It.IsAny<Exception>(),
+                    It.IsAny<Func<It.IsAnyType, Exception?, string>>()
+                ),
+            Times.Once
+        );
+    }
+
+    [Fact]
+    public async Task ProcessAsync_WhenImportPreNotificationHasNctsReference_LogsSendingToPollingMessage()
+    {
+        const string chedReference = "CHEDPP.GB.2025.1053368";
+        const string mrn = "25GB6RLA6C8OV8GAR2";
+
+        var importPreNotification = ImportPreNotificationFixtures.ImportPreNotificationFixture(mrn).Create();
+        var resourceEvent = ImportPreNotificationFixtures
+            .ImportPreNotificationResourceEventFixture(importPreNotification)
+            .With(r => r.ResourceId, chedReference)
+            .Create();
+
+        await _processor.ProcessAsync(resourceEvent, CancellationToken.None);
+
+        var expectedMessage = $"Sending new/updated CHED {chedReference} with MRN {mrn} to the polling service";
         _logger.Verify(
             logger =>
                 logger.Log(

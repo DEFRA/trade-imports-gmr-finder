@@ -57,7 +57,7 @@ public class CustomsDeclarationProcessor(
             return;
         }
 
-        logger.LogInformation("Processing MRN {Mrn}", mrn);
+        logger.LogInformation("Sending new/updated MRN {Mrn} to the polling service", mrn);
 
         pollingMetrics.RecordItemJoined(
             PollingMetrics.MrnQueueName,

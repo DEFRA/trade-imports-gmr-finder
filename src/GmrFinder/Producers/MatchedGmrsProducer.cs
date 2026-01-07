@@ -38,11 +38,8 @@ public class MatchedGmrsProducer(
             return;
         }
 
-        logger.LogInformation(
-            "Publishing matched MRNs: {Mrns} to GMRs: {Gmrs}",
-            string.Join(",", matchedRecords.Select(m => m.Mrn)),
-            string.Join(",", matchedRecords.Select(m => m.Gmr.GmrId))
-        );
+        var matchedPairs = string.Join(",", matchedRecords.Select(m => $"{m.Mrn}:{m.Gmr.GmrId}"));
+        logger.LogInformation("Publishing matched MRN:GMRs: {MatchedPairs}", matchedPairs);
 
         var tasks = batchRequests.Select(async request =>
         {

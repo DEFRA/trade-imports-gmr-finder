@@ -24,6 +24,12 @@ public class ImportPreNotificationProcessor(
             .Select(r => r.Reference!)
             .FirstOrDefault();
 
+        logger.LogInformation(
+            "Received import pre notification, CHED reference: '{ChedReference}', MRN: '{NctsMrn}'",
+            chedReference,
+            nctsMrn
+        );
+
         if (nctsMrn == null)
         {
             logger.LogInformation(
@@ -43,7 +49,11 @@ public class ImportPreNotificationProcessor(
             return;
         }
 
-        logger.LogInformation("Processing CHED {ChedReference} with MRN {NctsMrn}", chedReference, nctsMrn);
+        logger.LogInformation(
+            "Sending new/updated CHED {ChedReference} with MRN {NctsMrn} to the polling service",
+            chedReference,
+            nctsMrn
+        );
         pollingMetrics.RecordItemJoined(PollingMetrics.MrnQueueName, PollingMetrics.ItemSource.ImportNotification);
 
         await pollingService.Process(new PollingRequest { Mrn = nctsMrn }, cancellationToken);
