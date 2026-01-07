@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Defra.TradeImportsGmrFinder.Domain.Events;
@@ -81,19 +82,18 @@ public class PollingService(
             return;
         }
 
-        logger.LogInformation("Polling MRNs: {Mrns}", string.Join(",", mrns.Keys));
+        logger.LogInformation("Polling GVMS for {MrnCount} MRNs: {Mrns}", mrns.Count, string.Join(",", mrns.Keys));
 
+        var gvmsTimer = Stopwatch.StartNew();
         var results = (
             await gvmsApiClient.SearchForGmrs(
                 new MrnSearchRequest { DeclarationIds = [.. mrns.Keys] },
                 cancellationToken
             )
         ).Result;
+        gvmsTimer.Stop();
 
-        if (results.GmrByDeclarationId.Count == 0)
-            logger.LogInformation("No poll results found for MRNs");
-        else
-            logger.LogInformation("Received GMRs for MRNs");
+        logger.LogInformation("GVMS poll completed in {ElapsedMs} ms", gvmsTimer.ElapsedMilliseconds);
 
         var gmrs = results.Gmrs.ToDictionary(p => p.GmrId, p => p);
         var gmrsByDeclarationId = results.GmrByDeclarationId.ToDictionary(
@@ -101,26 +101,50 @@ public class PollingService(
             p => p.gmrs.Where(gmrId => gmrs.ContainsKey(gmrId)).Select(gmrId => gmrs[gmrId]).ToList()
         );
 
-        await UpdatePollingItemRecords(pollItems, gmrsByDeclarationId, now, cancellationToken);
-        await PublishMatchedGmrRecords(pollItems, gmrsByDeclarationId, cancellationToken);
+        var matchedMrnCount = gmrsByDeclarationId.Count;
+        var unmatchedMrnCount = Math.Max(mrns.Count - matchedMrnCount, 0);
+        logger.LogInformation(
+            "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
+            matchedMrnCount,
+            unmatchedMrnCount,
+            gmrs.Count
+        );
+
+        var updateSummary = await UpdatePollingItemRecords(pollItems, gmrsByDeclarationId, now, cancellationToken);
+        logger.LogInformation(
+            "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
+            pollItems.Count,
+            updateSummary.itemsWithGmrs,
+            updateSummary.completedCount,
+            updateSummary.updatesMade
+        );
+
+        var matchedCount = await PublishMatchedGmrRecords(pollItems, gmrsByDeclarationId, cancellationToken);
+        if (matchedCount == 0)
+        {
+            logger.LogInformation("No changed GMRs to publish for polled MRNs");
+            return;
+        }
+
+        logger.LogInformation("Published {MatchedCount} changed GMRs", matchedCount);
     }
 
-    private async Task UpdatePollingItemRecords(
+    private async Task<(int completedCount, int itemsWithGmrs, int updatesMade)> UpdatePollingItemRecords(
         List<PollingItem> pollItems,
         Dictionary<string, List<Gmr>> gmrsByDeclarationId,
         DateTime now,
         CancellationToken cancellationToken
     )
     {
-        var recordsToUpdate = pollItems
+        var updateResults = pollItems
             .Select(p =>
             {
                 var filter = Builders<PollingItem>.Filter.Eq(f => f.Id, p.Id);
                 var update = Builders<PollingItem>.Update.Set(u => u.LastPolled, now);
+                var hasGmrs = gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs);
+                gmrs ??= [];
 
-                if (!gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs))
-                    gmrs = [];
-                else
+                if (hasGmrs)
                     update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
 
                 // Check if the polling item should be marked complete
@@ -131,14 +155,25 @@ public class PollingService(
                     pollingMetrics.RecordItemLeave(PollingMetrics.MrnQueueName, result);
                 }
 
-                return new UpdateOneModel<PollingItem>(filter, update);
+                return new
+                {
+                    Update = new UpdateOneModel<PollingItem>(filter, update),
+                    HasGmrs = hasGmrs,
+                    result.ShouldComplete,
+                };
             })
             .ToList();
 
-        await mongo.PollingItems.BulkWrite([.. recordsToUpdate], cancellationToken);
+        var updates = updateResults.Select(WriteModel<PollingItem> (r) => r.Update).ToList();
+        if (updates.Count != 0)
+            await mongo.PollingItems.BulkWrite(updates, cancellationToken);
+
+        var completedCount = updateResults.Count(r => r.ShouldComplete);
+        var itemsWithGmrs = updateResults.Count(r => r.HasGmrs);
+        return (completedCount, itemsWithGmrs, updates.Count);
     }
 
-    private async Task PublishMatchedGmrRecords(
+    private async Task<int> PublishMatchedGmrRecords(
         List<PollingItem> pollItems,
         Dictionary<string, List<Gmr>> gmrsByDeclarationId,
         CancellationToken cancellationToken
@@ -161,5 +196,6 @@ public class PollingService(
             .ToList();
 
         await matchedGmrsProducer.PublishMatchedGmrs(changedRecords, cancellationToken);
+        return changedRecords.Count;
     }
 }
