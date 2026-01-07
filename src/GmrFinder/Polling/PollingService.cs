@@ -144,8 +144,7 @@ public class PollingService(
                 var hasGmrs = gmrsByDeclarationId.TryGetValue(p.Id, out var gmrs);
                 gmrs ??= [];
 
-                if (hasGmrs)
-                    update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
+                update = update.Set(u => u.Gmrs, gmrs.ToDictionary(g => g.GmrId, g => JsonSerializer.Serialize(g)));
 
                 // Check if the polling item should be marked complete
                 var result = pollingItemCompletionService.DetermineCompletion(p, gmrs);

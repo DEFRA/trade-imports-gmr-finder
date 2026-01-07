@@ -395,6 +395,84 @@ public class PollingServiceTests
     }
 
     [Fact]
+    public async Task PollItems_WithNoResultsFromGvms_ClearsExistingGmrs()
+    {
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync([
+                new PollingItem
+                {
+                    Id = "mrn123",
+                    Gmrs = new Dictionary<string, string>
+                    {
+                        ["gmr123"] = JsonSerializer.Serialize(
+                            new Gmr
+                            {
+                                GmrId = "gmr123",
+                                HaulierEori = "GB123",
+                                State = "Submitted",
+                                InspectionRequired = true,
+                                UpdatedDateTime = "2025-01-01T00:00:00.0000000Z",
+                                Direction = "Inbound",
+                            }
+                        ),
+                    },
+                },
+            ]);
+
+        _mockGvmsApiClient
+            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                new HttpResponseContent<GvmsResponse>(new GvmsResponse { GmrByDeclarationId = [], Gmrs = [] }, "{}")
+            );
+
+        List<WriteModel<PollingItem>>? writeOperations = null;
+        mockPollingItemCollection
+            .Setup(x => x.BulkWrite(It.IsAny<List<WriteModel<PollingItem>>>(), It.IsAny<CancellationToken>()))
+            .Callback<List<WriteModel<PollingItem>>, CancellationToken>((operations, _) => writeOperations = operations)
+            .Returns(Task.CompletedTask);
+
+        _mockCompletionService
+            .Setup(x => x.DetermineCompletion(It.IsAny<PollingItem>(), It.IsAny<List<Gmr>>()))
+            .Returns(CompletionResult.Incomplete());
+
+        var service = new PollingService(
+            Mock.Of<ILogger<PollingService>>(),
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        var renderArgs = new RenderArgs<PollingItem>(
+            BsonSerializer.SerializerRegistry.GetSerializer<PollingItem>(),
+            BsonSerializer.SerializerRegistry
+        );
+
+        var updateModel = writeOperations!.OfType<UpdateOneModel<PollingItem>>().Single();
+        var updateDoc = updateModel.Update.Render(renderArgs);
+        var setDoc = updateDoc["$set"].AsBsonDocument;
+
+        setDoc.Contains("Gmrs").Should().BeTrue();
+        setDoc["Gmrs"].AsBsonDocument.ElementCount.Should().Be(0);
+    }
+
+    [Fact]
     public async Task PollItems_WithResultsFromGVMS_UpdatesTheRecordsInTheDatabase()
     {
         var pollingItems = new List<PollingItem>
@@ -456,7 +534,7 @@ public class PollingServiceTests
                 { gmrForMrn456.GmrId, JsonSerializer.Serialize(gmrForMrn456) },
                 { gmrForMrn456_2.GmrId, JsonSerializer.Serialize(gmrForMrn456_2) },
             },
-            ["mrn789"] = null,
+            ["mrn789"] = new(),
         };
 
         _mockGvmsApiClient
@@ -519,12 +597,7 @@ public class PollingServiceTests
             setDoc.Contains("LastPolled").Should().BeTrue();
             setDoc["LastPolled"].ToUniversalTime().Should().Be(_mockTimeProvider.GetUtcNow().UtcDateTime);
 
-            if (expectedGmrs is null)
-            {
-                setDoc.Contains("Gmrs").Should().BeFalse();
-                continue;
-            }
-
+            setDoc.Contains("Gmrs").Should().BeTrue();
             var deserialisedGmrs = BsonSerializer.Deserialize<Dictionary<string, string>>(
                 setDoc["Gmrs"].AsBsonDocument
             );
