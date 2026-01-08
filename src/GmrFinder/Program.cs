@@ -3,6 +3,7 @@ using FluentValidation;
 using GmrFinder.Configuration;
 using GmrFinder.Consumers;
 using GmrFinder.Data;
+using GmrFinder.Endpoints;
 using GmrFinder.Extensions;
 using GmrFinder.Jobs;
 using GmrFinder.Metrics;
@@ -13,6 +14,7 @@ using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
 using GmrFinder.Utils.Validators;
+using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 using MongoDB.Driver.Authentication.AWS;
 using Serilog;
@@ -79,6 +81,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddGvmsApiClient();
     builder.Services.AddOptions<LocalStackOptions>().Bind(builder.Configuration);
+    builder.Services.AddOptions<FeatureOptions>().Bind(builder.Configuration);
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddValidateOptions<MatchedGmrsProducerOptions>(MatchedGmrsProducerOptions.SectionName);
     builder.Services.AddSqsClient();
@@ -111,6 +114,9 @@ static WebApplication SetupApplication(WebApplication app)
     app.UseHeaderPropagation();
     app.UseRouting();
     app.MapHealthChecks("/health");
+    var featureOptions = app.Services.GetRequiredService<IOptions<FeatureOptions>>().Value;
+    if (featureOptions.EnableDevEndpoints)
+        app.MapConsumerEndpoints();
     app.UseEmfExporter(app.Environment.ApplicationName);
 
     return app;
