@@ -94,7 +94,13 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddValidateOptions<PollingServiceOptions>(PollingServiceOptions.SectionName);
     builder.Services.AddSingleton<IPollingItemCompletionService, PollingItemCompletionService>();
     builder.Services.AddSingleton<IPollingService, PollingService>();
-    builder.Services.AddHostedService<DataEventsQueueConsumer>();
+
+    // Conditionally register SQS consumer based on feature flag
+    var featureOptions = builder.Configuration.Get<FeatureOptions>() ?? new FeatureOptions();
+    if (featureOptions.EnableSqsConsumer)
+    {
+        builder.Services.AddHostedService<DataEventsQueueConsumer>();
+    }
 
     builder.Services.AddTransient<IScheduleTokenProvider, MongoDbScheduleTokenProvider>();
     builder.Services.AddHostedService<PollGvmsByMrn>();
@@ -115,6 +121,14 @@ static WebApplication SetupApplication(WebApplication app)
     app.UseRouting();
     app.MapHealthChecks("/health");
     var featureOptions = app.Services.GetRequiredService<IOptions<FeatureOptions>>().Value;
+
+    // Log warning if SQS consumer is disabled
+    if (!featureOptions.EnableSqsConsumer)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning("SQS Queue consumption is disabled via ENABLE_SQS_CONSUMER feature flag");
+    }
+
     if (featureOptions.EnableDevEndpoints)
         app.MapConsumerEndpoints();
     app.UseEmfExporter(app.Environment.ApplicationName);
