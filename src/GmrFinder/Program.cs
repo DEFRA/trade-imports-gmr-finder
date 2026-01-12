@@ -87,7 +87,16 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSqsClient();
     builder.Services.AddSnsClient();
 
-    builder.Services.AddSingleton<IMatchedGmrsProducer, MatchedGmrsProducer>();
+    var featureOptions = builder.Configuration.Get<FeatureOptions>() ?? new FeatureOptions();
+    if (featureOptions.EnableSnsProducer)
+    {
+        builder.Services.AddSingleton<IMatchedGmrsProducer, MatchedGmrsProducer>();
+    }
+    else
+    {
+        builder.Services.AddSingleton<IMatchedGmrsProducer, StubMatchedGmrsProducer>();
+    }
+
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
 
@@ -95,8 +104,6 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IPollingItemCompletionService, PollingItemCompletionService>();
     builder.Services.AddSingleton<IPollingService, PollingService>();
 
-    // Conditionally register SQS consumer based on feature flag
-    var featureOptions = builder.Configuration.Get<FeatureOptions>() ?? new FeatureOptions();
     if (featureOptions.EnableSqsConsumer)
     {
         builder.Services.AddHostedService<DataEventsQueueConsumer>();
@@ -122,11 +129,16 @@ static WebApplication SetupApplication(WebApplication app)
     app.MapHealthChecks("/health");
     var featureOptions = app.Services.GetRequiredService<IOptions<FeatureOptions>>().Value;
 
-    // Log warning if SQS consumer is disabled
     if (!featureOptions.EnableSqsConsumer)
     {
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         logger.LogWarning("SQS Queue consumption is disabled via ENABLE_SQS_CONSUMER feature flag");
+    }
+
+    if (!featureOptions.EnableSnsProducer)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning("SNS message production is disabled via ENABLE_SNS_PRODUCER feature flag");
     }
 
     if (featureOptions.EnableDevEndpoints)
