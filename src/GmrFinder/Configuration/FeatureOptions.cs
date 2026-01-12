@@ -10,4 +10,10 @@ public class FeatureOptions
 
     [ConfigurationKeyName("DEV_ENDPOINT_PASSWORD")]
     public string? DevEndpointPassword { get; init; }
+
+    [ConfigurationKeyName("ENABLE_SQS_CONSUMER")]
+    public bool EnableSqsConsumer { get; init; } = false;
+
+    [ConfigurationKeyName("ENABLE_SNS_PRODUCER")]
+    public bool EnableSnsProducer { get; init; } = false;
 }
