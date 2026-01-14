@@ -2,13 +2,13 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Defra.TradeImportsGmrFinder.Domain.Events;
-using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract;
 using Defra.TradeImportsGmrFinder.GvmsClient.Contract.Requests;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
 using GmrFinder.Metrics;
 using GmrFinder.Producers;
+using GmrFinder.Services;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -22,7 +22,7 @@ namespace GmrFinder.Polling;
 public class PollingService(
     ILogger<PollingService> logger,
     IMongoContext mongo,
-    IGvmsApiClient gvmsApiClient,
+    IGvmsApiClientService gvmsApiClient,
     IMatchedGmrsProducer matchedGmrsProducer,
     IPollingItemCompletionService pollingItemCompletionService,
     IOptions<PollingServiceOptions> options,
@@ -86,7 +86,7 @@ public class PollingService(
 
         var gvmsTimer = Stopwatch.StartNew();
         var results = (
-            await gvmsApiClient.SearchForGmrs(
+            await gvmsApiClient.SearchForGmrsByMrn(
                 new MrnSearchRequest { DeclarationIds = [.. mrns.Keys] },
                 cancellationToken
             )

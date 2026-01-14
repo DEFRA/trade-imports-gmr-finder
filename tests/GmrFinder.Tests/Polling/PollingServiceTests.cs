@@ -10,6 +10,7 @@ using GmrFinder.Data;
 using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Producers;
+using GmrFinder.Services;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Time.Testing;
@@ -24,7 +25,7 @@ public class PollingServiceTests
 {
     private readonly Mock<IMeterFactory> _meterFactory = new();
     private readonly Mock<IPollingItemCompletionService> _mockCompletionService = new();
-    private readonly Mock<IGvmsApiClient> _mockGvmsApiClient = new();
+    private readonly Mock<IGvmsApiClientService> _mockGvmsApiClient = new();
     private readonly Mock<IMatchedGmrsProducer> _mockMatchedGmrsProducer = new();
 
     private readonly TimeProvider _mockTimeProvider = new FakeTimeProvider(
@@ -275,7 +276,7 @@ public class PollingServiceTests
         await service.PollItems(CancellationToken.None);
 
         _mockGvmsApiClient.Verify(
-            x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()),
+            x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()),
             Times.Never
         );
         mockPollingItemCollection.Verify(
@@ -339,7 +340,7 @@ public class PollingServiceTests
             .ReturnsAsync([new PollingItem { Id = "mrn123" }, new PollingItem { Id = "mrn456" }]);
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(new GvmsResponse { GmrByDeclarationId = [], Gmrs = [] }, "{}")
             );
@@ -370,7 +371,7 @@ public class PollingServiceTests
 
         _mockGvmsApiClient.Verify(
             x =>
-                x.SearchForGmrs(
+                x.SearchForGmrsByMrn(
                     It.Is<MrnSearchRequest>(p => p.DeclarationIds.SequenceEqual(expectedDeclarationIds)),
                     It.IsAny<CancellationToken>()
                 ),
@@ -431,7 +432,7 @@ public class PollingServiceTests
             ]);
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(new GvmsResponse { GmrByDeclarationId = [], Gmrs = [] }, "{}")
             );
@@ -538,7 +539,7 @@ public class PollingServiceTests
         };
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(
                     new GvmsResponse
@@ -659,7 +660,7 @@ public class PollingServiceTests
             .ReturnsAsync(pollingItems);
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(
                     new GvmsResponse
@@ -754,7 +755,7 @@ public class PollingServiceTests
         };
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(
                     new GvmsResponse
@@ -876,7 +877,7 @@ public class PollingServiceTests
         };
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(
                     new GvmsResponse
@@ -952,7 +953,7 @@ public class PollingServiceTests
         };
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(
                     new GvmsResponse
@@ -1054,7 +1055,7 @@ public class PollingServiceTests
         };
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(
                     new GvmsResponse
@@ -1113,7 +1114,7 @@ public class PollingServiceTests
             .ReturnsAsync(pollingItems);
 
         _mockGvmsApiClient
-            .Setup(x => x.SearchForGmrs(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(
                 new HttpResponseContent<GvmsResponse>(new GvmsResponse { GmrByDeclarationId = [], Gmrs = [] }, "{}")
             );
