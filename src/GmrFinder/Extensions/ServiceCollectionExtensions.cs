@@ -5,7 +5,9 @@ using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using GmrFinder.Configuration;
+using GmrFinder.Metrics;
 using GmrFinder.Resilience;
+using GmrFinder.Services;
 using GmrFinder.Utils.Http;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -72,7 +74,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddGvmsApiClient(this IServiceCollection services)
+    public static IServiceCollection AddGvmsApiClientService(this IServiceCollection services)
     {
         services
             .AddValidateOptions<GmrFinderGvmsApiOptions>(GmrFinderGvmsApiOptions.SectionName)
@@ -110,6 +112,9 @@ public static class ServiceCollectionExtensions
                         .AddCircuitBreaker(gvmsApiSettings.CircuitBreaker);
                 }
             );
+
+        services.AddSingleton<GvmsApiMetrics>();
+        services.AddSingleton<IGvmsApiClientService, GvmsApiClientService>();
 
         return services;
     }
