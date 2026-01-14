@@ -79,7 +79,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
 
     builder.Services.AddSingleton<IStringValidators, StringValidators>();
 
-    builder.Services.AddGvmsApiClient();
+    builder.Services.AddGvmsApiClientService();
     builder.Services.AddOptions<LocalStackOptions>().Bind(builder.Configuration);
     builder.Services.AddOptions<FeatureOptions>().Bind(builder.Configuration);
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
