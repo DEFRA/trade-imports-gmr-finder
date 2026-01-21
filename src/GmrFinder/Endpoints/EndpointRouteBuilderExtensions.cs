@@ -38,7 +38,7 @@ public static class EndpointRouteBuilderExtensions
         {
             case ResourceEventResourceTypes.CustomsDeclaration:
             {
-                var customsDeclaration = body.Deserialize<ResourceEvent<CustomsDeclaration>>();
+                var customsDeclaration = body.Deserialize<ResourceEvent<CustomsDeclaration>>(JsonSerializerOptions.Web);
                 if (customsDeclaration is null)
                     return Results.BadRequest("Invalid customs declaration payload.");
                 await customsDeclarationProcessor.ProcessAsync(customsDeclaration, cancellationToken);
@@ -47,7 +47,9 @@ public static class EndpointRouteBuilderExtensions
 
             case ResourceEventResourceTypes.ImportPreNotification:
             {
-                var importPreNotification = body.Deserialize<ResourceEvent<ImportPreNotification>>();
+                var importPreNotification = body.Deserialize<ResourceEvent<ImportPreNotification>>(
+                    JsonSerializerOptions.Web
+                );
                 if (importPreNotification is null)
                     return Results.BadRequest("Invalid import pre-notification payload.");
                 await importPreNotificationProcessor.ProcessAsync(importPreNotification, cancellationToken);
