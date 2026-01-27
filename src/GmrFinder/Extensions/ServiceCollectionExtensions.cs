@@ -23,9 +23,7 @@ public static class ServiceCollectionExtensions
         {
             var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
             if (localStackOptions.UseLocalStack == false)
-            {
                 return new AmazonSQSClient();
-            }
 
             return new AmazonSQSClient(
                 new BasicAWSCredentials(localStackOptions.AccessKeyId, localStackOptions.SecretAccessKey),
@@ -52,9 +50,7 @@ public static class ServiceCollectionExtensions
 
             var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
             if (localStackOptions.UseLocalStack == false)
-            {
                 return new ResilientSnsClient(logger);
-            }
 
             return new ResilientSnsClient(
                 logger,
@@ -89,6 +85,8 @@ public static class ServiceCollectionExtensions
 
         services.AddValidateOptions<GvmsApiOptions>(GmrFinderGvmsApiOptions.SectionName);
 
+        services.AddTransient<UnauthorizedTokenRefreshHandler>();
+
         services
             .AddMemoryCache()
             .AddHttpClient<IGvmsApiClient, GvmsApiClient>()
@@ -100,6 +98,7 @@ public static class ServiceCollectionExtensions
                 }
             )
             .ConfigurePrimaryHttpMessageHandler<ProxyHttpMessageHandler>()
+            .AddHttpMessageHandler<UnauthorizedTokenRefreshHandler>()
             .AddResilienceHandler(
                 "GvmsApi",
                 (pipelineBuilder, context) =>

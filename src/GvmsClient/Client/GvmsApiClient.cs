@@ -29,7 +29,7 @@ public class GvmsApiClient(HttpClient httpClient, IOptions<GvmsApiOptions> gvmsA
     }
 
     private readonly GvmsApiOptions _apiSettings = gvmsApiSettings.Value;
-    private const string TokenCacheKey = "hmrcToken";
+    internal const string TokenCacheKey = "hmrcToken";
     private static readonly JsonSerializerOptions s_jsonSerializerOptions = new(JsonSerializerDefaults.Web);
 
     private async Task<string?> GetAccessToken() =>
