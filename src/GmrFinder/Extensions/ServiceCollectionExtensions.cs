@@ -5,7 +5,9 @@ using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using Defra.TradeImportsGmrFinder.GvmsClient.Client;
 using GmrFinder.Configuration;
+using GmrFinder.Metrics;
 using GmrFinder.Resilience;
+using GmrFinder.Services;
 using GmrFinder.Utils.Http;
 using Microsoft.Extensions.Options;
 using Polly;
@@ -21,9 +23,7 @@ public static class ServiceCollectionExtensions
         {
             var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
             if (localStackOptions.UseLocalStack == false)
-            {
                 return new AmazonSQSClient();
-            }
 
             return new AmazonSQSClient(
                 new BasicAWSCredentials(localStackOptions.AccessKeyId, localStackOptions.SecretAccessKey),
@@ -50,9 +50,7 @@ public static class ServiceCollectionExtensions
 
             var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
             if (localStackOptions.UseLocalStack == false)
-            {
                 return new ResilientSnsClient(logger);
-            }
 
             return new ResilientSnsClient(
                 logger,
@@ -72,7 +70,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddGvmsApiClient(this IServiceCollection services)
+    public static IServiceCollection AddGvmsApiClientService(this IServiceCollection services)
     {
         services
             .AddValidateOptions<GmrFinderGvmsApiOptions>(GmrFinderGvmsApiOptions.SectionName)
@@ -87,6 +85,8 @@ public static class ServiceCollectionExtensions
 
         services.AddValidateOptions<GvmsApiOptions>(GmrFinderGvmsApiOptions.SectionName);
 
+        services.AddTransient<UnauthorizedTokenRefreshHandler>();
+
         services
             .AddMemoryCache()
             .AddHttpClient<IGvmsApiClient, GvmsApiClient>()
@@ -98,6 +98,7 @@ public static class ServiceCollectionExtensions
                 }
             )
             .ConfigurePrimaryHttpMessageHandler<ProxyHttpMessageHandler>()
+            .AddHttpMessageHandler<UnauthorizedTokenRefreshHandler>()
             .AddResilienceHandler(
                 "GvmsApi",
                 (pipelineBuilder, context) =>
@@ -110,6 +111,9 @@ public static class ServiceCollectionExtensions
                         .AddCircuitBreaker(gvmsApiSettings.CircuitBreaker);
                 }
             );
+
+        services.AddSingleton<GvmsApiMetrics>();
+        services.AddSingleton<IGvmsApiClientService, GvmsApiClientService>();
 
         return services;
     }
