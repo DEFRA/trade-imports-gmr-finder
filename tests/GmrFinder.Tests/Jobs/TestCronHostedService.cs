@@ -218,11 +218,13 @@ public class CronHostedServiceTests
     }
 
     [Fact]
-    public void Constructor_WithInvalidCronExpression_ShouldThrowException()
+    public void Constructor_WithInvalidCronExpression_ShouldThrowCronHostedServiceInitFailedException()
     {
-        Assert.Throws<CronFormatException>(() =>
+        var exception = Assert.Throws<CronHostedServiceInitFailedException>(() =>
             new TestCronHostedService(_logger, "invalid cron", new ScheduledJobMetrics(_meterFactory.CreateMeter()))
         );
+
+        exception.InnerException.Should().BeOfType<CronFormatException>();
     }
 
     private class TestScheduleTokenProvider : IScheduleTokenProvider

@@ -13,7 +13,8 @@ public abstract class CronHostedService(
     TimeProvider? timeProvider = null
 ) : IHostedService
 {
-    private readonly CronExpression _schedule = CronExpression.Parse(cronExpression, CronFormat.IncludeSeconds);
+    private readonly CronExpression _schedule = ParseCronExpression(cronExpression, logger);
+
     private readonly TimeProvider _timeProvider = timeProvider ?? TimeProvider.System;
     private Task? _executingTask;
     private CancellationTokenSource? _stoppingCts;
@@ -43,6 +44,19 @@ public abstract class CronHostedService(
         {
             await Task.WhenAny(_executingTask, Task.Delay(Timeout.Infinite, cancellationToken));
             _stoppingCts?.Dispose();
+        }
+    }
+
+    private static CronExpression ParseCronExpression(string expression, ILogger logger)
+    {
+        try
+        {
+            return CronExpression.Parse(expression, CronFormat.IncludeSeconds);
+        }
+        catch (CronFormatException ex)
+        {
+            logger.LogError(ex, "Invalid cron expression: {CronExpression}", expression);
+            throw new CronHostedServiceInitFailedException(ex);
         }
     }
 
@@ -126,3 +140,6 @@ public abstract class CronHostedService(
         logger.LogInformation("Service is exiting.");
     }
 }
+
+public class CronHostedServiceInitFailedException(Exception innerException)
+    : Exception("Failed to initialize CronHostedService", innerException);
