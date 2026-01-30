@@ -10,6 +10,7 @@ using GmrFinder.Metrics;
 using GmrFinder.Polling;
 using GmrFinder.Processing;
 using GmrFinder.Producers;
+using GmrFinder.Services;
 using GmrFinder.Utils;
 using GmrFinder.Utils.Http;
 using GmrFinder.Utils.Logging;
@@ -86,16 +87,18 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddValidateOptions<MatchedGmrsProducerOptions>(MatchedGmrsProducerOptions.SectionName);
     builder.Services.AddSqsClient();
     builder.Services.AddSnsClient();
+    builder.Services.AddS3Client();
 
     var featureOptions = builder.Configuration.Get<FeatureOptions>() ?? new FeatureOptions();
     if (featureOptions.EnableSnsProducer)
-    {
         builder.Services.AddSingleton<IMatchedGmrsProducer, MatchedGmrsProducer>();
-    }
     else
-    {
         builder.Services.AddSingleton<IMatchedGmrsProducer, StubMatchedGmrsProducer>();
-    }
+
+    if (featureOptions.EnableStorage)
+        builder.Services.AddSingleton<IStorageService, StorageService>();
+    else
+        builder.Services.AddSingleton<IStorageService, StubStorageService>();
 
     builder.Services.AddSingleton<ICustomsDeclarationProcessor, CustomsDeclarationProcessor>();
     builder.Services.AddSingleton<IImportPreNotificationProcessor, ImportPreNotificationProcessor>();
@@ -105,9 +108,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IPollingService, PollingService>();
 
     if (featureOptions.EnableSqsConsumer)
-    {
         builder.Services.AddHostedService<DataEventsQueueConsumer>();
-    }
 
     builder.Services.AddTransient<IScheduleTokenProvider, MongoDbScheduleTokenProvider>();
     builder.Services.AddHostedService<PollGvmsByMrn>();

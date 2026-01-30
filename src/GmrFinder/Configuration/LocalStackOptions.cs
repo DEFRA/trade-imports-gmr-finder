@@ -20,6 +20,9 @@ public class LocalStackOptions
     [ConfigurationKeyName("SQS_ENDPOINT")]
     public string? SqsEndpoint { get; init; }
 
+    [ConfigurationKeyName("S3_ENDPOINT")]
+    public string? S3Endpoint { get; init; }
+
     [ConfigurationKeyName("USE_LOCALSTACK")]
     public bool? UseLocalStack { get; init; } = false;
 }

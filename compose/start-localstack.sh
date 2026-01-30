@@ -17,6 +17,13 @@ aws --endpoint-url=http://localhost:4566 \
     sqs create-queue \
     --queue-name trade_imports_data_upserted_gmr_finder
 
+
+aws --endpoint-url=http://localhost:4566 \
+    s3api create-bucket \
+    --bucket trade-imports-gmr-finder-search-results \
+    --region eu-west-2 \
+    --create-bucket-configuration LocationConstraint=eu-west-2
+
 function is_ready() {
     if list_queues="$(aws --endpoint-url=http://localhost:4566 \
     sqs list-queues --region eu-west-2 --query "QueueUrls[?contains(@, 'trade_imports_data_upserted_gmr_finder')] | [0] != null"
@@ -29,9 +36,27 @@ function is_ready() {
     return 1
 }
 
+function is_s3_ready() {
+    if list_bucket="$(aws --endpoint-url=http://localhost:4566 \
+    s3api list-buckets --region eu-west-2 --query "Buckets[?Name=='trade-imports-gmr-finder-search-results'] | [0] != null"
+    )"; then
+        if [[ "$list_bucket" == "true" ]]; then
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
 while ! is_ready; do
-    echo "Waiting until ready"
+    echo "Waiting until SQS ready"
     sleep 1
 done
+
+while ! is_s3_ready; do
+    echo "Waiting until S3 ready"
+    sleep 1
+done
+
 
 touch /tmp/ready

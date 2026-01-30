@@ -7,6 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Amazon.CloudWatch.EMF" Version="2.2.0" />
+    <PackageReference Include="AWSSDK.S3" Version="3.7.510" />
     <PackageReference Include="Polly" Version="8.6.4" />
     <PackageReference Include="AWSSDK.SimpleNotificationService" Version="3.7.502.10" />
     <PackageReference Include="AWSSDK.SQS" Version="3.7.502.6" />

@@ -27,6 +27,7 @@ public class PollingServiceTests
     private readonly Mock<IPollingItemCompletionService> _mockCompletionService = new();
     private readonly Mock<IGvmsApiClientService> _mockGvmsApiClient = new();
     private readonly Mock<IMatchedGmrsProducer> _mockMatchedGmrsProducer = new();
+    private readonly Mock<IStorageService> _mockStorageService = new();
 
     private readonly TimeProvider _mockTimeProvider = new FakeTimeProvider(
         new DateTimeOffset(2025, 11, 7, 11, 10, 15, TimeSpan.Zero)
@@ -64,6 +65,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
         var request = new PollingRequest { Mrn = expectedMrn };
@@ -140,6 +142,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -178,6 +181,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -232,6 +236,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -271,6 +276,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -311,6 +317,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -363,6 +370,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -455,6 +463,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -573,6 +582,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
         await service.PollItems(CancellationToken.None);
@@ -692,6 +702,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -783,6 +794,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -911,6 +923,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -988,6 +1001,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -1079,6 +1093,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -1131,6 +1146,7 @@ public class PollingServiceTests
             _mockCompletionService.Object,
             _options,
             new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
             _mockTimeProvider
         );
 
@@ -1146,14 +1162,73 @@ public class PollingServiceTests
         );
     }
 
+    [Fact]
+    public async Task PollItems_CallsTryStoreSearchResultsAsync_WithGvmsResponse()
+    {
+        const string expectedResponseContent = "{\"gmrs\":[]}";
+        var pollingItems = new List<PollingItem> { new() { Id = "mrn123" } };
+
+        var mockPollingItemCollection = new Mock<IMongoCollectionSet<PollingItem>>();
+        var contextMock = new Mock<IMongoContext>();
+        contextMock.Setup(x => x.PollingItems).Returns(mockPollingItemCollection.Object);
+        mockPollingItemCollection
+            .Setup(x =>
+                x.FindMany(
+                    It.IsAny<Expression<Func<PollingItem, bool>>>(),
+                    It.IsAny<CancellationToken>(),
+                    It.IsAny<Expression<Func<PollingItem, DateTime>>>(),
+                    It.IsAny<int>()
+                )
+            )
+            .ReturnsAsync(pollingItems);
+
+        _mockGvmsApiClient
+            .Setup(x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()))
+            .ReturnsAsync(
+                new HttpResponseContent<GvmsResponse>(
+                    new GvmsResponse { GmrByDeclarationId = [], Gmrs = [] },
+                    expectedResponseContent
+                )
+            );
+
+        _mockCompletionService
+            .Setup(x => x.DetermineCompletion(It.IsAny<PollingItem>(), It.IsAny<List<Gmr>>()))
+            .Returns(CompletionResult.Incomplete());
+
+        var service = new PollingService(
+            Mock.Of<ILogger<PollingService>>(),
+            contextMock.Object,
+            _mockGvmsApiClient.Object,
+            _mockMatchedGmrsProducer.Object,
+            _mockCompletionService.Object,
+            _options,
+            new PollingMetrics(_meterFactory.Object),
+            _mockStorageService.Object,
+            _mockTimeProvider
+        );
+
+        await service.PollItems(CancellationToken.None);
+
+        _mockStorageService.Verify(
+            x => x.TryStoreSearchResultsAsync(expectedResponseContent),
+            Times.Once
+        );
+    }
+
     private sealed class CollectingLogger<T> : ILogger<T>
     {
         public List<LogEntry> Entries { get; } = [];
 
         public IDisposable BeginScope<TState>(TState state)
-            where TState : notnull => NullScope.Instance;
+            where TState : notnull
+        {
+            return NullScope.Instance;
+        }
 
-        public bool IsEnabled(LogLevel logLevel) => true;
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
 
         public void Log<TState>(
             LogLevel logLevel,

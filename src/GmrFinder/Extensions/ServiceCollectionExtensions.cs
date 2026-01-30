@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Amazon;
 using Amazon.Runtime;
+using Amazon.S3;
 using Amazon.SimpleNotificationService;
 using Amazon.SQS;
 using Defra.TradeImportsGmrFinder.GvmsClient.Client;
@@ -35,6 +36,32 @@ public static class ServiceCollectionExtensions
                         localStackOptions.AwsRegion ?? RegionEndpoint.EUWest2.ToString()
                     ),
                     ServiceURL = localStackOptions.SqsEndpoint,
+                }
+            );
+        });
+
+        return services;
+    }
+
+    public static IServiceCollection AddS3Client(this IServiceCollection services)
+    {
+        services.AddSingleton<IAmazonS3>(sp =>
+        {
+            var localStackOptions = sp.GetRequiredService<IOptions<LocalStackOptions>>().Value;
+            if (localStackOptions.UseLocalStack == false)
+                return new AmazonS3Client();
+
+            return new AmazonS3Client(
+                new BasicAWSCredentials(localStackOptions.AccessKeyId, localStackOptions.SecretAccessKey),
+                new AmazonS3Config
+                {
+                    // https://github.com/aws/aws-sdk-net/issues/1781
+                    AuthenticationRegion = localStackOptions.AwsRegion ?? RegionEndpoint.EUWest2.ToString(),
+                    RegionEndpoint = RegionEndpoint.GetBySystemName(
+                        localStackOptions.AwsRegion ?? RegionEndpoint.EUWest2.ToString()
+                    ),
+                    ServiceURL = localStackOptions.S3Endpoint,
+                    ForcePathStyle = true, // CRITICAL for LocalStack
                 }
             );
         });
