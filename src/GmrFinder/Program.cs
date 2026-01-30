@@ -83,6 +83,7 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddGvmsApiClientService();
     builder.Services.AddOptions<LocalStackOptions>().Bind(builder.Configuration);
     builder.Services.AddOptions<FeatureOptions>().Bind(builder.Configuration);
+    builder.Services.AddOptions<StorageOptions>().Bind(builder.Configuration);
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddValidateOptions<MatchedGmrsProducerOptions>(MatchedGmrsProducerOptions.SectionName);
     builder.Services.AddSqsClient();
