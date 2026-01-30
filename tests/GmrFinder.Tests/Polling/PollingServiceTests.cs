@@ -1209,10 +1209,7 @@ public class PollingServiceTests
 
         await service.PollItems(CancellationToken.None);
 
-        _mockStorageService.Verify(
-            x => x.TryStoreSearchResultsAsync(expectedResponseContent),
-            Times.Once
-        );
+        _mockStorageService.Verify(x => x.TryStoreSearchResultsAsync(expectedResponseContent), Times.Once);
     }
 
     private sealed class CollectingLogger<T> : ILogger<T>
