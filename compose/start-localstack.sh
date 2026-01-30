@@ -27,10 +27,8 @@ aws --endpoint-url=http://localhost:4566 \
 function is_ready() {
     if list_queues="$(aws --endpoint-url=http://localhost:4566 \
     sqs list-queues --region eu-west-2 --query "QueueUrls[?contains(@, 'trade_imports_data_upserted_gmr_finder')] | [0] != null"
-    )"; then
-        if [[ "$list_queues" == "true" ]]; then
-            return 0
-        fi
+    )" && [[ "$list_queues" == "true" ]]; then
+        return 0
     fi
 
     return 1
@@ -39,10 +37,8 @@ function is_ready() {
 function is_s3_ready() {
     if list_bucket="$(aws --endpoint-url=http://localhost:4566 \
     s3api list-buckets --region eu-west-2 --query "Buckets[?Name=='trade-imports-gmr-finder-search-results'] | [0] != null"
-    )"; then
-        if [[ "$list_bucket" == "true" ]]; then
-            return 0
-        fi
+    )" && [[ "$list_bucket" == "true" ]]; then
+        return 0
     fi
 
     return 1
