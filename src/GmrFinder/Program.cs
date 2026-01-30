@@ -78,12 +78,14 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
     builder.Services.AddSingleton<IMongoContext, MongoContext>();
     builder.Services.AddSingleton<MongoDbInitializer>();
 
+    builder.Services.Configure<StorageOptions>(builder.Configuration.GetSection(StorageOptions.SectionName));
+
     builder.Services.AddSingleton<IStringValidators, StringValidators>();
 
     builder.Services.AddGvmsApiClientService();
     builder.Services.AddOptions<LocalStackOptions>().Bind(builder.Configuration);
     builder.Services.AddOptions<FeatureOptions>().Bind(builder.Configuration);
-    builder.Services.AddOptions<StorageOptions>().Bind(builder.Configuration);
+
     builder.Services.AddValidateOptions<DataEventsQueueConsumerOptions>(DataEventsQueueConsumerOptions.SectionName);
     builder.Services.AddValidateOptions<MatchedGmrsProducerOptions>(MatchedGmrsProducerOptions.SectionName);
     builder.Services.AddSqsClient();

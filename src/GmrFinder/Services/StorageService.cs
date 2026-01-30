@@ -17,7 +17,7 @@ public class StorageService(
 
     public async Task TryStoreSearchResultsAsync(string content)
     {
-        var bucketName = _options.SearchResultStorageBucket;
+        var bucketName = _options.SearchResultsBucket;
         try
         {
             var request = new PutObjectRequest

@@ -56,7 +56,7 @@ base environment configuration, adding the relevant environment variables from `
 | `Mongo__DatabaseUri`                       | Mongo connection string               |
 | `Mongo__DatabaseName`                      | Mongo database name                   |
 | `ScheduledJobs__poll_gvms_by_mrn__Cron`    | Polling schedule (Cron Format)        |
-| `SEARCH_RESULTS_BUCKET`                    | s3 bucket name for search results     |
+| `Storage__SearchResultsBucket`             | s3 bucket name for search results     |
 
 ### Feature Flags
 

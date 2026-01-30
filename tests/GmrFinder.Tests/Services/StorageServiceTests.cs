@@ -58,7 +58,7 @@ public class StorageServiceTests
 
     private StorageService CreateService(string? bucketName = null)
     {
-        var storageOptions = Options.Create(new StorageOptions { SearchResultStorageBucket = bucketName });
+        var storageOptions = Options.Create(new StorageOptions { SearchResultsBucket = bucketName });
         return new StorageService(storageOptions, _mockS3Client.Object, _mockLogger.Object, _fakeTimeProvider);
     }
 }
