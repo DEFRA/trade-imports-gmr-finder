@@ -1,5 +1,3 @@
-using System;
-
 namespace GmrFinder.Configuration;
 
 public class PollingServiceOptions

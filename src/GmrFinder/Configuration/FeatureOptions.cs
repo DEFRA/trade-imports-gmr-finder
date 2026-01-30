@@ -16,4 +16,7 @@ public class FeatureOptions
 
     [ConfigurationKeyName("ENABLE_SNS_PRODUCER")]
     public bool EnableSnsProducer { get; init; } = false;
+
+    [ConfigurationKeyName("ENABLE_STORAGE")]
+    public bool EnableStorage { get; init; } = false;
 }

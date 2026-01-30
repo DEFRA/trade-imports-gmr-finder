@@ -2,10 +2,10 @@ using Amazon.SQS;
 using GmrFinder.Configuration;
 using GmrFinder.Data;
 using GmrFinder.Extensions;
+using GmrFinder.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Environment = System.Environment;
 
 namespace GmrFinder.IntegrationTests;
@@ -14,9 +14,7 @@ namespace GmrFinder.IntegrationTests;
 [Collection("Integration Tests")]
 public abstract class IntegrationTestBase
 {
-    protected readonly IConfiguration Configuration;
-    protected readonly ServiceProvider ServiceProvider;
-    protected readonly IMongoContext Mongo;
+    public const string PublishMessageQueueName = "trade_imports_matched_gmrs_processor";
 
     private readonly Dictionary<string, string> _environmentVariables = new()
     {
@@ -28,7 +26,9 @@ public abstract class IntegrationTestBase
         { "USE_LOCALSTACK", "true" },
     };
 
-    public const string PublishMessageQueueName = "trade_imports_matched_gmrs_processor";
+    protected readonly IConfiguration Configuration;
+    protected readonly IMongoContext Mongo;
+    protected readonly ServiceProvider ServiceProvider;
 
     protected IntegrationTestBase()
     {
@@ -54,6 +54,7 @@ public abstract class IntegrationTestBase
         sc.AddSingleton<IMongoDbClientFactory, MongoDbClientFactory>();
         sc.AddSingleton<IMongoContext, MongoContext>();
         sc.AddSingleton<MongoDbInitializer>();
+        sc.AddSingleton<IStorageService, StubStorageService>();
 
         ServiceProvider = sc.BuildServiceProvider();
 

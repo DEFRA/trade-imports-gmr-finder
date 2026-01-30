@@ -27,6 +27,7 @@ public class PollingService(
     IPollingItemCompletionService pollingItemCompletionService,
     IOptions<PollingServiceOptions> options,
     PollingMetrics pollingMetrics,
+    IStorageService storageService,
     TimeProvider? timeProvider = null
 ) : IPollingService
 {
@@ -85,16 +86,17 @@ public class PollingService(
         logger.LogInformation("Polling GVMS for {MrnCount} MRNs: {Mrns}", mrns.Count, string.Join(",", mrns.Keys));
 
         var gvmsTimer = Stopwatch.StartNew();
-        var results = (
-            await gvmsApiClient.SearchForGmrsByMrn(
-                new MrnSearchRequest { DeclarationIds = [.. mrns.Keys] },
-                cancellationToken
-            )
-        ).Result;
+        var searchResult = await gvmsApiClient.SearchForGmrsByMrn(
+            new MrnSearchRequest { DeclarationIds = [.. mrns.Keys] },
+            cancellationToken
+        );
         gvmsTimer.Stop();
+
+        await storageService.TryStoreSearchResultsAsync(searchResult.StringResult);
 
         logger.LogInformation("GVMS poll completed in {ElapsedMs} ms", gvmsTimer.ElapsedMilliseconds);
 
+        var results = searchResult.Result;
         var gmrs = results.Gmrs.ToDictionary(p => p.GmrId, p => p);
         var gmrsByDeclarationId = results.GmrByDeclarationId.ToDictionary(
             p => p.dec,
