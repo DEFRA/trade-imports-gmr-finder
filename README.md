@@ -56,6 +56,7 @@ base environment configuration, adding the relevant environment variables from `
 | `Mongo__DatabaseUri`                       | Mongo connection string               |
 | `Mongo__DatabaseName`                      | Mongo database name                   |
 | `ScheduledJobs__poll_gvms_by_mrn__Cron`    | Polling schedule (Cron Format)        |
+| `SEARCH_RESULTS_BUCKET`                    | s3 bucket name for search results     |
 
 ### Feature Flags
 
@@ -63,6 +64,7 @@ base environment configuration, adding the relevant environment variables from `
 |-------------------------|-------------------------------------------------|
 | `ENABLE_SQS_CONSUMER`   | Enables or disables the SQS queue consumer      |
 | `ENABLE_SNS_PRODUCER`   | Enables or disables the SNS message producer    |
+| `ENABLE_STORAGE`        | Enables or disables storage in S3               |
 | `ENABLE_DEV_ENDPOINTS`  | Enables development endpoints                   |
 | `DEV_ENDPOINT_USERNAME` | Basic authentication username for dev endpoints |
 | `DEV_ENDPOINT_PASSWORD` | Basic authentication password for dev endpoints |
