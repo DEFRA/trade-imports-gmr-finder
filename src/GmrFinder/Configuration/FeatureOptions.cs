@@ -19,4 +19,7 @@ public class FeatureOptions
 
     [ConfigurationKeyName("ENABLE_STORAGE")]
     public bool EnableStorage { get; init; } = false;
+
+    [ConfigurationKeyName("ENABLE_GMR_POLLING")]
+    public bool EnableGmrPolling { get; init; } = false;
 }

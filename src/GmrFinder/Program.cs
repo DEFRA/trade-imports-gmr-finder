@@ -114,7 +114,8 @@ static void ConfigureBuilder(WebApplicationBuilder builder)
         builder.Services.AddHostedService<DataEventsQueueConsumer>();
 
     builder.Services.AddTransient<IScheduleTokenProvider, MongoDbScheduleTokenProvider>();
-    builder.Services.AddHostedService<PollGvmsByMrn>();
+    if (featureOptions.EnableGmrPolling)
+        builder.Services.AddHostedService<PollGvmsByMrn>();
 
     builder.Services.AddHealthChecks();
 
@@ -143,6 +144,12 @@ static WebApplication SetupApplication(WebApplication app)
     {
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         logger.LogWarning("SNS message production is disabled via ENABLE_SNS_PRODUCER feature flag");
+    }
+
+    if (!featureOptions.EnableGmrPolling)
+    {
+        var logger = app.Services.GetRequiredService<ILogger<Program>>();
+        logger.LogWarning("GMR polling is disabled via ENABLE_GMR_POLLING feature flag");
     }
 
     if (featureOptions.EnableDevEndpoints)
