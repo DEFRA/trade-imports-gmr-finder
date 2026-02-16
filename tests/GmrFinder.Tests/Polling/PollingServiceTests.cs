@@ -712,7 +712,7 @@ public class PollingServiceTests
             .Entries.Select(entry => entry.LogMessage)
             .Should()
             .Equal(
-                "Polling GVMS for {MrnCount} MRNs: {Mrns}",
+                "Polling GVMS for 2 MRNs: mrn123,mrn456",
                 "GVMS poll completed in {ElapsedMs} ms",
                 "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
                 "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
@@ -720,8 +720,7 @@ public class PollingServiceTests
             );
 
         var pollEntry = logger.Entries[0];
-        pollEntry.GetStateValue("MrnCount").Should().Be(2);
-        pollEntry.GetStateValue("Mrns").Should().Be("mrn123,mrn456");
+        pollEntry.State.Count.Should().Be(1);
 
         var responseEntry = logger.Entries[2];
         responseEntry.GetStateValue("MatchedMrnCount").Should().Be(2);
@@ -804,7 +803,7 @@ public class PollingServiceTests
             .Entries.Select(entry => entry.LogMessage)
             .Should()
             .Equal(
-                "Polling GVMS for {MrnCount} MRNs: {Mrns}",
+                "Polling GVMS for 1 MRNs: mrn123",
                 "GVMS poll completed in {ElapsedMs} ms",
                 "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
                 "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
