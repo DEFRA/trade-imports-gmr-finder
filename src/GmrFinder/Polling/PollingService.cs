@@ -83,10 +83,16 @@ public class PollingService(
             return;
         }
 
-        // S2629: Using string over params to avoid the values being duplicated
+        var mrnChunks = mrns.Keys.Chunk(250);
+        foreach (var mrnChunk in mrnChunks)
+        {
+            // S2629: Using string over params to avoid the values being duplicated
 #pragma warning disable S2629
-        logger.LogInformation($"Polling GVMS for {mrns.Count} MRNs: {string.Join(",", mrns.Keys)}");
+            logger.LogInformation(
+                $"Polling GVMS for {mrnChunk.Length} of {mrns.Count} MRNs: {string.Join(",", mrnChunk)}"
+            );
 #pragma warning restore S2629
+        }
 
         var gvmsTimer = Stopwatch.StartNew();
         var searchResult = await gvmsApiClient.SearchForGmrsByMrn(

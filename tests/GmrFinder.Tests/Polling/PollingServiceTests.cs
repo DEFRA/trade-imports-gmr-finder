@@ -712,7 +712,7 @@ public class PollingServiceTests
             .Entries.Select(entry => entry.LogMessage)
             .Should()
             .Equal(
-                "Polling GVMS for 2 MRNs: mrn123,mrn456",
+                "Polling GVMS for 2 of 2 MRNs: mrn123,mrn456",
                 "GVMS poll completed in {ElapsedMs} ms",
                 "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
                 "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
@@ -803,7 +803,7 @@ public class PollingServiceTests
             .Entries.Select(entry => entry.LogMessage)
             .Should()
             .Equal(
-                "Polling GVMS for 1 MRNs: mrn123",
+                "Polling GVMS for 1 of 1 MRNs: mrn123",
                 "GVMS poll completed in {ElapsedMs} ms",
                 "GVMS response: Found {MatchedMrnCount} MRNs with GMRs, {UnmatchedMrnCount} without, {GmrCount} unique GMRs",
                 "Updated {UpdatedCount} polling items, {ItemsWithGmrs} had GMRs, {CompletedCount} marked complete, {UpdatesMade} updates made",
