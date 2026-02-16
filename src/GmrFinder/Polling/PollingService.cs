@@ -83,7 +83,10 @@ public class PollingService(
             return;
         }
 
-        logger.LogInformation("Polling GVMS for {MrnCount} MRNs: {Mrns}", mrns.Count, string.Join(",", mrns.Keys));
+        // S2629: Using string over params to avoid the values being duplicated
+#pragma warning disable S2629
+        logger.LogInformation($"Polling GVMS for {mrns.Count} MRNs: {string.Join(",", mrns.Keys)}");
+#pragma warning restore S2629
 
         var gvmsTimer = Stopwatch.StartNew();
         var searchResult = await gvmsApiClient.SearchForGmrsByMrn(
