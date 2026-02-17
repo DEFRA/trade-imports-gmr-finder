@@ -1,18 +1,35 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
+using GmrFinder.Data;
 using GmrFinder.Processing;
 using GmrFinder.Security;
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 
 namespace GmrFinder.Endpoints;
 
 public static class EndpointRouteBuilderExtensions
 {
-    public static void MapConsumerEndpoints(this IEndpointRouteBuilder app)
+    public static void MapDevEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapPost("/consumers/data-events-queue", Post).AddEndpointFilter<BasicAuthEndpointFilter>();
+        app.MapDelete("/polling-queue/items", DeleteAllPollingItems).AddEndpointFilter<BasicAuthEndpointFilter>();
+    }
+
+    [HttpDelete]
+    private static async Task<IResult> DeleteAllPollingItems(
+        [FromServices] ILogger logger,
+        IMongoContext mongo,
+        CancellationToken cancellationToken
+    )
+    {
+        logger.LogWarning("Deleting All PollingItems");
+        var deleted = await mongo.PollingItems.DeleteMany(FilterDefinition<PollingItem>.Empty, cancellationToken);
+        logger.LogWarning("Deleted {Deleted} PollingItems", deleted);
+        return Results.Ok(new { deleted });
     }
 
     [HttpPost]
