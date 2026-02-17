@@ -1,4 +1,3 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
@@ -21,11 +20,12 @@ public static class EndpointRouteBuilderExtensions
 
     [HttpDelete]
     private static async Task<IResult> DeleteAllPollingItems(
-        [FromServices] ILogger logger,
+        [FromServices] ILoggerFactory loggerFactory,
         IMongoContext mongo,
         CancellationToken cancellationToken
     )
     {
+        var logger = loggerFactory.CreateLogger("DevEndpoint");
         logger.LogWarning("Deleting All PollingItems");
         var deleted = await mongo.PollingItems.DeleteMany(FilterDefinition<PollingItem>.Empty, cancellationToken);
         logger.LogWarning("Deleted {Deleted} PollingItems", deleted);

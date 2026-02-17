@@ -12,7 +12,6 @@ using GmrFinder.Processing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using TestFixtures;
@@ -214,8 +213,6 @@ public class ConsumerEndpointsTests
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
-    private record DeletedResponse(long Deleted);
-
     private static async Task<(
         WebApplication app,
         HttpClient client,
@@ -245,7 +242,6 @@ public class ConsumerEndpointsTests
         builder.Services.AddSingleton(customsDeclarationProcessor);
         builder.Services.AddSingleton(importPreNotificationProcessor);
         builder.Services.AddSingleton(mongoContext);
-        builder.Services.AddSingleton<ILogger>(sp => sp.GetRequiredService<ILoggerFactory>().CreateLogger("Test"));
 
         var app = builder.Build();
         app.UseRouting();
@@ -292,4 +288,6 @@ public class ConsumerEndpointsTests
         var encoded = Convert.ToBase64String(Encoding.UTF8.GetBytes($"{username}:{password}"));
         return $"Basic {encoded}";
     }
+
+    private record DeletedResponse(long Deleted);
 }
