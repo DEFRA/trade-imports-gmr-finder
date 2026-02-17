@@ -10,9 +10,9 @@ using GmrFinder.Data;
 using GmrFinder.Endpoints;
 using GmrFinder.Processing;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using TestFixtures;
@@ -209,12 +209,7 @@ public class ConsumerEndpointsTests
         var (app, client, _, _) = await BuildClientAsync();
         await using var _ = app;
 
-        var response = await DeleteAsync(
-            client,
-            "/polling-queue/items",
-            null,
-            TestContext.Current.CancellationToken
-        );
+        var response = await DeleteAsync(client, "/polling-queue/items", null, TestContext.Current.CancellationToken);
 
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
