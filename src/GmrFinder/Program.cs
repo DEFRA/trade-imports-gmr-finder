@@ -153,7 +153,7 @@ static WebApplication SetupApplication(WebApplication app)
     }
 
     if (featureOptions.EnableDevEndpoints)
-        app.MapConsumerEndpoints();
+        app.MapDevEndpoints();
     app.UseEmfExporter(app.Environment.ApplicationName);
 
     return app;

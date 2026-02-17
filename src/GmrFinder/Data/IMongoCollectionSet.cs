@@ -27,4 +27,6 @@ public interface IMongoCollectionSet<T>
     );
 
     Task Insert(T item, CancellationToken cancellationToken);
+
+    Task<long> DeleteMany(FilterDefinition<T> filter, CancellationToken cancellationToken);
 }

@@ -6,11 +6,13 @@ using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Configuration;
+using GmrFinder.Data;
 using GmrFinder.Endpoints;
 using GmrFinder.Processing;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NSubstitute;
 using TestFixtures;
@@ -100,9 +102,9 @@ public class ConsumerEndpointsTests
 
         var response = await PostAsync(
             client,
-            resourceType: resourceType,
-            authorization: CreateBasicAuthHeader(DevEndpointUsername, DevEndpointPassword),
-            payload: new { },
+            resourceType,
+            CreateBasicAuthHeader(DevEndpointUsername, DevEndpointPassword),
+            new { },
             TestContext.Current.CancellationToken
         );
 
@@ -146,8 +148,8 @@ public class ConsumerEndpointsTests
         var response = await PostAsync(
             client,
             ResourceEventResourceTypes.CustomsDeclaration,
-            authorization: null,
-            payload: new { },
+            null,
+            new { },
             TestContext.Current.CancellationToken
         );
 
@@ -170,7 +172,7 @@ public class ConsumerEndpointsTests
             client,
             ResourceEventResourceTypes.CustomsDeclaration,
             CreateBasicAuthHeader("bad-user", "bad-pass"),
-            payload: new { },
+            new { },
             TestContext.Current.CancellationToken
         );
 
@@ -183,6 +185,37 @@ public class ConsumerEndpointsTests
             .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotification>>(), Arg.Any<CancellationToken>());
     }
 
+    [Fact]
+    public async Task DeleteAllPollingItems_ReturnsDeletedCount()
+    {
+        var (app, client, _, _) = await BuildClientAsync();
+        await using var _ = app;
+
+        var response = await DeleteAsync(
+            client,
+            "/polling-queue/items",
+            CreateBasicAuthHeader(DevEndpointUsername, DevEndpointPassword),
+            TestContext.Current.CancellationToken
+        );
+
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        var body = await response.Content.ReadFromJsonAsync<DeletedResponse>(TestContext.Current.CancellationToken);
+        body!.Deleted.Should().Be(0);
+    }
+
+    [Fact]
+    public async Task DeleteAllPollingItems_WhenAuthMissing_ReturnsUnauthorized()
+    {
+        var (app, client, _, _) = await BuildClientAsync();
+        await using var _ = app;
+
+        var response = await DeleteAsync(client, "/polling-queue/items", null, TestContext.Current.CancellationToken);
+
+        response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
+    }
+
+    private record DeletedResponse(long Deleted);
+
     private static async Task<(
         WebApplication app,
         HttpClient client,
@@ -192,6 +225,9 @@ public class ConsumerEndpointsTests
     {
         var customsDeclarationProcessor = Substitute.For<ICustomsDeclarationProcessor>();
         var importPreNotificationProcessor = Substitute.For<IImportPreNotificationProcessor>();
+        var mongoContext = Substitute.For<IMongoContext>();
+        var pollingItems = Substitute.For<IMongoCollectionSet<PollingItem>>();
+        mongoContext.PollingItems.Returns(pollingItems);
 
         var builder = WebApplication.CreateBuilder();
         builder.WebHost.UseTestServer();
@@ -208,10 +244,12 @@ public class ConsumerEndpointsTests
         );
         builder.Services.AddSingleton(customsDeclarationProcessor);
         builder.Services.AddSingleton(importPreNotificationProcessor);
+        builder.Services.AddSingleton(mongoContext);
+        builder.Services.AddSingleton<ILogger>(sp => sp.GetRequiredService<ILoggerFactory>().CreateLogger("Test"));
 
         var app = builder.Build();
         app.UseRouting();
-        app.MapConsumerEndpoints();
+        app.MapDevEndpoints();
         await app.StartAsync(TestContext.Current.CancellationToken);
 
         return (app, app.GetTestClient(), customsDeclarationProcessor, importPreNotificationProcessor);
@@ -231,6 +269,20 @@ public class ConsumerEndpointsTests
         if (!string.IsNullOrWhiteSpace(authorization))
             request.Headers.Add("Authorization", authorization);
         request.Content = JsonContent.Create(payload);
+
+        return await client.SendAsync(request, cancellationToken);
+    }
+
+    private static async Task<HttpResponseMessage> DeleteAsync(
+        HttpClient client,
+        string url,
+        string? authorization,
+        CancellationToken cancellationToken
+    )
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Delete, url);
+        if (!string.IsNullOrWhiteSpace(authorization))
+            request.Headers.Add("Authorization", authorization);
 
         return await client.SendAsync(request, cancellationToken);
     }

@@ -9,14 +9,18 @@ namespace GmrFinder.Data;
 public class MongoCollectionSet<T>(IMongoDbClientFactory database) : IMongoCollectionSet<T>
     where T : class, IDataEntity
 {
-    public IMongoCollection<T> Collection => database.GetCollection<T>(typeof(T).Name);
     private IQueryable<T> Queryable => Collection.AsQueryable();
+    public IMongoCollection<T> Collection => database.GetCollection<T>(typeof(T).Name);
 
-    public async Task BulkWrite(List<WriteModel<T>> operations, CancellationToken cancellationToken) =>
+    public async Task BulkWrite(List<WriteModel<T>> operations, CancellationToken cancellationToken)
+    {
         await Collection.BulkWriteAsync(operations, new BulkWriteOptions { IsOrdered = false }, cancellationToken);
+    }
 
-    public async Task<T?> FindOne(Expression<Func<T, bool>> expression, CancellationToken cancellationToken) =>
-        await Queryable.SingleOrDefaultAsync(expression, cancellationToken);
+    public async Task<T?> FindOne(Expression<Func<T, bool>> expression, CancellationToken cancellationToken)
+    {
+        return await Queryable.SingleOrDefaultAsync(expression, cancellationToken);
+    }
 
     public async Task<List<T>> FindMany<TKey>(
         Expression<Func<T, bool>> where,
@@ -28,13 +32,9 @@ public class MongoCollectionSet<T>(IMongoDbClientFactory database) : IMongoColle
         var query = Queryable.Where(where);
 
         if (orderBy is not null)
-        {
             query = query.OrderBy(orderBy);
-        }
         if (limit.HasValue)
-        {
             query = query.Take(limit.Value);
-        }
 
         return await query.ToListAsync(cancellationToken);
     }
@@ -52,5 +52,11 @@ public class MongoCollectionSet<T>(IMongoDbClientFactory database) : IMongoColle
     )
     {
         return await Collection.FindOneAndUpdateAsync(filter, update, options, cancellationToken);
+    }
+
+    public async Task<long> DeleteMany(FilterDefinition<T> filter, CancellationToken cancellationToken)
+    {
+        var result = await Collection.DeleteManyAsync(filter, cancellationToken);
+        return result.DeletedCount;
     }
 }
