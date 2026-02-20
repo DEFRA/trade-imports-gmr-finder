@@ -9,4 +9,6 @@ public class DataEventsQueueConsumerOptions
 
     public required string QueueName { get; init; }
     public int WaitTimeSeconds { get; init; } = 20;
+
+    public bool SkipAllMessages { get; init; } = false;
 }
