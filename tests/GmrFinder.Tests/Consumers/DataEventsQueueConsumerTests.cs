@@ -21,7 +21,7 @@ namespace GmrFinder.Tests.Consumers;
 
 public class DataEventsQueueConsumerTests
 {
-    private readonly DataEventsQueueConsumer _consumer;
+    private DataEventsQueueConsumer _consumer;
     private readonly Mock<ICustomsDeclarationProcessor> _customsDeclarationProcessor = new();
     private readonly Mock<IImportPreNotificationProcessor> _importPreNotificationProcessor = new();
     private readonly MockMeterFactory _meterFactory = new();
@@ -117,6 +117,59 @@ public class DataEventsQueueConsumerTests
             MessageAttributes = new Dictionary<string, MessageAttributeValue>
             {
                 [SqsMessageHeaders.ResourceType] = new() { DataType = "String", StringValue = "Unknown" },
+            },
+        };
+
+        await InvokeProcessMessageAsync(message, CancellationToken.None);
+
+        _customsDeclarationProcessor.Verify(
+            processor =>
+                processor.ProcessAsync(It.IsAny<ResourceEvent<CustomsDeclaration>>(), It.IsAny<CancellationToken>()),
+            Times.Never
+        );
+
+        _importPreNotificationProcessor.Verify(
+            processor =>
+                processor.ProcessAsync(It.IsAny<ResourceEvent<ImportPreNotification>>(), It.IsAny<CancellationToken>()),
+            Times.Never
+        );
+    }
+
+    [Fact]
+    public async Task ProcessMessageAsync_WhenResourceTypeIsCustomsDeclaration_AndSkipAllMessage_DoesNothing()
+    {
+        _consumer = new DataEventsQueueConsumer(
+            NullLogger<DataEventsQueueConsumer>.Instance,
+            new ConsumerMetrics(_meterFactory.CreateMeter()),
+            new Mock<IAmazonSQS>().Object,
+            Options.Create(
+                new DataEventsQueueConsumerOptions
+                {
+                    QueueName = "trade_imports_data_upserted_gmr_finder",
+                    WaitTimeSeconds = 1,
+                    SkipAllMessages = true,
+                }
+            ),
+            _customsDeclarationProcessor.Object,
+            _importPreNotificationProcessor.Object
+        );
+
+        var body = JsonSerializer.Serialize(
+            CustomsDeclarationFixtures
+                .CustomsDeclarationResourceEventFixture(CustomsDeclarationFixtures.CustomsDeclarationFixture().Create())
+                .Create()
+        );
+
+        var message = new Message
+        {
+            Body = body,
+            MessageAttributes = new Dictionary<string, MessageAttributeValue>
+            {
+                [SqsMessageHeaders.ResourceType] = new()
+                {
+                    DataType = "String",
+                    StringValue = ResourceEventResourceTypes.CustomsDeclaration,
+                },
             },
         };
 

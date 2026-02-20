@@ -28,6 +28,12 @@ public sealed class DataEventsQueueConsumer(
 
     protected override async Task ProcessMessageAsync(Message message, CancellationToken stoppingToken)
     {
+        if (options.Value.SkipAllMessages)
+        {
+            _logger.LogDebug("Message skipped because SkipAllMessages is set");
+            return;
+        }
+
         var json = MessageDeserializer.Deserialize<JsonElement>(message.Body, message.GetContentEncoding());
 
         _logger.LogInformation("Message received: {ResourceType}", message.GetResourceType());
