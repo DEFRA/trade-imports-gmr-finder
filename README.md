@@ -68,6 +68,7 @@ base environment configuration, adding the relevant environment variables from `
 | `ENABLE_DEV_ENDPOINTS`  | Enables development endpoints                   |
 | `DEV_ENDPOINT_USERNAME` | Basic authentication username for dev endpoints |
 | `DEV_ENDPOINT_PASSWORD` | Basic authentication password for dev endpoints |
+| `SkipAllMessages`       | Tells the consumer to just ack all messages without processing them |
 
 ## Testing
 
