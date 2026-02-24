@@ -47,6 +47,7 @@ base environment configuration, adding the relevant environment variables from `
 
 | Environment Variable                       | Purpose                               |
 |--------------------------------------------|---------------------------------------|
+| `DataEventsQueueConsumer__SkipAllMessages` | Ack all messages without processing   |
 | `DataEventsQueueConsumer__QueueName`       | SQS queue for incoming BTMS events    |
 | `DataEventsQueueConsumer__WaitTimeSeconds` | Optional long-poll wait time          |
 | `GvmsApi__BaseUri`                         | GVMS API base URL                     |
@@ -68,7 +69,6 @@ base environment configuration, adding the relevant environment variables from `
 | `ENABLE_DEV_ENDPOINTS`  | Enables development endpoints                   |
 | `DEV_ENDPOINT_USERNAME` | Basic authentication username for dev endpoints |
 | `DEV_ENDPOINT_PASSWORD` | Basic authentication password for dev endpoints |
-| `SkipAllMessages`       | Tells the consumer to just ack all messages without processing them |
 
 ## Testing
 
