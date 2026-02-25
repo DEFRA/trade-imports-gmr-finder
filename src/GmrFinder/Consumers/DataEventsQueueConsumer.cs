@@ -22,6 +22,7 @@ public sealed class DataEventsQueueConsumer(
     IImportPreNotificationProcessor importPreNotificationProcessor
 ) : SqsConsumer<DataEventsQueueConsumer>(logger, consumerMetrics, sqsClient, options.Value.QueueName)
 {
+    private static readonly JsonSerializerOptions s_defaultSerializerOptions = new(JsonSerializerDefaults.Web);
     private readonly ILogger<DataEventsQueueConsumer> _logger = logger;
 
     protected override int WaitTimeSeconds { get; } = options.Value.WaitTimeSeconds;
@@ -41,12 +42,12 @@ public sealed class DataEventsQueueConsumer(
         switch (message.GetResourceType())
         {
             case ResourceEventResourceTypes.CustomsDeclaration:
-                var customsDeclaration = json.Deserialize<ResourceEvent<CustomsDeclaration>>()!;
+                var customsDeclaration = DeserializeAsync<ResourceEvent<CustomsDeclaration>>(json)!;
                 await customsDeclarationProcessor.ProcessAsync(customsDeclaration, stoppingToken);
                 break;
 
             case ResourceEventResourceTypes.ImportPreNotification:
-                var importPreNotification = json.Deserialize<ResourceEvent<ImportPreNotification>>()!;
+                var importPreNotification = DeserializeAsync<ResourceEvent<ImportPreNotification>>(json)!;
                 await importPreNotificationProcessor.ProcessAsync(importPreNotification, stoppingToken);
                 break;
 
@@ -56,6 +57,19 @@ public sealed class DataEventsQueueConsumer(
                     message.GetResourceType()
                 );
                 return;
+        }
+    }
+
+    private T? DeserializeAsync<T>(JsonElement json)
+    {
+        try
+        {
+            return json.Deserialize<T>(s_defaultSerializerOptions);
+        }
+        catch (JsonException ex)
+        {
+            _logger.LogDebug(ex, "Failed to deserialise JSON to {Type}: {Json}", typeof(T).FullName, json.GetRawText());
+            throw new JsonException($"Failed to deserialise JSON to {typeof(T).FullName}.", ex);
         }
     }
 }
