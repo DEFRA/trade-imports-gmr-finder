@@ -3,7 +3,6 @@ using System.Text.Json;
 using Amazon.SQS;
 using Amazon.SQS.Model;
 using AutoFixture;
-using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Configuration;
@@ -70,7 +69,10 @@ public class DataEventsQueueConsumerTests
 
         _customsDeclarationProcessor.Verify(
             processor =>
-                processor.ProcessAsync(It.IsAny<ResourceEvent<CustomsDeclaration>>(), It.IsAny<CancellationToken>()),
+                processor.ProcessAsync(
+                    It.IsAny<ResourceEvent<CustomsDeclarationEvent>>(),
+                    It.IsAny<CancellationToken>()
+                ),
             Times.Once
         );
     }
@@ -103,7 +105,10 @@ public class DataEventsQueueConsumerTests
 
         _importPreNotificationProcessor.Verify(
             processor =>
-                processor.ProcessAsync(It.IsAny<ResourceEvent<ImportPreNotification>>(), It.IsAny<CancellationToken>()),
+                processor.ProcessAsync(
+                    It.IsAny<ResourceEvent<ImportPreNotificationEvent>>(),
+                    It.IsAny<CancellationToken>()
+                ),
             Times.Once
         );
     }
@@ -124,13 +129,19 @@ public class DataEventsQueueConsumerTests
 
         _customsDeclarationProcessor.Verify(
             processor =>
-                processor.ProcessAsync(It.IsAny<ResourceEvent<CustomsDeclaration>>(), It.IsAny<CancellationToken>()),
+                processor.ProcessAsync(
+                    It.IsAny<ResourceEvent<CustomsDeclarationEvent>>(),
+                    It.IsAny<CancellationToken>()
+                ),
             Times.Never
         );
 
         _importPreNotificationProcessor.Verify(
             processor =>
-                processor.ProcessAsync(It.IsAny<ResourceEvent<ImportPreNotification>>(), It.IsAny<CancellationToken>()),
+                processor.ProcessAsync(
+                    It.IsAny<ResourceEvent<ImportPreNotificationEvent>>(),
+                    It.IsAny<CancellationToken>()
+                ),
             Times.Never
         );
     }
@@ -177,13 +188,19 @@ public class DataEventsQueueConsumerTests
 
         _customsDeclarationProcessor.Verify(
             processor =>
-                processor.ProcessAsync(It.IsAny<ResourceEvent<CustomsDeclaration>>(), It.IsAny<CancellationToken>()),
+                processor.ProcessAsync(
+                    It.IsAny<ResourceEvent<CustomsDeclarationEvent>>(),
+                    It.IsAny<CancellationToken>()
+                ),
             Times.Never
         );
 
         _importPreNotificationProcessor.Verify(
             processor =>
-                processor.ProcessAsync(It.IsAny<ResourceEvent<ImportPreNotification>>(), It.IsAny<CancellationToken>()),
+                processor.ProcessAsync(
+                    It.IsAny<ResourceEvent<ImportPreNotificationEvent>>(),
+                    It.IsAny<CancellationToken>()
+                ),
             Times.Never
         );
     }

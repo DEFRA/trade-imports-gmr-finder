@@ -1,5 +1,4 @@
 using System.Text.Json;
-using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Data;
@@ -55,7 +54,9 @@ public static class EndpointRouteBuilderExtensions
         {
             case ResourceEventResourceTypes.CustomsDeclaration:
             {
-                var customsDeclaration = body.Deserialize<ResourceEvent<CustomsDeclaration>>(JsonSerializerOptions.Web);
+                var customsDeclaration = body.Deserialize<ResourceEvent<CustomsDeclarationEvent>>(
+                    JsonSerializerOptions.Web
+                );
                 if (customsDeclaration is null)
                     return Results.BadRequest("Invalid customs declaration payload.");
                 await customsDeclarationProcessor.ProcessAsync(customsDeclaration, cancellationToken);
@@ -64,7 +65,7 @@ public static class EndpointRouteBuilderExtensions
 
             case ResourceEventResourceTypes.ImportPreNotification:
             {
-                var importPreNotification = body.Deserialize<ResourceEvent<ImportPreNotification>>(
+                var importPreNotification = body.Deserialize<ResourceEvent<ImportPreNotificationEvent>>(
                     JsonSerializerOptions.Web
                 );
                 if (importPreNotification is null)

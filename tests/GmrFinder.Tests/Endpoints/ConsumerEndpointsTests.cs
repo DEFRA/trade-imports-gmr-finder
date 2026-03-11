@@ -2,7 +2,6 @@ using System.Net;
 using System.Net.Http.Json;
 using System.Text;
 using AutoFixture;
-using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using Defra.TradeImportsDataApi.Domain.Ipaffs;
 using GmrFinder.Configuration;
@@ -47,14 +46,14 @@ public class ConsumerEndpointsTests
         await customsDeclarationProcessor
             .Received(1)
             .ProcessAsync(
-                Arg.Is<ResourceEvent<CustomsDeclaration>>(customsDeclarationEvent =>
+                Arg.Is<ResourceEvent<CustomsDeclarationEvent>>(customsDeclarationEvent =>
                     customsDeclarationEvent.ResourceId == expectedResourceId
                 ),
                 Arg.Any<CancellationToken>()
             );
         await importPreNotificationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotification>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotificationEvent>>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -81,14 +80,14 @@ public class ConsumerEndpointsTests
         await importPreNotificationProcessor
             .Received(1)
             .ProcessAsync(
-                Arg.Is<ResourceEvent<ImportPreNotification>>(importPreNotificationEvent =>
+                Arg.Is<ResourceEvent<ImportPreNotificationEvent>>(importPreNotificationEvent =>
                     importPreNotificationEvent.ResourceId == expectedResourceId
                 ),
                 Arg.Any<CancellationToken>()
             );
         await customsDeclarationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclaration>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclarationEvent>>(), Arg.Any<CancellationToken>());
     }
 
     [Theory]
@@ -110,10 +109,10 @@ public class ConsumerEndpointsTests
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         await customsDeclarationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclaration>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclarationEvent>>(), Arg.Any<CancellationToken>());
         await importPreNotificationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotification>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotificationEvent>>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -132,10 +131,10 @@ public class ConsumerEndpointsTests
         response.StatusCode.Should().Be(HttpStatusCode.BadRequest);
         await customsDeclarationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclaration>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclarationEvent>>(), Arg.Any<CancellationToken>());
         await importPreNotificationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotification>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotificationEvent>>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -155,10 +154,10 @@ public class ConsumerEndpointsTests
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         await customsDeclarationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclaration>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclarationEvent>>(), Arg.Any<CancellationToken>());
         await importPreNotificationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotification>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotificationEvent>>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]
@@ -178,10 +177,10 @@ public class ConsumerEndpointsTests
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
         await customsDeclarationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclaration>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<CustomsDeclarationEvent>>(), Arg.Any<CancellationToken>());
         await importPreNotificationProcessor
             .DidNotReceive()
-            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotification>>(), Arg.Any<CancellationToken>());
+            .ProcessAsync(Arg.Any<ResourceEvent<ImportPreNotificationEvent>>(), Arg.Any<CancellationToken>());
     }
 
     [Fact]

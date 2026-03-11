@@ -5,5 +5,8 @@ namespace GmrFinder.Processing;
 
 public interface IImportPreNotificationProcessor
 {
-    Task ProcessAsync(ResourceEvent<ImportPreNotification> importPreNotification, CancellationToken cancellationToken);
+    Task ProcessAsync(
+        ResourceEvent<ImportPreNotificationEvent> importPreNotification,
+        CancellationToken cancellationToken
+    );
 }
