@@ -35,21 +35,22 @@ public static class CustomsDeclarationFixtures
         return $"{DateTime.UtcNow:yy}GB{randomCharacters}{(int)mrnStatus}";
     }
 
-    public static IPostprocessComposer<ResourceEvent<CustomsDeclaration>> CustomsDeclarationResourceEventFixture(
-        CustomsDeclaration customsDeclaration
+    public static IPostprocessComposer<ResourceEvent<CustomsDeclarationEvent>> CustomsDeclarationResourceEventFixture(
+        CustomsDeclarationEvent customsDeclarationEvent
     )
     {
         return GetFixture()
-            .Build<ResourceEvent<CustomsDeclaration>>()
+            .Build<ResourceEvent<CustomsDeclarationEvent>>()
             .With(x => x.ResourceId, GenerateMrn())
-            .With(x => x.Resource, customsDeclaration)
+            .With(x => x.Resource, customsDeclarationEvent)
             .With(x => x.ResourceType, ResourceEventResourceTypes.CustomsDeclaration);
     }
 
-    public static IPostprocessComposer<CustomsDeclaration> CustomsDeclarationFixture()
+    public static IPostprocessComposer<CustomsDeclarationEvent> CustomsDeclarationFixture()
     {
         return GetFixture()
-            .Build<CustomsDeclaration>()
+            .Build<CustomsDeclarationEvent>()
+            .With(x => x.Id, GenerateMrn())
             .With(x => x.ClearanceRequest, ClearanceRequestFixture().Create())
             .With(
                 x => x.ClearanceDecision,

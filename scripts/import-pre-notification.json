@@ -4,6 +4,7 @@
   "subResourceType": null,
   "operation": "Created",
   "resource": {
+    "importPreNotification": {
     "ipaffsId": 53227,
     "etag": "etag123",
     "externalReferences": [
@@ -451,6 +452,7 @@
     "isCdsFullMatched": null,
     "chedTypeVersion": 2,
     "isGMRMatched": null
+    }
   },
   "etag": "etag123",
   "timestamp": "2025-08-22T08:56:52.199Z",

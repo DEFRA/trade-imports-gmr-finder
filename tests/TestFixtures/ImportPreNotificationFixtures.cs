@@ -7,13 +7,19 @@ namespace TestFixtures;
 
 public static class ImportPreNotificationFixtures
 {
-    public static IPostprocessComposer<ResourceEvent<ImportPreNotification>> ImportPreNotificationResourceEventFixture(
-        ImportPreNotification importPreNotification
-    )
+    public static IPostprocessComposer<
+        ResourceEvent<ImportPreNotificationEvent>
+    > ImportPreNotificationResourceEventFixture(ImportPreNotification importPreNotification)
     {
+        var importPreNotificationEvent = new ImportPreNotificationEvent
+        {
+            Id = "CHEDPP.GB.2025.1053368",
+            ImportPreNotification = importPreNotification,
+        };
+
         return GetFixture()
-            .Build<ResourceEvent<ImportPreNotification>>()
-            .With(x => x.Resource, importPreNotification)
+            .Build<ResourceEvent<ImportPreNotificationEvent>>()
+            .With(x => x.Resource, importPreNotificationEvent)
             .With(x => x.ResourceId, "CHEDPP.GB.2025.1053368")
             .With(x => x.ResourceType, ResourceEventResourceTypes.ImportPreNotification);
     }

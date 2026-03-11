@@ -1,4 +1,3 @@
-using Defra.TradeImportsDataApi.Domain.CustomsDeclaration;
 using Defra.TradeImportsDataApi.Domain.Events;
 using GmrFinder.Metrics;
 using GmrFinder.Polling;
@@ -14,7 +13,7 @@ public class CustomsDeclarationProcessor(
 ) : ICustomsDeclarationProcessor
 {
     public async Task ProcessAsync(
-        ResourceEvent<CustomsDeclaration> customsDeclaration,
+        ResourceEvent<CustomsDeclarationEvent> customsDeclaration,
         CancellationToken cancellationToken
     )
     {
