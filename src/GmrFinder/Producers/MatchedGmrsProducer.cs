@@ -15,6 +15,8 @@ public class MatchedGmrsProducer(
 {
     private const int AwsConstrainedBatchSize = 10;
     private readonly MatchedGmrsProducerOptions _options = options.Value;
+    private const string DataTypeString = "String";
+    private const string TraceHeader = "x-cdp-request-id";
 
     public async Task PublishMatchedGmrs(List<MatchedGmr> matchedRecords, CancellationToken cancellationToken)
     {
@@ -23,6 +25,13 @@ public class MatchedGmrsProducer(
             {
                 Id = matchedGmr.GetIdentifier,
                 Message = JsonSerializer.Serialize(matchedGmr),
+                MessageAttributes = new Dictionary<string, MessageAttributeValue>()
+                {
+                    {
+                        TraceHeader,
+                        new MessageAttributeValue { StringValue = Guid.NewGuid().ToString(), DataType = DataTypeString }
+                    },
+                },
             })
             .Chunk(AwsConstrainedBatchSize)
             .Select(batch => new PublishBatchRequest
