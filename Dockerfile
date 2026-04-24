@@ -1,10 +1,11 @@
-﻿# Base dotnet image
+# Base dotnet image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS base
 WORKDIR /app
 
 # Add curl to template.
 # CDP PLATFORM HEALTHCHECK REQUIREMENT
 RUN apt update && \
+    apt upgrade -y && \
     apt install curl -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
