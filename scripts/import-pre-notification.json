@@ -4,6 +4,10 @@
   "subResourceType": null,
   "operation": "Created",
   "resource": {
+    "id": "CHEDPP.GB.2025.1053368",
+    "etag": "etag123",
+    "created": "2025-06-13T12:52:23.304Z",
+    "updated": "2025-06-27T21:00:01.757Z",
     "importPreNotification": {
     "ipaffsId": 53227,
     "etag": "etag123",
