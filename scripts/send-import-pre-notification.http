@@ -1,0 +1,7 @@
+POST {{baseUrl}}/consumers/data-events-queue
+ResourceType: ImportPreNotification
+Content-Type: application/json
+Authorization: Basic {{auth}}
+X-Api-Key: {{apiKey}}
+
+< ./import-pre-notification.json

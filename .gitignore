@@ -270,3 +270,5 @@ library.db
 
 .venv
 .env
+
+scripts/*.private.env.json
