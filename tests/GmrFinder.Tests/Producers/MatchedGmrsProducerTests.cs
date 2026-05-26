@@ -24,7 +24,7 @@ public class MatchedGmrsProducerTests
     public async Task PublishMatchedGmrs_WithNoMatchedGmrsProvided_DoesNothing()
     {
         var producer = new MatchedGmrsProducer(_mockLogger.Object, _mockSns.Object, _options);
-        await producer.PublishMatchedGmrs([], CancellationToken.None);
+        await producer.PublishMatchedGmrs("pollid", [], CancellationToken.None);
 
         _mockSns.Verify(
             x => x.PublishBatchAsync(It.IsAny<PublishBatchRequest>(), It.IsAny<CancellationToken>()),
@@ -46,7 +46,7 @@ public class MatchedGmrsProducerTests
             .Callback<PublishBatchRequest, CancellationToken>((req, _) => publishBatchRequests.Add(req))
             .ReturnsAsync(new PublishBatchResponse());
 
-        await producer.PublishMatchedGmrs(matchedGmrs, CancellationToken.None);
+        await producer.PublishMatchedGmrs("pollid", matchedGmrs, CancellationToken.None);
 
         publishBatchRequests.Should().HaveCount(4);
         publishBatchRequests.Select(req => req.PublishBatchRequestEntries).SelectMany(x => x).Should().HaveCount(35);
@@ -97,7 +97,7 @@ public class MatchedGmrsProducerTests
             .Setup(x => x.PublishBatchAsync(It.IsAny<PublishBatchRequest>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(new PublishBatchResponse());
 
-        await producer.PublishMatchedGmrs(matchedGmrs, CancellationToken.None);
+        await producer.PublishMatchedGmrs("pollid", matchedGmrs, CancellationToken.None);
 
         var expectedPairs = string.Join(",", matchedGmrs.Select(m => $"{m.Mrn}:{m.Gmr.GmrId}"));
         var expectedMessage = $"Publishing matched MRN:GMRs: {expectedPairs}";

@@ -239,7 +239,7 @@ public class PollingServiceTests
             _mockStorageService.Object,
             _mockTimeProvider
         );
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         where.Should().NotBeNull();
         where!.Compile().Invoke(new PollingItem { Complete = true }).Should().BeFalse();
@@ -279,7 +279,7 @@ public class PollingServiceTests
             _mockStorageService.Object,
             _mockTimeProvider
         );
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         _mockGvmsApiClient.Verify(
             x => x.SearchForGmrsByMrn(It.IsAny<MrnSearchRequest>(), It.IsAny<CancellationToken>()),
@@ -321,7 +321,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         logger.Entries.Should().ContainSingle();
         var entry = logger.Entries.Single();
@@ -373,7 +373,7 @@ public class PollingServiceTests
             _mockStorageService.Object,
             _mockTimeProvider
         );
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         var expectedDeclarationIds = new[] { "mrn123", "mrn456" };
 
@@ -467,7 +467,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         var renderArgs = new RenderArgs<PollingItem>(
             BsonSerializer.SerializerRegistry.GetSerializer<PollingItem>(),
@@ -585,7 +585,7 @@ public class PollingServiceTests
             _mockStorageService.Object,
             _mockTimeProvider
         );
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         var renderArgs = new RenderArgs<PollingItem>(
             BsonSerializer.SerializerRegistry.GetSerializer<PollingItem>(),
@@ -706,7 +706,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         logger
             .Entries.Select(entry => entry.LogMessage)
@@ -797,7 +797,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         logger
             .Entries.Select(entry => entry.LogMessage)
@@ -907,7 +907,9 @@ public class PollingServiceTests
 
         List<MatchedGmr>? matchedGmrs = null;
         _mockMatchedGmrsProducer
-            .Setup(x => x.PublishMatchedGmrs(It.IsAny<List<MatchedGmr>>(), It.IsAny<CancellationToken>()))
+            .Setup(x =>
+                x.PublishMatchedGmrs(It.IsAny<string>(), It.IsAny<List<MatchedGmr>>(), It.IsAny<CancellationToken>())
+            )
             .Callback<List<MatchedGmr>, CancellationToken>((records, _) => matchedGmrs = records);
 
         _mockCompletionService
@@ -926,7 +928,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         matchedGmrs!.Should().BeEquivalentTo(expectedMatchedGmrs);
         matchedGmrs!.Should().NotContain(p => p.Mrn == "mrnNoChanges");
@@ -1004,7 +1006,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         var renderArgs = new RenderArgs<PollingItem>(
             BsonSerializer.SerializerRegistry.GetSerializer<PollingItem>(),
@@ -1096,7 +1098,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         _mockCompletionService.Verify(
             x =>
@@ -1149,7 +1151,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         _mockCompletionService.Verify(
             x =>
@@ -1206,7 +1208,7 @@ public class PollingServiceTests
             _mockTimeProvider
         );
 
-        await service.PollItems(CancellationToken.None);
+        await service.PollItems("pollid", CancellationToken.None);
 
         _mockStorageService.Verify(x => x.TryStoreSearchResultsAsync(expectedResponseContent), Times.Once);
     }

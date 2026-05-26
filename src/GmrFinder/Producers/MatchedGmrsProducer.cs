@@ -18,7 +18,11 @@ public class MatchedGmrsProducer(
     private const string DataTypeString = "String";
     private const string TraceHeader = "x-cdp-request-id";
 
-    public async Task PublishMatchedGmrs(List<MatchedGmr> matchedRecords, CancellationToken cancellationToken)
+    public async Task PublishMatchedGmrs(
+        string pollId,
+        List<MatchedGmr> matchedRecords,
+        CancellationToken cancellationToken
+    )
     {
         var batchRequests = matchedRecords
             .Select(matchedGmr => new PublishBatchRequestEntry
@@ -29,7 +33,7 @@ public class MatchedGmrsProducer(
                 {
                     {
                         TraceHeader,
-                        new MessageAttributeValue { StringValue = Guid.NewGuid().ToString(), DataType = DataTypeString }
+                        new MessageAttributeValue { StringValue = pollId, DataType = DataTypeString }
                     },
                 },
             })
