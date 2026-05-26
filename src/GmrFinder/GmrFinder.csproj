@@ -33,4 +33,7 @@
     <ProjectReference Include="../GvmsClient/GvmsClient.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="GmrFinder.Tests" />
+  </ItemGroup>
 </Project>
