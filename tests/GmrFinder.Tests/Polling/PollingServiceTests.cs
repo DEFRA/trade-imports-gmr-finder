@@ -910,7 +910,7 @@ public class PollingServiceTests
             .Setup(x =>
                 x.PublishMatchedGmrs(It.IsAny<string>(), It.IsAny<List<MatchedGmr>>(), It.IsAny<CancellationToken>())
             )
-            .Callback<List<MatchedGmr>, CancellationToken>((records, _) => matchedGmrs = records);
+            .Callback<string, List<MatchedGmr>, CancellationToken>((pollId, records, _) => matchedGmrs = records);
 
         _mockCompletionService
             .Setup(x => x.DetermineCompletion(It.IsAny<PollingItem>(), It.IsAny<List<Gmr>>()))
