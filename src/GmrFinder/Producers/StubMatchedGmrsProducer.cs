@@ -4,7 +4,7 @@ namespace GmrFinder.Producers;
 
 public class StubMatchedGmrsProducer(ILogger<StubMatchedGmrsProducer> logger) : IMatchedGmrsProducer
 {
-    public Task PublishMatchedGmrs(List<MatchedGmr> matchedRecords, CancellationToken cancellationToken)
+    public Task PublishMatchedGmrs(string pollId, List<MatchedGmr> matchedRecords, CancellationToken cancellationToken)
     {
         if (matchedRecords.Count == 0)
             return Task.CompletedTask;

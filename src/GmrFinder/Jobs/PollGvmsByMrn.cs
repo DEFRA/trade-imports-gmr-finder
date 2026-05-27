@@ -17,7 +17,11 @@ public class PollGvmsByMrn(
 
     protected override async Task DoWork(CancellationToken cancellationToken)
     {
-        logger.LogInformation("Executing {Name}", nameof(PollGvmsByMrn));
-        await pollingService.PollItems(cancellationToken);
+        var pollTraceId = Guid.NewGuid().ToString("N");
+        using (logger.BeginScope(new Dictionary<string, object> { ["x-correlation-id"] = pollTraceId }))
+        {
+            logger.LogInformation("Executing {Name}", nameof(PollGvmsByMrn));
+            await pollingService.PollItems(pollTraceId, cancellationToken);
+        }
     }
 }

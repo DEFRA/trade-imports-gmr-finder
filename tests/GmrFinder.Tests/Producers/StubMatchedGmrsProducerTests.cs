@@ -14,7 +14,7 @@ public class StubMatchedGmrsProducerTests
     {
         var matchedRecords = new List<MatchedGmr>();
 
-        var result = async () => await _producer.PublishMatchedGmrs(matchedRecords, CancellationToken.None);
+        var result = async () => await _producer.PublishMatchedGmrs("pollId", matchedRecords, CancellationToken.None);
 
         await result.Should().NotThrowAsync();
     }
@@ -38,7 +38,7 @@ public class StubMatchedGmrsProducerTests
             },
         };
 
-        var act = async () => await _producer.PublishMatchedGmrs(matchedRecords, CancellationToken.None);
+        var act = async () => await _producer.PublishMatchedGmrs("pollId", matchedRecords, CancellationToken.None);
 
         await act.Should().NotThrowAsync();
     }

@@ -64,7 +64,7 @@ public class PollingService(
         logger.LogInformation("Inserted new polling item for {Mrn}", request.Mrn);
     }
 
-    public async Task PollItems(CancellationToken cancellationToken)
+    public async Task PollItems(string pollId, CancellationToken cancellationToken)
     {
         var now = _timeProvider.GetUtcNow().UtcDateTime;
 
@@ -130,7 +130,7 @@ public class PollingService(
             updateSummary.updatesMade
         );
 
-        var matchedCount = await PublishMatchedGmrRecords(pollItems, gmrsByDeclarationId, cancellationToken);
+        var matchedCount = await PublishMatchedGmrRecords(pollId, pollItems, gmrsByDeclarationId, cancellationToken);
         if (matchedCount == 0)
         {
             logger.LogInformation("No changed GMRs to publish for polled MRNs");
@@ -184,6 +184,7 @@ public class PollingService(
     }
 
     private async Task<int> PublishMatchedGmrRecords(
+        string pollId,
         List<PollingItem> pollItems,
         Dictionary<string, List<Gmr>> gmrsByDeclarationId,
         CancellationToken cancellationToken
@@ -205,7 +206,7 @@ public class PollingService(
             .SelectMany(x => x)
             .ToList();
 
-        await matchedGmrsProducer.PublishMatchedGmrs(changedRecords, cancellationToken);
+        await matchedGmrsProducer.PublishMatchedGmrs(pollId, changedRecords, cancellationToken);
         return changedRecords.Count;
     }
 }
