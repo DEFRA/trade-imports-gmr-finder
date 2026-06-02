@@ -98,7 +98,7 @@ public sealed class PollGvmsByMrnTests
 
         var scopeDictionary = capturedScope.Should().BeAssignableTo<Dictionary<string, object>>().Subject;
 
-        var xCorrelationId = "x-correlation-id";
+        var xCorrelationId = "CorrelationId";
         scopeDictionary.Should().ContainKey(xCorrelationId);
 
         var correlationId = scopeDictionary[xCorrelationId]?.ToString();
